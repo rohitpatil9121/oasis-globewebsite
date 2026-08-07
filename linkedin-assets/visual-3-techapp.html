@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Visual 3 — Technician App Stepper</title>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<style>
+  body{margin:0;background:#333;font-family:'Segoe UI',system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;gap:16px;padding:20px}
+  #poster{width:1080px;height:1350px;background:linear-gradient(160deg,#0E6FC4,#1A8FE0 55%,#59b6f0);display:flex;flex-direction:column;align-items:center;overflow:hidden;position:relative}
+  .head{color:#fff;text-align:center;margin-top:52px}
+  .head h1{font-size:50px;margin:0 0 10px;font-weight:800}
+  .head p{font-size:25px;margin:0;opacity:.92}
+  .phone{width:470px;background:#f4f6f8;border-radius:44px;border:14px solid #111;margin-top:40px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.35)}
+  .top{background:linear-gradient(120deg,#1A8FE0,#0E6FC4);color:#fff;padding:20px 22px}
+  .top b{font-size:21px}.top span{font-size:14px;opacity:.9}
+  .pillrow{display:flex;justify-content:space-between;align-items:center}
+  .status{background:#fde8c8;color:#b45309;font-size:12px;font-weight:800;border-radius:999px;padding:4px 12px}
+  .steps{display:flex;gap:6px;padding:16px 14px;background:#fff;overflow:hidden}
+  .st{flex:1;text-align:center;font-size:10.5px;color:#8aa}
+  .st .c{width:26px;height:26px;border-radius:50%;margin:0 auto 4px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800}
+  .done .c{background:#d1fae5;color:#047857}.cur .c{background:#1A8FE0;color:#fff;box-shadow:0 0 0 4px #cfe7fa}.cur{color:#0E6FC4;font-weight:700}
+  .body2{padding:16px}
+  .card{background:#fff;border-radius:14px;padding:14px 16px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+  .card h4{margin:0 0 8px;font-size:12px;letter-spacing:.08em;color:#567}
+  .row{display:flex;justify-content:space-between;font-size:15.5px;color:#123;padding:5px 0}
+  .tds{display:flex;gap:10px}
+  .tdsbox{flex:1;background:#eef6fd;border-radius:10px;text-align:center;padding:10px}
+  .tdsbox b{font-size:24px;color:#0E6FC4;display:block}.tdsbox span{font-size:12px;color:#678}
+  .ok{color:#047857;font-weight:700}
+  .cta{background:linear-gradient(120deg,#1A8FE0,#0E6FC4);color:#fff;text-align:center;font-size:18px;font-weight:800;border-radius:14px;padding:16px;margin:4px 16px 20px;box-shadow:0 6px 16px rgba(14,111,196,.4)}
+  .foot{color:#fff;font-size:23px;margin-top:auto;margin-bottom:42px;text-align:center;font-weight:600;line-height:1.5}
+  button{font-size:16px;padding:10px 24px;border-radius:8px;border:0;background:#1A8FE0;color:#fff;cursor:pointer}
+</style></head><body>
+<div id="poster">
+  <div class="head"><h1>Technician App — 9-step<br>proof-of-work flow 🔧</h1><p>GPS proof · TDS readings · photo proof · OTP approval · UPI QR</p></div>
+  <div class="phone">
+    <div class="top"><div class="pillrow"><div><b>Priya S. · J-1042</b><br><span>Kent RO Grand Plus</span></div><div class="status">ESTIMATE SENT</div></div></div>
+    <div class="steps">
+      <div class="st done"><div class="c">✓</div>Accept</div>
+      <div class="st done"><div class="c">✓</div>Travel</div>
+      <div class="st done"><div class="c">✓</div>Arrive</div>
+      <div class="st done"><div class="c">✓</div>Diagnose</div>
+      <div class="st done"><div class="c">✓</div>Estimate</div>
+      <div class="st cur"><div class="c">6</div>Approval</div>
+      <div class="st"><div class="c" style="background:#e5eaef">7</div>Work</div>
+      <div class="st"><div class="c" style="background:#e5eaef">8</div>Pay</div>
+      <div class="st"><div class="c" style="background:#e5eaef">9</div>Close</div>
+    </div>
+    <div class="body2">
+      <div class="card"><h4>DIAGNOSIS PROOF</h4>
+        <div class="tds"><div class="tdsbox"><b>380</b><span>Input TDS</span></div><div class="tdsbox"><b>310</b><span>Output TDS</span></div><div class="tdsbox"><b>📍✓</b><span>GPS arrival</span></div></div>
+      </div>
+      <div class="card"><h4>ESTIMATE</h4>
+        <div class="row"><span>Visit Charge</span><span>₹250</span></div>
+        <div class="row"><span>RO Membrane</span><span>₹1,800</span></div>
+        <div class="row" style="border-top:1px solid #eee;font-weight:800"><span>Total</span><span>₹2,050</span></div>
+        <div class="row"><span>Customer approval</span><span class="ok">✓ Verified via WhatsApp OTP</span></div>
+      </div>
+    </div>
+    <div class="cta">Start Work — Approved ✅</div>
+  </div>
+  <div class="foot">Bina customer approval ke koi paid kaam nahi.<br>No surprise bills = repeat customers 🤝</div>
+</div>
+<button onclick="html2canvas(document.getElementById('poster'),{scale:1}).then(c=>{const a=document.createElement('a');a.download='visual-3-techapp.png';a.href=c.toDataURL('image/png');a.click()})">⬇ Download PNG (1080×1350)</button>
+</body></html>

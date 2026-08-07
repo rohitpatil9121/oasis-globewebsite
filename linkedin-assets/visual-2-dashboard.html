@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Visual 2 — Manager Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<style>
+  body{margin:0;background:#333;font-family:'Segoe UI',system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;gap:16px;padding:20px}
+  #poster{width:1350px;height:1080px;background:linear-gradient(160deg,#0E6FC4,#1A8FE0);display:flex;flex-direction:column;align-items:center;overflow:hidden}
+  .head{color:#fff;text-align:center;margin-top:44px}
+  .head h1{font-size:46px;margin:0 0 8px;font-weight:800}
+  .head p{font-size:24px;margin:0;opacity:.92}
+  .win{width:1180px;background:#f4f6f8;border-radius:16px;margin-top:36px;box-shadow:0 30px 60px rgba(0,0,0,.35);overflow:hidden}
+  .bar{background:#e8ebee;padding:12px 18px;display:flex;gap:8px;align-items:center}
+  .dot{width:13px;height:13px;border-radius:50%}.url{background:#fff;border-radius:8px;padding:6px 16px;font-size:14px;color:#666;margin-left:14px;flex:1}
+  .app{display:flex}
+  .side{width:190px;background:#0E2A43;color:#cfe3f5;padding:22px 0;font-size:16px}
+  .side .logo{color:#fff;font-weight:800;font-size:19px;padding:0 20px 18px}
+  .side div.item{padding:11px 20px}.side .on{background:#1A8FE0;color:#fff;border-radius:0 999px 999px 0;margin-right:14px;font-weight:700}
+  .main{flex:1;padding:22px}
+  .main h2{margin:0 0 16px;font-size:22px;color:#123}
+  .cols{display:flex;gap:14px}
+  .col{flex:1;background:#eef1f4;border-radius:12px;padding:12px}
+  .col h3{margin:0 0 10px;font-size:13px;letter-spacing:.08em;color:#567;display:flex;justify-content:space-between}
+  .cnt{background:#fff;border-radius:999px;padding:1px 9px;font-weight:700;color:#0E6FC4}
+  .card{background:#fff;border-radius:10px;padding:11px 12px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:14px}
+  .card b{display:block;font-size:15px;color:#123}
+  .pill{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;padding:2px 9px;margin-top:6px}
+  .new{background:#dbeafe;color:#1d4ed8}.otw{background:#fef3c7;color:#b45309}.appr{background:#fde8e8;color:#c0392b}.paid{background:#d1fae5;color:#047857}
+  .g{color:#789;font-size:12.5px;margin-top:3px}
+  .foot{color:#fff;font-size:23px;margin-top:auto;margin-bottom:38px;font-weight:600}
+  button{font-size:16px;padding:10px 24px;border-radius:8px;border:0;background:#1A8FE0;color:#fff;cursor:pointer}
+</style></head><body>
+<div id="poster">
+  <div class="head"><h1>Manager Dashboard — live dispatch board 🖥️</h1><p>WhatsApp inquiry → ticket → assign → track → paid. Sab ek screen pe.</p></div>
+  <div class="win">
+    <div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="url">oasisglobe.in/dashboard</span></div>
+    <div class="app">
+      <div class="side"><div class="logo">💧 Oasis Globe</div>
+        <div class="item on">Dashboard</div><div class="item">Inbox</div><div class="item">Customers</div><div class="item">Technicians</div><div class="item">Stock</div><div class="item">Incentives</div>
+      </div>
+      <div class="main"><h2>Dispatch Board <span style="font-size:13px;color:#28a745">● live</span></h2>
+        <div class="cols">
+          <div class="col"><h3>NEW <span class="cnt">3</span></h3>
+            <div class="card"><b>Priya S. · OG-1042</b><div class="g">Low water flow · Kent Grand+</div><span class="pill new">NEW</span></div>
+            <div class="card"><b>Amit K. · OG-1043</b><div class="g">Bad taste · Aquaguard</div><span class="pill new">NEW</span> <span class="pill appr">URGENT</span></div>
+          </div>
+          <div class="col"><h3>ON THE WAY <span class="cnt">2</span></h3>
+            <div class="card"><b>Sunita M. · OG-1039</b><div class="g">Ramesh P. ⭐4.7 · ETA 20m</div><span class="pill otw">ON THE WAY</span></div>
+            <div class="card"><b>Rahul D. · OG-1040</b><div class="g">Vikas T. ⭐4.5 · ETA 35m</div><span class="pill otw">ON THE WAY</span></div>
+          </div>
+          <div class="col"><h3>AWAITING APPROVAL <span class="cnt">1</span></h3>
+            <div class="card"><b>Neha J. · OG-1037</b><div class="g">Estimate ₹2,050 sent on WhatsApp</div><span class="pill appr">ESTIMATE SENT</span></div>
+          </div>
+          <div class="col"><h3>PAID / CLOSED <span class="cnt">6</span></h3>
+            <div class="card"><b>Kiran B. · OG-1035</b><div class="g">₹1,450 UPI · ⭐⭐⭐⭐⭐</div><span class="pill paid">PAID</span></div>
+            <div class="card"><b>Meera V. · OG-1033</b><div class="g">Free (AMC) · ⭐⭐⭐⭐⭐</div><span class="pill paid">CLOSED</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">Ek bhi inquiry miss nahi — every message logged, every job tracked ✅</div>
+</div>
+<button onclick="html2canvas(document.getElementById('poster'),{scale:1}).then(c=>{const a=document.createElement('a');a.download='visual-2-dashboard.png';a.href=c.toDataURL('image/png');a.click()})">⬇ Download PNG (1350×1080)</button>
+</body></html>

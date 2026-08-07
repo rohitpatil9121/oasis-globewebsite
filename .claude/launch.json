@@ -1,0 +1,24 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "backend",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "oasis-globe/backend"],
+      "port": 3000,
+      "autoPort": true
+    },
+    {
+      "name": "admin-dashboard",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "oasis-globe/frontend", "--", "--port", "5180", "--strictPort"],
+      "port": 5180
+    },
+    {
+      "name": "technician-app",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "technician-app", "--", "--port", "5181", "--strictPort"],
+      "port": 5181
+    }
+  ]
+}

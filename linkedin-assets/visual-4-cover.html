@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Visual 4 — Cover / Architecture</title>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<style>
+  body{margin:0;background:#333;font-family:'Segoe UI',system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;gap:16px;padding:20px}
+  #poster{width:1080px;height:1350px;background:linear-gradient(160deg,#08243c,#0E6FC4 70%,#1A8FE0);display:flex;flex-direction:column;align-items:center;overflow:hidden;color:#fff}
+  .tag{margin-top:64px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:10px 26px;font-size:22px;font-weight:700}
+  h1{font-size:64px;text-align:center;margin:28px 60px 10px;font-weight:800;line-height:1.15}
+  .sub{font-size:27px;opacity:.9;text-align:center;margin:0 90px}
+  .surfaces{display:flex;gap:22px;margin-top:56px}
+  .s{width:280px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.28);border-radius:20px;padding:26px 22px;text-align:center;backdrop-filter:blur(4px)}
+  .s .ic{font-size:52px}.s b{display:block;font-size:23px;margin:12px 0 8px}.s span{font-size:16.5px;opacity:.85;line-height:1.45}
+  .arrow{font-size:34px;margin:26px 0 6px;opacity:.85}
+  .db{background:#fff;color:#0E6FC4;border-radius:16px;padding:16px 48px;font-size:24px;font-weight:800;box-shadow:0 14px 30px rgba(0,0,0,.3)}
+  .stats{display:flex;gap:18px;margin-top:52px}
+  .st{background:rgba(255,255,255,.12);border-radius:16px;padding:18px 26px;text-align:center;min-width:190px}
+  .st b{font-size:38px;display:block}.st span{font-size:16px;opacity:.85}
+  .foot{margin-top:auto;margin-bottom:46px;font-size:24px;font-weight:600;opacity:.95}
+  button{font-size:16px;padding:10px 24px;border-radius:8px;border:0;background:#1A8FE0;color:#fff;cursor:pointer}
+</style></head><body>
+<div id="poster">
+  <div class="tag">🚀 Freelance Project · Shipped & Live</div>
+  <h1>1 System.<br>3 Surfaces. 0 Lost Inquiries.</h1>
+  <p class="sub">Complete service-automation platform for a water-purifier service centre — built solo, end to end.</p>
+  <div class="surfaces">
+    <div class="s"><div class="ic">📱</div><b>WhatsApp AI Bot</b><span>Customer intake, milestone updates, OTP estimate approval</span></div>
+    <div class="s"><div class="ic">🖥️</div><b>Manager Dashboard</b><span>Live dispatch board, assignment, inbox, stock, incentives</span></div>
+    <div class="s"><div class="ic">🔧</div><b>Technician App</b><span>9-step job flow with GPS, TDS & photo proof, UPI QR payments</span></div>
+  </div>
+  <div class="arrow">↓ &nbsp; ↓ &nbsp; ↓</div>
+  <div class="db">One backend · One database · One source of truth</div>
+  <div class="stats">
+    <div class="st"><b>9</b><span>workflow steps per job</span></div>
+    <div class="st"><b>1</b><span>message per milestone</span></div>
+    <div class="st"><b>100%</b><span>inquiries captured & tracked</span></div>
+  </div>
+  <div class="foot">Node.js · Supabase · Meta WhatsApp API · React · Capacitor</div>
+</div>
+<button onclick="html2canvas(document.getElementById('poster'),{scale:1}).then(c=>{const a=document.createElement('a');a.download='visual-4-cover.png';a.href=c.toDataURL('image/png');a.click()})">⬇ Download PNG (1080×1350)</button>
+</body></html>

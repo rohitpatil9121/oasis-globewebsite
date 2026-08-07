@@ -1,0 +1,26 @@
+# Credentials — NEVER commit these.
+# The Firebase service-account JSON and the WA key are live private keys; anyone
+# with them can act as this project. Keep them out of git even by accident.
+*firebase-adminsdk*.json
+WA key.txt
+*.pem
+*.key
+.env
+.env.*
+!.env.example
+
+# Build artefacts / release binaries — large and reproducible.
+*.apk
+*.aab
+*.zip
+
+# Dependencies and build output
+node_modules/
+dist/
+build/
+.gradle/
+
+# Logs and OS noise
+*.log
+.DS_Store
+Thumbs.db

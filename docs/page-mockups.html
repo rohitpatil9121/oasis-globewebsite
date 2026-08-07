@@ -1,0 +1,775 @@
+<title>Oasis Globe · Page Mockups</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    /* studio canvas neutrals (slight teal-slate bias, chosen not defaulted) */
+    --bg:#0c1116; --bg-2:#111820; --panel:#151d26; --line:#24303c;
+    --ink:#e7eef5; --ink-2:#9db0c2; --ink-3:#6b7f92;
+    /* brand accents from the real codebases */
+    --teal:#0f766e; --teal-100:#ccfbf1; --teal-50:#f0fdfa; --teal-light:#5eead4;
+    --blue:#0E6FC4; --blue-100:#D8E8F8; --blue-50:#EEF4FB; --blue-light:#1A8FE0;
+    /* semantic */
+    --ok:#1E9E5A; --ok-bg:#E5F5EC; --warn:#C77700; --warn-bg:#FBF1E0;
+    --danger:#D23B3B; --danger-bg:#FBE9E9; --info:#2563eb; --info-bg:#e6effe;
+    /* light "screen" surfaces (inside device frames) */
+    --s-bg:#f6f8fb; --s-card:#ffffff; --s-line:#e6ebf1; --s-ink:#0f172a;
+    --s-ink-2:#475569; --s-ink-3:#94a3b8;
+    --shadow-card:0 1px 2px rgb(15 23 42/.05),0 1px 3px rgb(15 23 42/.07);
+    --shadow-pop:0 24px 60px -24px rgb(0 0 0/.7);
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:"SF Mono",ui-monospace,"Cascadia Mono","Segoe UI Mono",Menlo,monospace;
+  }
+  @media (prefers-color-scheme: light){
+    :root{ --bg:#eef2f6; --bg-2:#e4eaf0; --panel:#ffffff; --line:#d8e0e8;
+      --ink:#16222e; --ink-2:#516375; --ink-3:#7d8fa0; --shadow-pop:0 24px 60px -28px rgb(15 23 42/.35); }
+  }
+  :root[data-theme="dark"]{ --bg:#0c1116; --bg-2:#111820; --panel:#151d26; --line:#24303c;
+    --ink:#e7eef5; --ink-2:#9db0c2; --ink-3:#6b7f92; --shadow-pop:0 24px 60px -24px rgb(0 0 0/.7); }
+  :root[data-theme="light"]{ --bg:#eef2f6; --bg-2:#e4eaf0; --panel:#ffffff; --line:#d8e0e8;
+    --ink:#16222e; --ink-2:#516375; --ink-3:#7d8fa0; --shadow-pop:0 24px 60px -28px rgb(15 23 42/.35); }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:radial-gradient(1200px 600px at 15% -10%,var(--bg-2),var(--bg)) fixed;
+    color:var(--ink);font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:56px 22px 90px}
+
+  /* ---------- masthead ---------- */
+  .eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--teal-light)}
+  :root[data-theme="light"] .eyebrow,@media(prefers-color-scheme:light){.eyebrow{color:var(--teal)}}
+  h1.title{font-size:clamp(30px,5vw,46px);line-height:1.05;letter-spacing:-.02em;margin:.35em 0 .3em;
+    font-weight:800;text-wrap:balance}
+  .lede{max-width:60ch;color:var(--ink-2);font-size:16px;margin:0}
+  .legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+  .legend .item{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--ink-2)}
+  .swatch{width:26px;height:26px;border-radius:8px;box-shadow:inset 0 0 0 1px rgb(255 255 255/.12)}
+  .legend b{color:var(--ink);font-weight:600}
+
+  /* ---------- section headers ---------- */
+  .section{margin-top:64px}
+  .section-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+  .section-head .num{font-family:var(--mono);font-size:13px;color:var(--ink-3);font-weight:600}
+  .section-head h2{font-size:24px;letter-spacing:-.01em;margin:0;font-weight:750}
+  .section-sub{color:var(--ink-2);font-size:14px;max-width:64ch;margin:2px 0 30px}
+  .stack-tag{font-family:var(--mono);font-size:11px;color:var(--ink-2);border:1px solid var(--line);
+    border-radius:999px;padding:3px 10px}
+
+  /* ---------- mockup grid + captions ---------- */
+  .grid{display:grid;gap:34px 30px}
+  .grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid.phones{grid-template-columns:repeat(auto-fill,minmax(215px,1fr))}
+  @media(max-width:760px){.grid.two{grid-template-columns:1fr}}
+  figure{margin:0;display:flex;flex-direction:column;gap:12px}
+  figcaption{display:flex;flex-direction:column;gap:3px}
+  figcaption .pg{font-size:14px;font-weight:650;color:var(--ink);display:flex;align-items:center;gap:8px}
+  figcaption .pg .file{font-family:var(--mono);font-size:11px;color:var(--ink-3);font-weight:400}
+  figcaption .desc{font-size:12.5px;color:var(--ink-2)}
+  .badge{font-size:10px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:6px;text-transform:uppercase}
+  .badge.teal{background:color-mix(in srgb,var(--teal) 18%,transparent);color:var(--teal-light)}
+  .badge.blue{background:color-mix(in srgb,var(--blue) 22%,transparent);color:#7cc0f5}
+  @media(prefers-color-scheme:light){.badge.teal{color:var(--teal)}.badge.blue{color:var(--blue)}}
+  :root[data-theme="light"] .badge.teal{color:var(--teal)}
+  :root[data-theme="light"] .badge.blue{color:var(--blue)}
+
+  /* ---------- device frames ---------- */
+  .browser{border-radius:14px;overflow:hidden;background:var(--s-card);box-shadow:var(--shadow-pop);
+    border:1px solid rgb(0 0 0/.25)}
+  .chrome{display:flex;align-items:center;gap:8px;padding:9px 12px;background:#e9edf2;border-bottom:1px solid #dbe2ea}
+  .dots{display:flex;gap:6px}.dots i{width:11px;height:11px;border-radius:50%}
+  .dots i:nth-child(1){background:#ff5f57}.dots i:nth-child(2){background:#febc2e}.dots i:nth-child(3){background:#28c840}
+  .urlbar{flex:1;background:#fff;border:1px solid #d5dde6;border-radius:7px;padding:4px 10px;font-size:11px;
+    color:#64748b;font-family:var(--mono);display:flex;align-items:center;gap:7px;min-width:0}
+  .urlbar .lock{width:9px;height:9px;border:1.5px solid #94a3b8;border-radius:2px;flex:none}
+  .urlbar span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+  .phone{border-radius:30px;background:#0b0f14;padding:9px;box-shadow:var(--shadow-pop);max-width:250px;margin:0 auto;width:100%}
+  .phone .screenp{border-radius:23px;overflow:hidden;background:var(--s-bg);position:relative}
+  .statusbar{display:flex;justify-content:space-between;align-items:center;padding:7px 16px 5px;font-size:10px;
+    font-weight:600;color:#fff;position:relative;z-index:2}
+  .statusbar .r{display:flex;gap:4px;align-items:center}
+  .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:78px;height:17px;background:#0b0f14;
+    border-radius:0 0 12px 12px;z-index:3}
+
+  /* ---------- generic screen bits ---------- */
+  .screen{background:var(--s-bg);color:var(--s-ink);font-size:11px}
+  .app{display:grid;grid-template-columns:150px 1fr;min-height:340px}
+  .side{background:#0b3b37;color:#cdeae6;padding:14px 10px;display:flex;flex-direction:column;gap:2px}
+  .side .brand{display:flex;align-items:center;gap:8px;padding:2px 6px 14px;font-weight:800;color:#fff;font-size:13px;letter-spacing:-.01em}
+  .side .logo{width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,#5eead4,#0f766e);
+    display:grid;place-items:center;flex:none}
+  .side .logo svg{width:13px;height:13px}
+  .nav{display:flex;flex-direction:column;gap:1px;margin-top:4px}
+  .nav a{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:8px;color:#a7d3ce;font-weight:500;text-decoration:none}
+  .nav a svg{width:14px;height:14px;flex:none;opacity:.85}
+  .nav a.on{background:rgba(255,255,255,.12);color:#fff}
+  .nav .sp{flex:1}
+  .side .me{display:flex;align-items:center;gap:8px;padding:8px 6px 2px;border-top:1px solid rgba(255,255,255,.12);margin-top:6px}
+  .avatar{width:24px;height:24px;border-radius:50%;background:#0f766e;color:#fff;display:grid;place-items:center;font-weight:700;font-size:10px;flex:none}
+
+  .main{padding:14px 15px;overflow:hidden}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+  .h-eyebrow{font-size:9px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--teal)}
+  .h-title{font-size:16px;font-weight:800;letter-spacing:-.01em;color:#0f172a;margin:1px 0 0}
+  .h-sub{font-size:10px;color:#94a3b8;display:flex;align-items:center;gap:5px;margin-top:1px}
+  .live{width:6px;height:6px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 0 rgba(34,197,94,.5);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}70%{box-shadow:0 0 0 5px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+  .search{flex:1;max-width:210px;background:#fff;border:1px solid var(--s-line);border-radius:8px;padding:6px 9px;
+    font-size:10px;color:#94a3b8;display:flex;align-items:center;gap:6px}
+  .search svg{width:12px;height:12px}
+
+  .btn{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;padding:6px 10px;border-radius:8px;
+    border:1px solid transparent;cursor:pointer;white-space:nowrap}
+  .btn svg{width:12px;height:12px}
+  .btn.pri{background:var(--teal);color:#fff}
+  .btn.pri.blue{background:var(--blue)}
+  .btn.sec{background:#fff;border-color:var(--s-line);color:#334155}
+  .btn.ghost{background:transparent;color:var(--teal)}
+
+  /* KPI tiles */
+  .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:12px}
+  .kpi{position:relative;background:#fff;border:1px solid var(--s-line);border-radius:10px;padding:9px 9px 8px;
+    box-shadow:var(--shadow-card);overflow:hidden;min-height:66px}
+  .kpi .rail{position:absolute;inset:0 auto 0 0;width:3px}
+  .kpi .lab{font-size:8px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#94a3b8}
+  .kpi .val{font-size:19px;font-weight:800;color:#0f172a;line-height:1;margin-top:5px;font-variant-numeric:tabular-nums}
+  .kpi .hint{font-size:8px;color:#a9b6c5;margin-top:5px}
+  .kpi.on{box-shadow:0 0 0 2px var(--teal),var(--shadow-card);border-color:transparent}
+
+  /* table */
+  .card{background:#fff;border:1px solid var(--s-line);border-radius:11px;box-shadow:var(--shadow-card);overflow:hidden}
+  .tbl{width:100%;border-collapse:collapse;font-size:10px}
+  .tbl th{text-align:left;font-size:8px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#94a3b8;
+    padding:8px 10px;border-bottom:1px solid var(--s-line);background:#fbfcfe}
+  .tbl td{padding:8px 10px;border-bottom:1px solid #eef2f6;color:#334155;vertical-align:middle}
+  .tbl tr:last-child td{border-bottom:0}
+  .tbl .tid{font-family:var(--mono);font-weight:600;color:#0f172a}
+  .tbl .cust{font-weight:600;color:#0f172a}
+  .muted{color:#94a3b8}
+  .chip{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:999px}
+  .chip::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor}
+  .c-new{background:var(--info-bg);color:#2563eb}
+  .c-pend{background:var(--warn-bg);color:#b45309}
+  .c-asg{background:#ede9fe;color:#7c3aed}
+  .c-done{background:#e0f2fe;color:#0369a1}
+  .c-comp{background:var(--ok-bg);color:#15803d}
+  .c-canc{background:#f1f5f9;color:#64748b}
+  .pill-tech{display:inline-flex;align-items:center;gap:5px}
+  .dot-av{width:16px;height:16px;border-radius:50%;background:#0f766e;color:#fff;font-size:8px;font-weight:700;display:grid;place-items:center}
+
+  /* inbox */
+  .inbox{display:grid;grid-template-columns:170px 1fr;gap:0;height:322px}
+  .conv{border-right:1px solid var(--s-line);overflow:hidden;background:#fff}
+  .conv .cr{display:flex;gap:8px;padding:9px 10px;border-bottom:1px solid #eef2f6;cursor:pointer}
+  .conv .cr.on{background:var(--teal-50)}
+  .conv .cr .av{width:26px;height:26px;border-radius:50%;background:#e2e8f0;color:#475569;font-size:9px;font-weight:700;display:grid;place-items:center;flex:none}
+  .conv .cr .nm{font-size:10px;font-weight:700;color:#0f172a;display:flex;justify-content:space-between}
+  .conv .cr .pv{font-size:9px;color:#94a3b8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:104px;margin-top:1px}
+  .unread{background:var(--teal);color:#fff;font-size:7px;font-weight:800;border-radius:999px;padding:1px 5px}
+  .thread{display:flex;flex-direction:column;background:#f0f2f5}
+  .thread .th-top{background:#fff;padding:8px 11px;border-bottom:1px solid var(--s-line);display:flex;justify-content:space-between;align-items:center}
+  .thread .th-body{flex:1;padding:12px 11px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
+  .bub{max-width:74%;padding:6px 9px;border-radius:11px;font-size:9.5px;line-height:1.35;box-shadow:0 1px 1px rgb(0 0 0/.05)}
+  .bub.in{background:#fff;border-top-left-radius:3px;align-self:flex-start;color:#1e293b}
+  .bub.out{background:#d9fdd3;border-top-right-radius:3px;align-self:flex-end;color:#0b3d1f}
+  .bub .t{font-size:7.5px;color:#7c8a99;text-align:right;margin-top:3px}
+  .composer{background:#fff;border-top:1px solid var(--s-line);padding:8px 11px;display:flex;gap:8px;align-items:center}
+  .composer .inp{flex:1;background:#f1f5f9;border-radius:999px;padding:6px 11px;font-size:9px;color:#94a3b8}
+
+  /* ticket detail */
+  .detail{display:grid;grid-template-columns:1fr 168px;gap:12px}
+  .field{margin-bottom:9px}
+  .field .k{font-size:8px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#94a3b8;margin-bottom:2px}
+  .field .v{font-size:11px;color:#0f172a;font-weight:600}
+  .timeline{display:flex;flex-direction:column;gap:0}
+  .tl{display:flex;gap:9px;position:relative;padding-bottom:11px}
+  .tl:not(:last-child)::before{content:"";position:absolute;left:5px;top:13px;bottom:0;width:1.5px;background:#e2e8f0}
+  .tl .mk{width:11px;height:11px;border-radius:50%;border:2px solid #fff;flex:none;margin-top:1px;box-shadow:0 0 0 1px #e2e8f0}
+  .tl.done .mk{background:var(--teal);box-shadow:0 0 0 1px var(--teal)}
+  .tl .tx{font-size:9.5px}.tl .tx b{color:#0f172a}.tl .tx .tm{color:#94a3b8;font-size:8px}
+
+  /* cards list (customers/techs) */
+  .listcards{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+  .pcard{background:#fff;border:1px solid var(--s-line);border-radius:10px;padding:10px;box-shadow:var(--shadow-card);display:flex;gap:9px;align-items:flex-start}
+  .pcard .big{width:32px;height:32px;border-radius:9px;background:var(--teal-50);color:var(--teal);font-weight:800;font-size:12px;display:grid;place-items:center;flex:none}
+  .pcard .nm{font-size:11px;font-weight:700;color:#0f172a}
+  .pcard .mt{font-size:9px;color:#94a3b8;margin-top:1px}
+  .pcard .row{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+  .tag{font-size:8px;font-weight:700;padding:2px 6px;border-radius:6px;background:#f1f5f9;color:#475569}
+  .stars{color:#f59e0b;font-size:9px;letter-spacing:1px}
+
+  /* stock */
+  .stockgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:11px}
+  .scard{background:#fff;border:1px solid var(--s-line);border-radius:10px;padding:10px;box-shadow:var(--shadow-card)}
+  .scard .p{font-size:9px;color:#64748b;font-weight:600}
+  .scard .q{font-size:22px;font-weight:800;color:#0f172a;margin-top:3px;font-variant-numeric:tabular-nums}
+  .scard .u{font-size:8px;color:#94a3b8}
+  .bar{height:4px;border-radius:2px;background:#eef2f6;margin-top:7px;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:2px}
+
+  /* incentives */
+  .inc-hero{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:11px}
+  .inc-hero .h{border-radius:10px;padding:11px;color:#fff}
+  .inc-hero .h .l{font-size:9px;opacity:.85;font-weight:600}
+  .inc-hero .h .n{font-size:20px;font-weight:800;margin-top:3px;font-variant-numeric:tabular-nums}
+
+  /* ---------- phone app bits (blue) ---------- */
+  .pv{background:var(--s-bg);min-height:430px;display:flex;flex-direction:column;font-size:11px}
+  .p-hdr{background:linear-gradient(160deg,#1A8FE0,#0E6FC4);color:#fff;padding:6px 15px 13px}
+  .p-hdr .greet{font-size:9px;opacity:.85}
+  .p-hdr .nm{font-size:15px;font-weight:800;letter-spacing:-.01em;display:flex;justify-content:space-between;align-items:center}
+  .p-hdr .bell{width:26px;height:26px;border-radius:8px;background:rgba(255,255,255,.16);display:grid;place-items:center}
+  .p-hdr .bell svg{width:14px;height:14px}
+  .p-stat{display:flex;gap:8px;margin-top:11px}
+  .p-stat .s{flex:1;background:rgba(255,255,255,.15);border-radius:9px;padding:7px 8px}
+  .p-stat .s .n{font-size:16px;font-weight:800;line-height:1}
+  .p-stat .s .l{font-size:8px;opacity:.85;margin-top:2px}
+  .p-body{flex:1;padding:12px 13px 8px;display:flex;flex-direction:column;gap:9px;overflow:hidden}
+  .sec-lab{font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#94a3b8}
+  .jcard{background:#fff;border:1px solid var(--s-line);border-radius:12px;padding:11px;box-shadow:var(--shadow-card)}
+  .jcard .jt{display:flex;justify-content:space-between;align-items:flex-start}
+  .jcard .jid{font-family:var(--mono);font-size:8px;color:#94a3b8;font-weight:600}
+  .jcard .jn{font-size:12px;font-weight:800;color:#0f172a;margin-top:1px}
+  .jcard .ja{font-size:9px;color:#64748b;margin-top:4px;display:flex;gap:5px;align-items:flex-start}
+  .jcard .ja svg{width:11px;height:11px;flex:none;margin-top:1px;color:#94a3b8}
+  .jcard .jfoot{display:flex;justify-content:space-between;align-items:center;margin-top:9px;padding-top:9px;border-top:1px dashed #e2e8f0}
+  .slot{font-size:9px;font-weight:700;color:#0E6FC4;background:var(--blue-50);padding:3px 8px;border-radius:999px}
+  .pchip{font-size:8px;font-weight:800;padding:2px 7px;border-radius:999px;text-transform:uppercase;letter-spacing:.03em}
+  .pchip.warn{background:var(--warn-bg);color:#b45309}.pchip.okk{background:var(--ok-bg);color:#15803d}
+  .pchip.info{background:#e0f2fe;color:#0369a1}
+  .btn-blue{background:var(--blue);color:#fff;font-size:10px;font-weight:700;text-align:center;padding:8px;border-radius:9px}
+  .btn-blue.gh{background:var(--blue-50);color:var(--blue)}
+  .bnav{background:#fff;border-top:1px solid var(--s-line);display:flex;padding:7px 8px 9px}
+  .bnav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:8px;font-weight:600;color:#94a3b8}
+  .bnav a svg{width:16px;height:16px}
+  .bnav a.on{color:var(--blue)}
+
+  /* OTP */
+  .otp-wrap{flex:1;display:flex;flex-direction:column;justify-content:center;padding:22px 20px;text-align:center;background:#fff}
+  .otp-logo{width:52px;height:52px;border-radius:15px;background:linear-gradient(135deg,#1A8FE0,#0E6FC4);margin:0 auto 16px;display:grid;place-items:center}
+  .otp-logo svg{width:28px;height:28px}
+  .otp-h{font-size:17px;font-weight:800;color:#0f172a;letter-spacing:-.01em}
+  .otp-s{font-size:11px;color:#64748b;margin-top:5px;line-height:1.5}
+  .otp-s b{color:#0f172a}
+  .otp-boxes{display:flex;gap:7px;justify-content:center;margin:20px 0 16px}
+  .otp-boxes span{width:32px;height:40px;border:1.5px solid var(--s-line);border-radius:10px;display:grid;place-items:center;font-size:18px;font-weight:800;color:#0f172a}
+  .otp-boxes span.fill{border-color:var(--blue);background:var(--blue-50)}
+  .otp-boxes span.cur{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-50)}
+  .resend{font-size:10px;color:#94a3b8;margin-top:13px}.resend b{color:var(--blue)}
+
+  /* earnings */
+  .earn-hero{background:linear-gradient(160deg,#1A8FE0,#0B5699);color:#fff;border-radius:14px;padding:14px;margin-bottom:11px}
+  .earn-hero .l{font-size:9px;opacity:.85;font-weight:600}
+  .earn-hero .amt{font-size:30px;font-weight:800;letter-spacing:-.02em;margin-top:3px;font-variant-numeric:tabular-nums}
+  .earn-hero .sub{font-size:9px;opacity:.8;margin-top:3px}
+  .earn-hero .spark{display:flex;align-items:flex-end;gap:3px;height:30px;margin-top:11px}
+  .earn-hero .spark i{flex:1;background:rgba(255,255,255,.35);border-radius:2px 2px 0 0}
+  .earn-hero .spark i.hi{background:#fff}
+  .erow{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #eef2f6;font-size:10px}
+  .erow:last-child{border-bottom:0}
+  .erow .el{color:#334155;font-weight:600}.erow .es{font-size:8px;color:#94a3b8}
+  .erow .er{font-weight:800;color:var(--ok);font-variant-numeric:tabular-nums}
+
+  /* reviews */
+  .rsum{display:flex;align-items:center;gap:12px;padding:4px 2px 12px}
+  .rsum .big{font-size:34px;font-weight:800;color:#0f172a;line-height:1;font-variant-numeric:tabular-nums}
+  .rbars{flex:1;display:flex;flex-direction:column;gap:3px}
+  .rbars .rb{display:flex;align-items:center;gap:6px;font-size:8px;color:#94a3b8}
+  .rbars .rb .bar{flex:1;margin-top:0}
+  .rvw{background:#fff;border:1px solid var(--s-line);border-radius:11px;padding:10px;box-shadow:var(--shadow-card);margin-bottom:8px}
+  .rvw .rh{display:flex;justify-content:space-between;align-items:center}
+  .rvw .who{font-size:10px;font-weight:700;color:#0f172a}
+  .rvw .txt{font-size:9.5px;color:#475569;margin-top:5px;line-height:1.45}
+
+  .foot{margin-top:70px;padding-top:24px;border-top:1px solid var(--line);color:var(--ink-3);font-size:12.5px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  .foot code{font-family:var(--mono);color:var(--ink-2)}
+</style>
+
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">Oasis Globe · Product Design Spec</p>
+    <h1 class="title">Every page, two apps, one operation.</h1>
+    <p class="lede">Water-purifier sales &amp; service, end to end — a WhatsApp lead becomes a ticket in the
+      <b style="color:var(--ink)">Office Console</b>, gets dispatched to a technician who works it in the
+      <b style="color:var(--ink)">Field App</b>, and closes the loop with a rating and a payout. Mockups use the
+      live brand tokens from each codebase.</p>
+
+    <div class="legend">
+      <div class="item"><span class="swatch" style="background:#0f766e"></span><span><b>Console teal</b> · #0F766E</span></div>
+      <div class="item"><span class="swatch" style="background:#0E6FC4"></span><span><b>Field blue</b> · #0E6FC4</span></div>
+      <div class="item"><span class="swatch" style="background:#1E9E5A"></span><span><b>Success</b> · paid / done</span></div>
+      <div class="item"><span class="swatch" style="background:#C77700"></span><span><b>Warn</b> · pending / due</span></div>
+      <div class="item"><span class="swatch" style="background:#D23B3B"></span><span><b>Danger</b> · low stock / cancel</span></div>
+    </div>
+  </header>
+
+  <!-- ============================ CONSOLE ============================ -->
+  <section class="section">
+    <div class="section-head">
+      <span class="num">01</span>
+      <h2>Office Console</h2>
+      <span class="stack-tag">React · Vite · Tailwind · teal #0f766e</span>
+    </div>
+    <p class="section-sub">The desk view for coordinators — triage the board, chat with customers on WhatsApp,
+      dispatch technicians, track stock and payouts. Desktop-first, live-refreshing.</p>
+
+    <div class="grid two">
+
+      <!-- Dashboard -->
+      <figure>
+        <div class="browser">
+          <div class="chrome"><div class="dots"><i></i><i></i><i></i></div>
+            <div class="urlbar"><span class="lock"></span><span>console.oasisglobe.in/dashboard</span></div></div>
+          <div class="screen"><div class="app">
+            <aside class="side">
+              <div class="brand"><span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M12 2s6 7 6 12a6 6 0 0 1-12 0c0-5 6-12 6-12Z"/></svg></span>Oasis</div>
+              <nav class="nav">
+                <a class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>Requests</a>
+                <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8 8 0 0 1-11.5 7.2L3 21l2.3-6.5A8 8 0 1 1 21 11.5Z"/></svg>Inbox</a>
+                <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 5.5a3 3 0 0 1 0 5"/></svg>Customers</a>
+                <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 20a6 6 0 0 1 12 0"/><circle cx="12" cy="7" r="3.5"/><path d="m17 3 1 2 2 .5-1.5 1.4.4 2L17 8"/></svg>Technicians</a>
+                <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l9-5 9 5-9 5-9-5Z"/><path d="M3 8v8l9 5 9-5V8"/></svg>Stock</a>
+                <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M6 6h9a3 3 0 0 1 0 6H8a3 3 0 0 0 0 6h9"/></svg>Incentives</a>
+              </nav>
+              <div class="sp"></div>
+              <div class="me"><span class="avatar" style="background:#5eead4;color:#0b3b37">MA</span><span style="font-size:9px">Meera A.</span></div>
+            </aside>
+            <div class="main">
+              <div class="topbar">
+                <div><div class="h-eyebrow">Service Desk</div><h3 class="h-title">Service Requests</h3>
+                  <div class="h-sub">New→Pending→Assigned→Done→Completed <span class="live"></span> live</div></div>
+                <button class="btn pri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>New request</button>
+              </div>
+              <div class="kpis">
+                <div class="kpi on"><span class="rail" style="background:#2563eb"></span><div class="lab">New</div><div class="val">7</div><div class="hint">unassigned</div></div>
+                <div class="kpi"><span class="rail" style="background:#d97706"></span><div class="lab">Pending</div><div class="val">4</div><div class="hint">need info</div></div>
+                <div class="kpi"><span class="rail" style="background:#7c3aed"></span><div class="lab">Assigned</div><div class="val">11</div><div class="hint">on route</div></div>
+                <div class="kpi"><span class="rail" style="background:#0369a1"></span><div class="lab">Done</div><div class="val">5</div><div class="hint">to verify</div></div>
+                <div class="kpi"><span class="rail" style="background:#15803d"></span><div class="lab">Completed</div><div class="val">38</div><div class="hint">this week</div></div>
+                <div class="kpi"><span class="rail" style="background:#94a3b8"></span><div class="lab">All</div><div class="val">65</div><div class="hint">total</div></div>
+              </div>
+              <div class="card"><table class="tbl">
+                <thead><tr><th>Ticket</th><th>Customer</th><th>Issue</th><th>Status</th><th>Tech</th></tr></thead>
+                <tbody>
+                  <tr><td class="tid">OG-1042</td><td><span class="cust">Priya Nair</span><div class="muted">Andheri W</div></td><td>Kent RO — no water flow</td><td><span class="chip c-new">New</span></td><td class="muted">—</td></tr>
+                  <tr><td class="tid">OG-1041</td><td><span class="cust">Rohan Mehta</span><div class="muted">Powai</div></td><td>Filter change (AMC)</td><td><span class="chip c-asg">Assigned</span></td><td><span class="pill-tech"><span class="dot-av">R</span>Ramesh</span></td></tr>
+                  <tr><td class="tid">OG-1039</td><td><span class="cust">Sunita Rao</span><div class="muted">Chembur</div></td><td>Aquaguard leak under sink</td><td><span class="chip c-pend">Pending</span></td><td class="muted">—</td></tr>
+                  <tr><td class="tid">OG-1036</td><td><span class="cust">Amit Shah</span><div class="muted">Bandra</div></td><td>New install — Kent Grand+</td><td><span class="chip c-done">Done</span></td><td><span class="pill-tech"><span class="dot-av" style="background:#0369a1">S</span>Suresh</span></td></tr>
+                  <tr><td class="tid">OG-1030</td><td><span class="cust">Neha Gupta</span><div class="muted">Vikhroli</div></td><td>TDS complaint</td><td><span class="chip c-comp">Completed</span></td><td><span class="pill-tech"><span class="dot-av" style="background:#15803d">V</span>Vijay</span></td></tr>
+                </tbody>
+              </table></div>
+            </div>
+          </div></div>
+        </div>
+        <figcaption><div class="pg">Dashboard — Service board <span class="file">pages/Dashboard.jsx</span></div>
+          <div class="desc">Bucket KPIs double as filters; live table auto-refreshes every 8s.</div></figcaption>
+      </figure>
+
+      <!-- Inbox -->
+      <figure>
+        <div class="browser">
+          <div class="chrome"><div class="dots"><i></i><i></i><i></i></div>
+            <div class="urlbar"><span class="lock"></span><span>console.oasisglobe.in/inbox</span></div></div>
+          <div class="screen"><div class="app">
+            <aside class="side">
+              <div class="brand"><span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M12 2s6 7 6 12a6 6 0 0 1-12 0c0-5 6-12 6-12Z"/></svg></span>Oasis</div>
+              <nav class="nav">
+                <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>Requests</a>
+                <a class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8 8 0 0 1-11.5 7.2L3 21l2.3-6.5A8 8 0 1 1 21 11.5Z"/></svg>Inbox</a>
+                <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 5.5a3 3 0 0 1 0 5"/></svg>Customers</a>
+                <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 20a6 6 0 0 1 12 0"/><circle cx="12" cy="7" r="3.5"/></svg>Technicians</a>
+                <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l9-5 9 5-9 5-9-5Z"/><path d="M3 8v8l9 5 9-5V8"/></svg>Stock</a>
+                <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M6 6h9a3 3 0 0 1 0 6H8a3 3 0 0 0 0 6h9"/></svg>Incentives</a>
+              </nav>
+              <div class="sp"></div>
+              <div class="me"><span class="avatar" style="background:#5eead4;color:#0b3b37">MA</span><span style="font-size:9px">Meera A.</span></div>
+            </aside>
+            <div class="main" style="padding:0">
+              <div class="inbox">
+                <div class="conv">
+                  <div class="cr on"><span class="av">PN</span><div style="flex:1;min-width:0"><div class="nm">Priya Nair <span class="muted" style="font-size:8px">2m</span></div><div class="pv">My Kent RO stopped giving water…</div></div></div>
+                  <div class="cr"><span class="av">RM</span><div style="flex:1;min-width:0"><div class="nm">Rohan Mehta <span class="unread">1</span></div><div class="pv">When will the technician come?</div></div></div>
+                  <div class="cr"><span class="av">SR</span><div style="flex:1;min-width:0"><div class="nm">Sunita Rao <span class="muted" style="font-size:8px">1h</span></div><div class="pv">Photo of the leak attached 📷</div></div></div>
+                  <div class="cr"><span class="av">AS</span><div style="flex:1;min-width:0"><div class="nm">Amit Shah <span class="muted" style="font-size:8px">3h</span></div><div class="pv">Thanks, working well now!</div></div></div>
+                </div>
+                <div class="thread">
+                  <div class="th-top"><div><b style="font-size:10px">Priya Nair</b> <span class="muted" style="font-size:8px">· +91 98•• ••210</span></div><span class="chip c-new">OG-1042</span></div>
+                  <div class="th-body">
+                    <div class="bub in">Hi, my Kent RO stopped giving water since morning. Green light is on though.<div class="t">10:24</div></div>
+                    <div class="bub out">Hi Priya! Sorry about that. Is water leaking anywhere, or just no output?<div class="t">10:25 ✓✓</div></div>
+                    <div class="bub in">No leak, just no water coming out of the tap.<div class="t">10:26</div></div>
+                    <div class="bub out">Got it — likely the membrane. I've raised ticket OG-1042 and will assign a technician for today. 👍<div class="t">10:27 ✓✓</div></div>
+                  </div>
+                  <div class="composer"><div class="inp">Type a reply…</div><button class="btn pri" style="padding:6px 9px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m22 2-7 20-4-9-9-4 20-7Z"/></svg></button></div>
+                </div>
+              </div>
+            </div>
+          </div></div>
+        </div>
+        <figcaption><div class="pg">Inbox — WhatsApp <span class="file">pages/Inbox.jsx</span></div>
+          <div class="desc">Live two-way WhatsApp; the AI agent drafts, the coordinator confirms &amp; converts to tickets.</div></figcaption>
+      </figure>
+
+      <!-- Ticket detail -->
+      <figure>
+        <div class="browser">
+          <div class="chrome"><div class="dots"><i></i><i></i><i></i></div>
+            <div class="urlbar"><span class="lock"></span><span>console.oasisglobe.in/tickets/OG-1041</span></div></div>
+          <div class="screen"><div class="main" style="min-height:340px">
+            <div class="topbar">
+              <div><div class="h-eyebrow">Ticket · OG-1041</div><h3 class="h-title">Filter change — AMC</h3>
+                <div class="h-sub"><span class="chip c-asg">Assigned</span> · raised 2 days ago</div></div>
+              <div style="display:flex;gap:6px"><button class="btn sec">Reschedule</button><button class="btn pri">Mark done</button></div>
+            </div>
+            <div class="detail">
+              <div>
+                <div class="card" style="padding:12px;margin-bottom:10px">
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                    <div class="field"><div class="k">Customer</div><div class="v">Rohan Mehta</div></div>
+                    <div class="field"><div class="k">Phone</div><div class="v">+91 98•• ••455</div></div>
+                    <div class="field"><div class="k">Address</div><div class="v">B-1204, Hiranandani, Powai</div></div>
+                    <div class="field"><div class="k">Product</div><div class="v">Kent Grand+ (AMC)</div></div>
+                    <div class="field"><div class="k">Slot</div><div class="v">Today · 2–4 PM</div></div>
+                    <div class="field"><div class="k">Technician</div><div class="v"><span class="pill-tech"><span class="dot-av">R</span>Ramesh Kumar</span></div></div>
+                  </div>
+                </div>
+                <div class="card" style="padding:12px">
+                  <div class="k" style="font-size:8px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#94a3b8;margin-bottom:9px">Timeline</div>
+                  <div class="timeline">
+                    <div class="tl done"><span class="mk"></span><div class="tx"><b>Created</b> from WhatsApp lead <span class="tm">· Mon 09:12</span></div></div>
+                    <div class="tl done"><span class="mk"></span><div class="tx"><b>Assigned</b> to Ramesh Kumar <span class="tm">· Mon 11:40</span></div></div>
+                    <div class="tl done"><span class="mk"></span><div class="tx"><b>Confirmed</b> slot with customer <span class="tm">· Tue 08:05</span></div></div>
+                    <div class="tl"><span class="mk"></span><div class="tx"><b>En route</b> — live location shared <span class="tm">· now</span></div></div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="card" style="padding:11px;margin-bottom:9px">
+                  <div class="k" style="font-size:8px;font-weight:800;text-transform:uppercase;color:#94a3b8;letter-spacing:.05em;margin-bottom:7px">Parts to carry</div>
+                  <div style="font-size:9.5px;color:#334155;display:flex;flex-direction:column;gap:5px">
+                    <div style="display:flex;justify-content:space-between"><span>Sediment filter</span><b>×1</b></div>
+                    <div style="display:flex;justify-content:space-between"><span>Carbon block</span><b>×1</b></div>
+                    <div style="display:flex;justify-content:space-between"><span>RO membrane</span><b>×1</b></div>
+                  </div>
+                </div>
+                <div class="card" style="padding:11px">
+                  <div class="k" style="font-size:8px;font-weight:800;text-transform:uppercase;color:#94a3b8;letter-spacing:.05em;margin-bottom:6px">Est. value</div>
+                  <div style="font-size:22px;font-weight:800;color:#0f172a;font-variant-numeric:tabular-nums">₹2,400</div>
+                  <div style="font-size:8px;color:#94a3b8;margin-top:3px">Tech incentive ≈ ₹240</div>
+                </div>
+              </div>
+            </div>
+          </div></div>
+        </div>
+        <figcaption><div class="pg">Ticket detail <span class="file">pages/TicketView.jsx</span></div>
+          <div class="desc">Everything for one job — customer, parts, live timeline, actions to dispatch or close.</div></figcaption>
+      </figure>
+
+      <!-- Technicians -->
+      <figure>
+        <div class="browser">
+          <div class="chrome"><div class="dots"><i></i><i></i><i></i></div>
+            <div class="urlbar"><span class="lock"></span><span>console.oasisglobe.in/technicians</span></div></div>
+          <div class="screen"><div class="main" style="min-height:340px">
+            <div class="topbar">
+              <div><div class="h-eyebrow">Field team</div><h3 class="h-title">Technicians</h3><div class="h-sub">6 active · 2 on leave</div></div>
+              <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg>Search</div>
+            </div>
+            <div class="listcards">
+              <div class="pcard"><span class="big">R</span><div style="flex:1"><div class="nm">Ramesh Kumar</div><div class="mt">Powai · Andheri</div><div class="row"><span class="tag">3 active jobs</span><span class="tag"><span class="stars">★</span> 4.9</span></div></div></div>
+              <div class="pcard"><span class="big" style="background:#e0f2fe;color:#0369a1">S</span><div style="flex:1"><div class="nm">Suresh Patil</div><div class="mt">Bandra · Khar</div><div class="row"><span class="tag">2 active jobs</span><span class="tag"><span class="stars">★</span> 4.7</span></div></div></div>
+              <div class="pcard"><span class="big" style="background:var(--ok-bg);color:#15803d">V</span><div style="flex:1"><div class="nm">Vijay Sharma</div><div class="mt">Chembur · Ghatkopar</div><div class="row"><span class="tag">1 active job</span><span class="tag"><span class="stars">★</span> 4.8</span></div></div></div>
+              <div class="pcard"><span class="big" style="background:var(--warn-bg);color:#b45309">A</span><div style="flex:1"><div class="nm">Anil Deshmukh</div><div class="mt">Vikhroli · Mulund</div><div class="row"><span class="tag" style="background:var(--warn-bg);color:#b45309">On leave</span><span class="tag"><span class="stars">★</span> 4.6</span></div></div></div>
+            </div>
+            <div style="margin-top:11px" class="card">
+              <table class="tbl"><thead><tr><th>This week</th><th>Jobs done</th><th>On-time %</th><th>Rating</th><th>Payout</th></tr></thead>
+              <tbody>
+                <tr><td class="cust">Ramesh Kumar</td><td>14</td><td>93%</td><td><span class="stars">★</span> 4.9</td><td style="font-weight:700;color:#15803d">₹6,120</td></tr>
+                <tr><td class="cust">Suresh Patil</td><td>11</td><td>88%</td><td><span class="stars">★</span> 4.7</td><td style="font-weight:700;color:#15803d">₹4,780</td></tr>
+              </tbody></table>
+            </div>
+          </div></div>
+        </div>
+        <figcaption><div class="pg">Technicians <span class="file">pages/Technicians.jsx</span></div>
+          <div class="desc">Roster, live workload, ratings and weekly payout — one click into a tech's profile.</div></figcaption>
+      </figure>
+
+      <!-- Stock -->
+      <figure>
+        <div class="browser">
+          <div class="chrome"><div class="dots"><i></i><i></i><i></i></div>
+            <div class="urlbar"><span class="lock"></span><span>console.oasisglobe.in/stock</span></div></div>
+          <div class="screen"><div class="main" style="min-height:300px">
+            <div class="topbar">
+              <div><div class="h-eyebrow">Inventory</div><h3 class="h-title">Stock</h3><div class="h-sub">Warehouse · Andheri</div></div>
+              <button class="btn pri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>Issue stock</button>
+            </div>
+            <div class="stockgrid">
+              <div class="scard"><div class="p">RO membrane</div><div class="q">42</div><div class="u">units</div><div class="bar"><i style="width:70%;background:#1E9E5A"></i></div></div>
+              <div class="scard"><div class="p">Sediment filter</div><div class="q">08</div><div class="u">units · low</div><div class="bar"><i style="width:16%;background:#D23B3B"></i></div></div>
+              <div class="scard"><div class="p">Carbon block</div><div class="q">27</div><div class="u">units</div><div class="bar"><i style="width:52%;background:#C77700"></i></div></div>
+              <div class="scard"><div class="p">Kent Grand+ (whole)</div><div class="q">05</div><div class="u">units</div><div class="bar"><i style="width:34%;background:#C77700"></i></div></div>
+            </div>
+            <div class="card"><table class="tbl">
+              <thead><tr><th>Movement</th><th>Item</th><th>Qty</th><th>To</th><th>When</th></tr></thead>
+              <tbody>
+                <tr><td><span class="chip c-canc" style="background:var(--danger-bg);color:#b91c1c">Issued</span></td><td>RO membrane</td><td>−1</td><td>Ramesh · OG-1041</td><td class="muted">10:12</td></tr>
+                <tr><td><span class="chip c-comp">Received</span></td><td>Carbon block</td><td>+20</td><td>Supplier GRN-88</td><td class="muted">Yesterday</td></tr>
+                <tr><td><span class="chip c-comp">Returned</span></td><td>Sediment filter</td><td>+2</td><td>Suresh (unused)</td><td class="muted">Yesterday</td></tr>
+              </tbody></table></div>
+          </div></div>
+        </div>
+        <figcaption><div class="pg">Stock <span class="file">pages/Stock.jsx</span></div>
+          <div class="desc">On-hand levels with low-stock alerts; issue parts to a tech &amp; reconcile returns.</div></figcaption>
+      </figure>
+
+      <!-- Incentives -->
+      <figure>
+        <div class="browser">
+          <div class="chrome"><div class="dots"><i></i><i></i><i></i></div>
+            <div class="urlbar"><span class="lock"></span><span>console.oasisglobe.in/incentives</span></div></div>
+          <div class="screen"><div class="main" style="min-height:300px">
+            <div class="topbar">
+              <div><div class="h-eyebrow">Payouts</div><h3 class="h-title">Incentives</h3><div class="h-sub">Cycle · Jul 1–15</div></div>
+              <button class="btn sec">Export CSV</button>
+            </div>
+            <div class="inc-hero">
+              <div class="h" style="background:linear-gradient(150deg,#0f766e,#115e59)"><div class="l">Total payable</div><div class="n">₹41,280</div></div>
+              <div class="h" style="background:linear-gradient(150deg,#1E9E5A,#15803d)"><div class="l">Jobs closed</div><div class="n">92</div></div>
+              <div class="h" style="background:linear-gradient(150deg,#0369a1,#075985)"><div class="l">Avg / tech</div><div class="n">₹6,880</div></div>
+            </div>
+            <div class="card"><table class="tbl">
+              <thead><tr><th>Technician</th><th>Kent 6→10%</th><th>Aqua 6→10%</th><th>Base</th><th>Payout</th></tr></thead>
+              <tbody>
+                <tr><td class="cust">Ramesh Kumar</td><td>₹3,200</td><td>₹1,150</td><td>₹1,770</td><td style="font-weight:800;color:#15803d">₹6,120</td></tr>
+                <tr><td class="cust">Suresh Patil</td><td>₹2,050</td><td>₹1,540</td><td>₹1,190</td><td style="font-weight:800;color:#15803d">₹4,780</td></tr>
+                <tr><td class="cust">Vijay Sharma</td><td>₹2,400</td><td>₹820</td><td>₹1,400</td><td style="font-weight:800;color:#15803d">₹4,620</td></tr>
+              </tbody></table></div>
+            <div style="font-size:8px;color:#94a3b8;margin-top:8px">Slabs climb 6%→10% with volume · Oasis-margin items net −18% GST · computed in <code style="font-family:var(--mono)">incentives.js</code></div>
+          </div></div>
+        </div>
+        <figcaption><div class="pg">Incentives <span class="file">pages/Incentives.jsx</span></div>
+          <div class="desc">Per-technician earnings by brand slab; the exact rules that power the Field App's Earnings tab.</div></figcaption>
+      </figure>
+
+      <!-- Login (console) -->
+      <figure>
+        <div class="browser">
+          <div class="chrome"><div class="dots"><i></i><i></i><i></i></div>
+            <div class="urlbar"><span class="lock"></span><span>console.oasisglobe.in/login</span></div></div>
+          <div class="screen"><div style="display:grid;grid-template-columns:1fr 1fr;min-height:300px">
+            <div style="background:linear-gradient(160deg,#0f766e,#0b3b37);color:#e6fffb;padding:26px 22px;display:flex;flex-direction:column;justify-content:space-between">
+              <div class="brand" style="padding:0;color:#fff"><span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M12 2s6 7 6 12a6 6 0 0 1-12 0c0-5 6-12 6-12Z"/></svg></span>Oasis Globe</div>
+              <div><div style="font-size:17px;font-weight:800;letter-spacing:-.01em;line-height:1.25">Run the whole service floor from one desk.</div>
+                <div style="font-size:10px;opacity:.8;margin-top:8px">Leads, tickets, technicians, stock &amp; payouts — in sync.</div></div>
+              <div style="font-size:8px;opacity:.6">v2.4 · Mumbai ops</div>
+            </div>
+            <div style="padding:30px 26px;display:flex;flex-direction:column;justify-content:center;background:#fff">
+              <div style="font-size:15px;font-weight:800;color:#0f172a">Sign in</div>
+              <div style="font-size:10px;color:#94a3b8;margin-top:3px;margin-bottom:16px">Coordinator access</div>
+              <div class="field"><div class="k">Email</div><div style="border:1px solid var(--s-line);border-radius:9px;padding:8px 10px;font-size:10px;color:#334155">meera@oasisglobe.in</div></div>
+              <div class="field"><div class="k">Password</div><div style="border:1px solid var(--s-line);border-radius:9px;padding:8px 10px;font-size:10px;color:#cbd5e1;letter-spacing:2px">••••••••</div></div>
+              <div class="btn pri" style="justify-content:center;padding:9px;margin-top:8px;font-size:11px">Sign in</div>
+              <div style="font-size:8px;color:#94a3b8;text-align:center;margin-top:10px">Protected floor · session expires in 12h</div>
+            </div>
+          </div></div>
+        </div>
+        <figcaption><div class="pg">Login <span class="file">pages/Login.jsx</span></div>
+          <div class="desc">Split sign-in: brand story on the left, credentials on the right.</div></figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- ============================ FIELD APP ============================ -->
+  <section class="section">
+    <div class="section-head">
+      <span class="num">02</span>
+      <h2>Technician Field App</h2>
+      <span class="stack-tag">React · Capacitor (Android) · blue #0E6FC4</span>
+    </div>
+    <p class="section-sub">What the technician carries in their pocket — OTP login, today's jobs, navigation,
+      proof-of-work, live earnings and customer reviews. Thumb-first, safe-area aware.</p>
+
+    <div class="grid phones">
+
+      <!-- Login OTP -->
+      <figure>
+        <div class="phone"><div class="screenp">
+          <div class="notch"></div>
+          <div class="statusbar" style="color:#0f172a"><span>9:41</span><span class="r">••• ▂▄▆ 84%</span></div>
+          <div class="pv" style="min-height:420px">
+            <div class="otp-wrap">
+              <div class="otp-logo"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M12 2s6 7 6 12a6 6 0 0 1-12 0c0-5 6-12 6-12Z"/></svg></div>
+              <div class="otp-h">Enter the code</div>
+              <div class="otp-s">Sent on WhatsApp to<br><b>+91 98•• ••871</b></div>
+              <div class="otp-boxes"><span class="fill">4</span><span class="fill">1</span><span class="fill">9</span><span class="cur"></span><span></span><span></span></div>
+              <div class="btn-blue">Verify &amp; continue</div>
+              <div class="resend">Resend in <b>0:24</b></div>
+            </div>
+          </div>
+        </div></div>
+        <figcaption><div class="pg">Login — OTP <span class="badge blue">Field</span></div>
+          <div class="file">screens/Login.jsx</div>
+          <div class="desc">WhatsApp <code>login_otp</code> code, no passwords.</div></figcaption>
+      </figure>
+
+      <!-- Home -->
+      <figure>
+        <div class="phone"><div class="screenp">
+          <div class="notch"></div>
+          <div class="statusbar"><span>9:41</span><span class="r">••• ▂▄▆ 84%</span></div>
+          <div class="pv">
+            <div class="p-hdr" style="padding-top:2px">
+              <div class="nm">Hi, Ramesh <span class="bell"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.5 20a2 2 0 0 1-3 0"/></svg></span></div>
+              <div class="greet">4 jobs today · Powai zone</div>
+              <div class="p-stat">
+                <div class="s"><div class="n">4</div><div class="l">Today</div></div>
+                <div class="s"><div class="n">2</div><div class="l">En route</div></div>
+                <div class="s"><div class="n">₹840</div><div class="l">Est. today</div></div>
+              </div>
+            </div>
+            <div class="p-body">
+              <div class="sec-lab">Next up</div>
+              <div class="jcard">
+                <div class="jt"><div><div class="jid">OG-1041</div><div class="jn">Filter change · AMC</div></div><span class="pchip info">2–4 PM</span></div>
+                <div class="ja"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>Hiranandani, Powai · 3.2 km</div>
+                <div class="jfoot"><span class="slot">Kent Grand+</span><span class="btn-blue" style="padding:5px 12px">Navigate</span></div>
+              </div>
+              <div class="jcard">
+                <div class="jt"><div><div class="jid">OG-1044</div><div class="jn">RO not working</div></div><span class="pchip warn">4–6 PM</span></div>
+                <div class="ja"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>Andheri West · 5.8 km</div>
+                <div class="jfoot"><span class="slot">Aquaguard</span><span style="font-size:9px;color:#94a3b8">Accept →</span></div>
+              </div>
+            </div>
+            <div class="bnav">
+              <a class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>Home</a>
+              <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M6 6h9a3 3 0 0 1 0 6H8a3 3 0 0 0 0 6h9"/></svg>Earnings</a>
+              <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3 2.6 5.6 6.1.6-4.6 4 1.4 6L12 16.9 6.1 19.2l1.4-6-4.6-4 6.1-.6L12 3Z"/></svg>Reviews</a>
+            </div>
+          </div>
+        </div></div>
+        <figcaption><div class="pg">Home — Today's jobs <span class="badge blue">Field</span></div>
+          <div class="file">screens/Home.jsx</div>
+          <div class="desc">Pull-to-refresh job queue with slots &amp; distance.</div></figcaption>
+      </figure>
+
+      <!-- Job detail -->
+      <figure>
+        <div class="phone"><div class="screenp">
+          <div class="notch"></div>
+          <div class="statusbar"><span>9:41</span><span class="r">••• ▂▄▆ 84%</span></div>
+          <div class="pv">
+            <div class="p-hdr" style="padding-top:2px">
+              <div class="nm" style="font-size:12px;gap:8px"><span style="display:flex;align-items:center;gap:7px"><svg viewBox="0 0 24 24" width="15" fill="none" stroke="#fff" stroke-width="2.4"><path d="m15 18-6-6 6-6"/></svg>OG-1041</span><span class="pchip okk" style="background:rgba(255,255,255,.9)">En route</span></div>
+              <div class="greet" style="margin-top:4px">Filter change · Kent Grand+ (AMC)</div>
+            </div>
+            <div class="p-body" style="gap:10px">
+              <div class="jcard" style="padding:10px">
+                <div style="font-size:11px;font-weight:800;color:#0f172a">Rohan Mehta</div>
+                <div class="ja" style="margin-top:5px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>B-1204, Hiranandani, Powai</div>
+                <div style="display:flex;gap:7px;margin-top:9px"><span class="btn-blue gh" style="flex:1;padding:7px">Call</span><span class="btn-blue" style="flex:1;padding:7px">Navigate</span></div>
+              </div>
+              <div class="jcard" style="padding:10px">
+                <div class="sec-lab" style="margin-bottom:6px">Parts to fit</div>
+                <div style="font-size:9.5px;color:#334155;display:flex;flex-direction:column;gap:5px">
+                  <label style="display:flex;justify-content:space-between;align-items:center"><span>✓ Sediment filter</span><b>×1</b></label>
+                  <label style="display:flex;justify-content:space-between;align-items:center"><span>✓ Carbon block</span><b>×1</b></label>
+                  <label style="display:flex;justify-content:space-between;align-items:center;color:#94a3b8"><span>○ RO membrane</span><b>×1</b></label>
+                </div>
+              </div>
+              <div class="btn-blue">Start job · verify OTP</div>
+            </div>
+          </div>
+        </div></div>
+        <figcaption><div class="pg">Job detail <span class="badge blue">Field</span></div>
+          <div class="file">screens/JobDetail.jsx</div>
+          <div class="desc">Call/navigate, tick off parts, close with customer OTP.</div></figcaption>
+      </figure>
+
+      <!-- Earnings -->
+      <figure>
+        <div class="phone"><div class="screenp">
+          <div class="notch"></div>
+          <div class="statusbar"><span>9:41</span><span class="r">••• ▂▄▆ 84%</span></div>
+          <div class="pv">
+            <div class="p-hdr" style="padding-top:2px;background:linear-gradient(160deg,#1A8FE0,#0B5699)">
+              <div class="nm" style="font-size:14px">Earnings</div>
+              <div class="greet">Cycle · Jul 1–15</div>
+            </div>
+            <div class="p-body">
+              <div class="earn-hero">
+                <div class="l">Payable this cycle</div>
+                <div class="amt">₹6,120</div>
+                <div class="sub">14 jobs · avg ₹437 / job</div>
+                <div class="spark"><i style="height:40%"></i><i style="height:65%"></i><i style="height:35%"></i><i style="height:80%"></i><i style="height:55%"></i><i class="hi" style="height:100%"></i><i style="height:70%"></i></div>
+              </div>
+              <div class="jcard" style="padding:4px 12px">
+                <div class="erow"><div><div class="el">Kent slab (10%)</div><div class="es">₹32k sales · 8 jobs</div></div><div class="er">+₹3,200</div></div>
+                <div class="erow"><div><div class="el">Aqua slab (8%)</div><div class="es">₹14k sales · 4 jobs</div></div><div class="er">+₹1,150</div></div>
+                <div class="erow"><div><div class="el">Base + AMC</div><div class="es">2 jobs</div></div><div class="er">+₹1,770</div></div>
+              </div>
+              <div style="font-size:8px;color:#94a3b8;text-align:center">Paid to UPI on the 16th &amp; 1st</div>
+            </div>
+            <div class="bnav">
+              <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>Home</a>
+              <a class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M6 6h9a3 3 0 0 1 0 6H8a3 3 0 0 0 0 6h9"/></svg>Earnings</a>
+              <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3 2.6 5.6 6.1.6-4.6 4 1.4 6L12 16.9 6.1 19.2l1.4-6-4.6-4 6.1-.6L12 3Z"/></svg>Reviews</a>
+            </div>
+          </div>
+        </div></div>
+        <figcaption><div class="pg">Earnings <span class="badge blue">Field</span></div>
+          <div class="file">screens/Earnings.jsx</div>
+          <div class="desc">Live payout, slab breakdown &amp; UPI schedule.</div></figcaption>
+      </figure>
+
+      <!-- Reviews -->
+      <figure>
+        <div class="phone"><div class="screenp">
+          <div class="notch"></div>
+          <div class="statusbar"><span>9:41</span><span class="r">••• ▂▄▆ 84%</span></div>
+          <div class="pv">
+            <div class="p-hdr" style="padding-top:2px;background:linear-gradient(160deg,#1A8FE0,#0E6FC4)">
+              <div class="nm" style="font-size:14px">My reviews</div>
+              <div class="greet">Last 30 days</div>
+            </div>
+            <div class="p-body">
+              <div class="jcard" style="padding:11px">
+                <div class="rsum">
+                  <div><div class="big">4.9</div><div class="stars" style="font-size:11px">★★★★★</div><div style="font-size:8px;color:#94a3b8;margin-top:2px">48 ratings</div></div>
+                  <div class="rbars">
+                    <div class="rb">5<div class="bar"><i style="width:86%;background:#1E9E5A"></i></div></div>
+                    <div class="rb">4<div class="bar"><i style="width:11%;background:#84cc16"></i></div></div>
+                    <div class="rb">3<div class="bar"><i style="width:3%;background:#C77700"></i></div></div>
+                    <div class="rb">2<div class="bar"><i style="width:0%;background:#f59e0b"></i></div></div>
+                    <div class="rb">1<div class="bar"><i style="width:0%;background:#D23B3B"></i></div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="rvw"><div class="rh"><span class="who">Priya N.</span><span class="stars">★★★★★</span></div><div class="txt">Very polite, fixed the RO in 20 minutes and explained the filter schedule.</div></div>
+              <div class="rvw"><div class="rh"><span class="who">Amit S.</span><span class="stars">★★★★★</span></div><div class="txt">On time and neat. Carried all the right parts.</div></div>
+            </div>
+            <div class="bnav">
+              <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>Home</a>
+              <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M6 6h9a3 3 0 0 1 0 6H8a3 3 0 0 0 0 6h9"/></svg>Earnings</a>
+              <a class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3 2.6 5.6 6.1.6-4.6 4 1.4 6L12 16.9 6.1 19.2l1.4-6-4.6-4 6.1-.6L12 3Z"/></svg>Reviews</a>
+            </div>
+          </div>
+        </div></div>
+        <figcaption><div class="pg">Reviews <span class="badge blue">Field</span></div>
+          <div class="file">screens/Reviews.jsx</div>
+          <div class="desc">Rating distribution &amp; customer feedback after each closed job.</div></figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>Oasis Globe · 8 console pages + 5 field screens · mockups reflect live brand tokens</span>
+    <span><code>docs/page-mockups.html</code></span>
+  </footer>
+
+</div>

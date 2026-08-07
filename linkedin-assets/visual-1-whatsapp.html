@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Visual 1 — WhatsApp Milestones</title>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<style>
+  body{margin:0;background:#333;font-family:'Segoe UI',system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;gap:16px;padding:20px}
+  #poster{width:1080px;height:1350px;background:linear-gradient(160deg,#0E6FC4,#1A8FE0 55%,#59b6f0);position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center}
+  .head{color:#fff;text-align:center;margin-top:56px}
+  .head h1{font-size:52px;margin:0 0 10px;font-weight:800}
+  .head p{font-size:26px;margin:0;opacity:.92}
+  .phone{width:460px;background:#ECE5DD;border-radius:44px;border:14px solid #111;margin-top:44px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.35)}
+  .wa-top{background:#075E54;color:#fff;padding:18px 22px;display:flex;align-items:center;gap:14px}
+  .wa-av{width:44px;height:44px;border-radius:50%;background:#1A8FE0;display:flex;align-items:center;justify-content:center;font-size:22px}
+  .wa-top b{font-size:21px}.wa-top span{font-size:14px;opacity:.85;display:block}
+  .chat{padding:18px 16px;display:flex;flex-direction:column;gap:12px;min-height:760px}
+  .msg{max-width:82%;padding:12px 16px;border-radius:14px;font-size:17.5px;line-height:1.45;box-shadow:0 1px 1px rgba(0,0,0,.12)}
+  .in{background:#fff;align-self:flex-start;border-top-left-radius:4px}
+  .out{background:#DCF8C6;align-self:flex-end;border-top-right-radius:4px}
+  .t{display:block;font-size:12px;color:#8a8a8a;text-align:right;margin-top:4px}
+  .foot{color:#fff;font-size:24px;margin-top:auto;margin-bottom:46px;text-align:center;font-weight:600}
+  .badge{position:absolute;top:52px;right:60px;background:#fff;color:#0E6FC4;font-weight:800;font-size:20px;padding:10px 20px;border-radius:999px}
+  button{font-size:16px;padding:10px 24px;border-radius:8px;border:0;background:#1A8FE0;color:#fff;cursor:pointer}
+</style></head><body>
+<div id="poster">
+  <div class="badge">1 message per milestone ✅</div>
+  <div class="head"><h1>Customer ka pura experience —<br>sirf WhatsApp pe 📱</h1><p>No app install. No calls. No surprise bills.</p></div>
+  <div class="phone">
+    <div class="wa-top"><div class="wa-av">💧</div><div><b>Oasis Globe Service</b><span>online</span></div></div>
+    <div class="chat">
+      <div class="msg out">Hi, mera RO se paani slow aa raha hai<span class="t">9:02 AM</span></div>
+      <div class="msg in">Hi Priya! ✅ Request received for your <b>Kent RO Grand Plus</b>.<br>Ticket: <b>OG-1042</b>. Assigning a technician — update shortly.<span class="t">9:02 AM</span></div>
+      <div class="msg in">👨‍🔧 <b>Ramesh P. (⭐4.7)</b> is assigned for today.<br>Expected visit: <b>11:00–11:30 AM</b><span class="t">9:14 AM</span></div>
+      <div class="msg in">🛵 Ramesh is <b>on the way</b>. ETA ~20 min.<span class="t">10:41 AM</span></div>
+      <div class="msg in">📋 After checking: Visit charge ₹250 + RO Membrane ₹1,800 = <b>Total ₹2,050</b>.<br>Reply <b>YES</b> to approve. Work starts only after your approval.<span class="t">11:20 AM</span></div>
+      <div class="msg out">YES<span class="t">11:22 AM</span></div>
+      <div class="msg in">✅ Service complete! TDS improved <b>380 → 42</b>.<br>Paid ₹2,050 via UPI. How was your experience? ⭐<span class="t">12:05 PM</span></div>
+    </div>
+  </div>
+  <div class="foot">Har step pe ek clean update = customer trust 🤝</div>
+</div>
+<button onclick="html2canvas(document.getElementById('poster'),{scale:1}).then(c=>{const a=document.createElement('a');a.download='visual-1-whatsapp.png';a.href=c.toDataURL('image/png');a.click()})">⬇ Download PNG (1080×1350)</button>
+</body></html>

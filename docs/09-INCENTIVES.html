@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oasis Globe — How technician incentive is calculated</title>
+<style>
+:root{
+  --ink:#141B17; --ink-2:#39463D; --muted:#6B7A70; --hair:#DEE4DF;
+  --paper:#F7F8F6; --card:#FFFFFF; --sunk:#EFF2EE;
+  --accent:#8A6212; --accent-soft:#F6EEDC;
+  --green:#1F7A4C; --green-soft:#E4F1E9;
+  --grey-pill:#EDF0EC;
+  --rule:#C9D2CB;
+  --shadow:0 1px 2px rgba(20,27,23,.05),0 10px 28px -20px rgba(20,27,23,.3);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --ink:#E9EEE9; --ink-2:#BAC7BD; --muted:#8A9A8E; --hair:#26332A;
+    --paper:#0C110E; --card:#131A15; --sunk:#111713;
+    --accent:#D9A441; --accent-soft:#2A2213;
+    --green:#5FCB94; --green-soft:#11291F;
+    --grey-pill:#1B231D;
+    --rule:#2B382E;
+    --shadow:0 1px 2px rgba(0,0,0,.45),0 10px 28px -20px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#E9EEE9; --ink-2:#BAC7BD; --muted:#8A9A8E; --hair:#26332A;
+  --paper:#0C110E; --card:#131A15; --sunk:#111713;
+  --accent:#D9A441; --accent-soft:#2A2213;
+  --green:#5FCB94; --green-soft:#11291F;
+  --grey-pill:#1B231D; --rule:#2B382E;
+  --shadow:0 1px 2px rgba(0,0,0,.45),0 10px 28px -20px rgba(0,0,0,.8);
+}
+:root[data-theme="light"]{
+  --ink:#141B17; --ink-2:#39463D; --muted:#6B7A70; --hair:#DEE4DF;
+  --paper:#F7F8F6; --card:#FFFFFF; --sunk:#EFF2EE;
+  --accent:#8A6212; --accent-soft:#F6EEDC;
+  --green:#1F7A4C; --green-soft:#E4F1E9;
+  --grey-pill:#EDF0EC; --rule:#C9D2CB;
+  --shadow:0 1px 2px rgba(20,27,23,.05),0 10px 28px -20px rgba(20,27,23,.3);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:400 16px/1.62 Georgia,"Iowan Old Style","Times New Roman",serif}
+h1,h2,h3,th,.ui{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+code,.mono,.n{font-family:ui-monospace,"Cascadia Mono",Consolas,"Courier New",monospace}
+.n,td.n,th.n{font-variant-numeric:tabular-nums}
+
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+
+header{border-bottom:1px solid var(--hair);background:var(--card)}
+.mast{padding:46px 0 36px}
+.eyebrow{font:600 11px/1 system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+h1{font-size:clamp(28px,4.2vw,42px);line-height:1.08;letter-spacing:-.025em;margin:0;font-weight:700;text-wrap:balance}
+.sub{margin:14px 0 0;color:var(--muted);max-width:62ch;font-size:15.5px}
+
+main{padding:44px 0 80px}
+h2.sec{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  font-weight:600;margin:52px 0 18px;padding-bottom:9px;border-bottom:1px solid var(--hair)}
+h2.sec:first-of-type{margin-top:0}
+h3{font-size:17px;letter-spacing:-.01em;margin:30px 0 8px;font-weight:650}
+p{max-width:68ch}
+
+/* rule cards */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:0 0 8px}
+.rule{background:var(--card);border:1px solid var(--hair);border-radius:10px;padding:16px 18px;box-shadow:var(--shadow)}
+.rule .k{font:600 10px/1.3 system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.rule .v{font:700 30px/1 ui-monospace,Consolas,monospace;letter-spacing:-.02em;color:var(--accent);font-variant-numeric:tabular-nums}
+.rule .d{margin:9px 0 0;font-size:13px;line-height:1.5;color:var(--muted)}
+
+/* formula */
+.formula{background:var(--sunk);border:1px solid var(--hair);border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0;overflow-x:auto}
+.formula code{font-size:14px;line-height:1.9;color:var(--ink);white-space:pre;display:block}
+.formula .cm{color:var(--muted)}
+
+/* tables */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--hair);border-radius:10px;background:var(--card);box-shadow:var(--shadow);margin:16px 0}
+table{border-collapse:collapse;width:100%;font-family:system-ui,sans-serif;font-size:14px}
+th{text-align:left;font:600 10px/1.3 system-ui,sans-serif;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--muted);padding:12px 14px;border-bottom:1px solid var(--hair);white-space:nowrap}
+th.r,td.r{text-align:right}
+td{padding:11px 14px;border-bottom:1px solid var(--hair);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+tfoot td{border-top:2px solid var(--rule);border-bottom:0;font-weight:650;padding-top:13px}
+td.n,th.n{font-family:ui-monospace,Consolas,monospace;font-size:13.5px}
+.zero{color:var(--muted)}
+
+.pill{display:inline-block;font:600 10px/1 system-ui,sans-serif;letter-spacing:.08em;
+  text-transform:uppercase;padding:4px 8px;border-radius:20px;white-space:nowrap}
+.pill.kent{background:var(--accent-soft);color:var(--accent)}
+.pill.oasis{background:var(--green-soft);color:var(--green)}
+.pill.other{background:var(--grey-pill);color:var(--muted)}
+.pill.cash{background:var(--grey-pill);color:var(--ink-2)}
+.pill.online{background:var(--accent-soft);color:var(--accent)}
+
+/* threshold meter */
+.meter{background:var(--card);border:1px solid var(--hair);border-radius:10px;padding:20px;box-shadow:var(--shadow);margin:16px 0}
+.bar{height:34px;background:var(--sunk);border-radius:6px;position:relative;overflow:hidden;border:1px solid var(--hair)}
+.fill{position:absolute;inset:0 auto 0 0;background:var(--green);opacity:.22}
+.mark{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--accent)}
+.bar-lbl{display:flex;justify-content:space-between;margin:9px 0 0;font:600 11.5px/1 system-ui,sans-serif;color:var(--muted);letter-spacing:.04em}
+.bar-lbl b{color:var(--green);font-weight:700}
+
+.callout{border-left:3px solid var(--accent);background:var(--accent-soft);padding:15px 18px;
+  border-radius:0 8px 8px 0;margin:22px 0;font-size:14.5px}
+.callout b.t{font-family:system-ui,sans-serif;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;
+  display:block;margin-bottom:6px;color:var(--accent)}
+.callout p{margin:0;max-width:none}
+.callout p + p{margin-top:9px}
+
+.job-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:26px 0 0}
+.job-h h3{margin:0}
+.job-h .tot{font:600 13px/1 ui-monospace,monospace;color:var(--muted);font-variant-numeric:tabular-nums}
+
+footer{border-top:1px solid var(--hair);padding:26px 0 50px;color:var(--muted);font-size:13px}
+footer code{font-size:12.5px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap mast">
+    <p class="eyebrow">Oasis Globe · Technician payouts</p>
+    <h1>How incentive is calculated</h1>
+    <p class="sub">Nothing here is stored or entered by hand. Every rupee is worked out from closed jobs, the parts on each bill, and the parts catalogue — recalculated fresh each time the screen is opened.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <h2 class="sec">The four numbers everything runs on</h2>
+  <div class="rules">
+    <div class="rule">
+      <p class="k">Branded rate</p>
+      <div class="v">6%</div>
+      <p class="d">Of the price the customer paid, on Kent and Aquaguard parts.</p>
+    </div>
+    <div class="rule">
+      <p class="k">Branded rate — bonus</p>
+      <div class="v">10%</div>
+      <p class="d">Replaces 6% for the whole day once the daily target is reached.</p>
+    </div>
+    <div class="rule">
+      <p class="k">Daily target</p>
+      <div class="v">₹10,000</div>
+      <p class="d">Total billed by that technician in one day, IST.</p>
+    </div>
+    <div class="rule">
+      <p class="k">GST cut</p>
+      <div class="v">18%</div>
+      <p class="d">Taken off the Oasis margin when the job was paid online.</p>
+    </div>
+  </div>
+
+  <h2 class="sec">What earns, and what does not</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Line on the bill</th><th>Earns</th><th>How much</th></tr></thead>
+      <tbody>
+        <tr><td><span class="pill kent">Kent / Aquaguard part</span></td><td>Yes</td><td>6% or 10% of what the customer paid for it</td></tr>
+        <tr><td><span class="pill oasis">Oasis part</span></td><td>Yes</td><td>The full margin — selling price minus our cost. Less 18% if paid online.</td></tr>
+        <tr><td><span class="pill other">Any other brand</span></td><td class="zero">No</td><td class="zero">₹0</td></tr>
+        <tr><td>Service charge</td><td class="zero">No</td><td class="zero">₹0 — but it still counts toward the ₹10,000 target</td></tr>
+        <tr><td>Visit charge</td><td class="zero">No</td><td class="zero">₹0 — counts toward the target only</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <b class="t">The part people miss</b>
+    <p>Incentive comes only from <b>parts</b>. A day of pure service calls with no parts fitted earns ₹0 in incentive, however many jobs were closed.</p>
+    <p>Service charges still matter though — they count toward the ₹10,000, so they help unlock the 10% rate on the parts that <em>are</em> fitted.</p>
+  </div>
+
+  <h2 class="sec">The formulas</h2>
+
+  <h3>A Kent or Aquaguard part</h3>
+  <div class="formula"><code>payout = price × quantity × rate        <span class="cm">rate is 6% or 10%</span></code></div>
+  <p>Straightforward percentage of what the customer was charged. Our cost does not come into it.</p>
+
+  <h3>An Oasis part</h3>
+  <div class="formula"><code>margin = (price − our cost) × quantity  <span class="cm">never below zero</span>
+payout = margin                        <span class="cm">paid in cash</span>
+payout = margin × 0.82                 <span class="cm">paid online — 18% GST removed</span></code></div>
+  <p>The technician keeps the whole margin on our own parts. When the customer pays online the company owes GST on that sale, so 18% comes off the margin first.</p>
+
+  <h3>Cash or online?</h3>
+  <div class="formula"><code>online if (money taken online) > (money taken in cash)
+otherwise cash</code></div>
+  <p>Decided per job, not per part. UPI, card and “online” count as online; everything else is cash. If a job has no payment recorded yet it is treated as cash, so an uncollected job never quietly underpays.</p>
+
+  <h3>The daily rate</h3>
+  <div class="formula"><code>day billing = total of every closed job that day
+rate = 10% if day billing ≥ ₹10,000, else 6%</code></div>
+  <p>Worked out once for the whole day and applied to <b>every job in that day</b>, including ones closed before the target was reached.</p>
+
+  <h2 class="sec">Three parts, worked out</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Part</th><th class="r n">Price</th><th class="r n">Our cost</th><th class="r n">Qty</th><th>Paid</th><th>Working</th><th class="r n">Payout</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="pill kent">Kent</span> Sediment filter</td>
+          <td class="r n">₹550</td><td class="r n zero">—</td><td class="r n">1</td><td><span class="pill cash">Cash</span></td>
+          <td class="n">550 × 6%</td><td class="r n">₹33.00</td>
+        </tr>
+        <tr>
+          <td><span class="pill kent">Kent</span> Sediment filter <em>— target hit</em></td>
+          <td class="r n">₹550</td><td class="r n zero">—</td><td class="r n">1</td><td><span class="pill cash">Cash</span></td>
+          <td class="n">550 × 10%</td><td class="r n">₹55.00</td>
+        </tr>
+        <tr>
+          <td><span class="pill oasis">Oasis</span> Carbon filter</td>
+          <td class="r n">₹550</td><td class="r n">₹300</td><td class="r n">1</td><td><span class="pill cash">Cash</span></td>
+          <td class="n">550 − 300</td><td class="r n">₹250.00</td>
+        </tr>
+        <tr>
+          <td><span class="pill oasis">Oasis</span> Carbon filter <em>— paid by UPI</em></td>
+          <td class="r n">₹550</td><td class="r n">₹300</td><td class="r n">1</td><td><span class="pill online">Online</span></td>
+          <td class="n">250 × 0.82</td><td class="r n">₹205.00</td>
+        </tr>
+        <tr>
+          <td><span class="pill other">Other</span> Generic elbow</td>
+          <td class="r n">₹20</td><td class="r n zero">—</td><td class="r n">1</td><td><span class="pill cash">Cash</span></td>
+          <td class="n zero">not a paying brand</td><td class="r n zero">₹0.00</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Note how the Kent line doubles when the target is hit, while the Oasis line does not move — the daily bonus only touches branded parts.</p>
+
+  <h2 class="sec">A full day, end to end</h2>
+  <p>Bhujang closes three jobs on 30 July. Watch what the third job does to the first two.</p>
+
+  <div class="job-h"><h3>Job 1 — OG-300726-0005</h3><span class="tot">bill ₹1,350 · <span class="pill cash">Cash</span></span></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Line</th><th class="r n">Price</th><th class="r n">Cost</th><th class="r n">Qty</th><th>Working</th><th class="r n">Payout</th></tr></thead>
+    <tbody>
+      <tr><td>Service charge</td><td class="r n">₹250</td><td class="r n zero">—</td><td class="r n">1</td><td class="zero">does not earn</td><td class="r n zero">₹0.00</td></tr>
+      <tr><td><span class="pill kent">Kent</span> Sediment filter</td><td class="r n">₹550</td><td class="r n zero">—</td><td class="r n">1</td><td class="n">550 × 10%</td><td class="r n">₹55.00</td></tr>
+      <tr><td><span class="pill oasis">Oasis</span> Carbon filter</td><td class="r n">₹550</td><td class="r n">₹300</td><td class="r n">1</td><td class="n">550 − 300</td><td class="r n">₹250.00</td></tr>
+    </tbody>
+    <tfoot><tr><td colspan="5">Job 1 payout</td><td class="r n">₹305.00</td></tr></tfoot>
+  </table></div>
+
+  <div class="job-h"><h3>Job 2 — OG-300726-0007</h3><span class="tot">bill ₹1,150 · <span class="pill online">UPI</span></span></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Line</th><th class="r n">Price</th><th class="r n">Cost</th><th class="r n">Qty</th><th>Working</th><th class="r n">Payout</th></tr></thead>
+    <tbody>
+      <tr><td>Service charge</td><td class="r n">₹250</td><td class="r n zero">—</td><td class="r n">1</td><td class="zero">does not earn</td><td class="r n zero">₹0.00</td></tr>
+      <tr><td><span class="pill oasis">Oasis</span> SMPS</td><td class="r n">₹900</td><td class="r n">₹520</td><td class="r n">1</td><td class="n">(900 − 520) × 0.82</td><td class="r n">₹311.60</td></tr>
+    </tbody>
+    <tfoot><tr><td colspan="5">Job 2 payout</td><td class="r n">₹311.60</td></tr></tfoot>
+  </table></div>
+
+  <div class="job-h"><h3>Job 3 — OG-300726-0008</h3><span class="tot">bill ₹7,550 · <span class="pill cash">Cash</span></span></div>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Line</th><th class="r n">Price</th><th class="r n">Cost</th><th class="r n">Qty</th><th>Working</th><th class="r n">Payout</th></tr></thead>
+    <tbody>
+      <tr><td>Service charge</td><td class="r n">₹250</td><td class="r n zero">—</td><td class="r n">1</td><td class="zero">does not earn</td><td class="r n zero">₹0.00</td></tr>
+      <tr><td><span class="pill kent">Kent</span> RO membrane</td><td class="r n">₹2,400</td><td class="r n zero">—</td><td class="r n">2</td><td class="n">4,800 × 10%</td><td class="r n">₹480.00</td></tr>
+      <tr><td><span class="pill oasis">Oasis</span> Alkaline cartridge</td><td class="r n">₹1,250</td><td class="r n">₹700</td><td class="r n">2</td><td class="n">(1,250 − 700) × 2</td><td class="r n">₹1,100.00</td></tr>
+    </tbody>
+    <tfoot><tr><td colspan="5">Job 3 payout</td><td class="r n">₹1,580.00</td></tr></tfoot>
+  </table></div>
+
+  <div class="meter">
+    <div class="bar">
+      <div class="fill" style="width:100%"></div>
+      <div class="mark" style="left:99.5%"></div>
+    </div>
+    <div class="bar-lbl">
+      <span>Day billing <b>₹10,050</b></span>
+      <span>Target ₹10,000 — <b>reached</b>, rate becomes 10%</span>
+    </div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Day total, 30 July</th><th class="r n">Billed</th><th class="r n">At 6%</th><th class="r n">At 10% (actual)</th></tr></thead>
+      <tbody>
+        <tr><td>Job 1 — OG-300726-0005</td><td class="r n">₹1,350</td><td class="r n">₹283.00</td><td class="r n">₹305.00</td></tr>
+        <tr><td>Job 2 — OG-300726-0007</td><td class="r n">₹1,150</td><td class="r n">₹311.60</td><td class="r n">₹311.60</td></tr>
+        <tr><td>Job 3 — OG-300726-0008</td><td class="r n">₹7,550</td><td class="r n">₹1,388.00</td><td class="r n">₹1,580.00</td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td>Total</td><td class="r n">₹10,050</td><td class="r n">₹1,982.60</td><td class="r n">₹2,196.60</td></tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="callout">
+    <b class="t">The bonus is backdated</b>
+    <p>Jobs 1 and 2 were closed and paid long before the target was in sight. When job 3 pushed the day past ₹10,000, both were recalculated at 10% — <b>₹214.00</b> more than the same three jobs would have paid at 6%.</p>
+    <p>Only the Kent lines moved. Job 2 is unchanged because it was all Oasis margin, which the daily rate does not touch.</p>
+  </div>
+
+  <h2 class="sec">Which jobs count</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Rule</th><th>Detail</th></tr></thead>
+      <tbody>
+        <tr><td>Only closed jobs</td><td>A job counts once its status is <code>CLOSED</code>. Open, assigned and in-progress jobs earn nothing yet — they appear the moment they are closed.</td></tr>
+        <tr><td>Indian calendar day</td><td>Days run on IST, not UTC, so the ₹10,000 window matches the working day rather than cutting off at 5:30 in the morning.</td></tr>
+        <tr><td>Which day a job lands in</td><td>The payment time is used. If there is none, the work-done time; then the close time; and only failing all three, the day the request came in.</td></tr>
+        <tr><td>Per technician</td><td>The ₹10,000 is each technician’s own billing. Two technicians on ₹6,000 each do not unlock it for either of them.</td></tr>
+        <tr><td>Unknown parts</td><td>If a part is not in the catalogue it has no brand, so it pays nothing. A part fitted but never added to the catalogue silently earns ₹0.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="sec">Where it appears</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Screen</th><th>Shows</th></tr></thead>
+      <tbody>
+        <tr><td>Technician app — Earnings</td><td>Day by day for that technician, each job broken down to the part, with a running total.</td></tr>
+        <tr><td>Technician app — Today</td><td>Billed so far, how much is left to reach ₹10,000, the rate currently in force, and the payout earned to this point.</td></tr>
+        <tr><td>Dashboard — Incentives</td><td>Every technician for the chosen period, highest payout first, each expandable to the daily detail.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">Worked out from <code>services/incentives.js</code>. Figures on this page are recalculated examples, not live data — the rates, the ₹10,000 target and the 18% cut are the real ones.</div>
+</footer>
+
+</body>
+</html>

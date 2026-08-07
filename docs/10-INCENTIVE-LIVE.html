@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Oasis Globe &mdash; Incentive right now</title>
+<style>
+:root{--ink:#141B17;--ink2:#39463D;--muted:#6B7A70;--hair:#DEE4DF;--paper:#F7F8F6;--card:#fff;--sunk:#EFF2EE;
+--accent:#8A6212;--accent-soft:#F6EEDC;--ok:#1F7A4C;--ok-soft:#E4F1E9;--bad:#A32B1C;--bad-soft:#FBE9E6;
+--shadow:0 1px 2px rgba(20,27,23,.05),0 10px 28px -20px rgba(20,27,23,.3)}
+@media(prefers-color-scheme:dark){:root{--ink:#E9EEE9;--ink2:#BAC7BD;--muted:#8A9A8E;--hair:#26332A;--paper:#0C110E;
+--card:#131A15;--sunk:#111713;--accent:#D9A441;--accent-soft:#2A2213;--ok:#5FCB94;--ok-soft:#11291F;
+--bad:#F08A78;--bad-soft:#2C1714;--shadow:0 1px 2px rgba(0,0,0,.45),0 10px 28px -20px rgba(0,0,0,.8)}}
+:root[data-theme=dark]{--ink:#E9EEE9;--ink2:#BAC7BD;--muted:#8A9A8E;--hair:#26332A;--paper:#0C110E;--card:#131A15;
+--sunk:#111713;--accent:#D9A441;--accent-soft:#2A2213;--ok:#5FCB94;--ok-soft:#11291F;--bad:#F08A78;--bad-soft:#2C1714}
+:root[data-theme=light]{--ink:#141B17;--ink2:#39463D;--muted:#6B7A70;--hair:#DEE4DF;--paper:#F7F8F6;--card:#fff;
+--sunk:#EFF2EE;--accent:#8A6212;--accent-soft:#F6EEDC;--ok:#1F7A4C;--ok-soft:#E4F1E9;--bad:#A32B1C;--bad-soft:#FBE9E6}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);
+font:400 16px/1.6 Georgia,"Iowan Old Style","Times New Roman",serif}
+h1,h2,h3,th,.ui{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.n{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+header{border-bottom:1px solid var(--hair);background:var(--card)}
+.mast{padding:42px 0 32px}
+.eyebrow{font:600 11px/1 system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+h1{font-size:clamp(27px,4vw,40px);line-height:1.1;letter-spacing:-.025em;margin:0;font-weight:700}
+.asof{margin:12px 0 0;color:var(--muted);font:500 13px/1.6 ui-monospace,Consolas,monospace}
+main{padding:38px 0 80px}
+h2{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;
+margin:46px 0 16px;padding-bottom:9px;border-bottom:1px solid var(--hair)}
+p{max-width:70ch}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.kpi{background:var(--card);border:1px solid var(--hair);border-radius:10px;padding:16px 18px;box-shadow:var(--shadow)}
+.kpi .k{font:600 10px/1.3 system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.kpi .v{font:700 27px/1 ui-monospace,Consolas,monospace;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.kpi .d{margin:8px 0 0;font-size:12.5px;color:var(--muted);line-height:1.5;max-width:none}
+.kpi.warn .v{color:var(--bad)}
+.tbl{overflow-x:auto;border:1px solid var(--hair);border-radius:10px;background:var(--card);box-shadow:var(--shadow);margin:14px 0}
+table{border-collapse:collapse;width:100%;font-family:system-ui,sans-serif;font-size:14px}
+th{text-align:left;font:600 10px/1.3 system-ui,sans-serif;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);
+padding:12px 14px;border-bottom:1px solid var(--hair);white-space:nowrap}
+th.r,td.r{text-align:right}td{padding:11px 14px;border-bottom:1px solid var(--hair)}
+tbody tr:last-child td{border-bottom:0}
+tfoot td{border-top:2px solid var(--hair);font-weight:650}
+td.n,th.n{font-family:ui-monospace,Consolas,monospace;font-size:13.5px;font-variant-numeric:tabular-nums}
+td.hot{color:var(--bad);font-weight:700}
+.mini{width:110px;height:8px;background:var(--sunk);border-radius:5px;overflow:hidden;border:1px solid var(--hair)}
+.mini-f{height:100%;background:var(--accent);opacity:.5}.mini-f.ok{background:var(--ok);opacity:.8}
+.pill{display:inline-block;font:600 10px/1 system-ui,sans-serif;letter-spacing:.07em;text-transform:uppercase;padding:4px 8px;border-radius:20px}
+.pill.ok,.pill.oasis{background:var(--ok-soft);color:var(--ok)}
+.pill.kent,.pill.aquaguard{background:var(--accent-soft);color:var(--accent)}
+.pill.other,.pill.null{background:var(--sunk);color:var(--muted)}
+.alarm{border-left:4px solid var(--bad);background:var(--bad-soft);padding:18px 20px;border-radius:0 10px 10px 0;margin:0 0 32px}
+.alarm h3{margin:0 0 8px;font:700 15.5px/1.35 system-ui,sans-serif;color:var(--bad)}
+.alarm p{margin:0 0 9px;font-size:14.5px}.alarm p:last-child{margin:0}
+.alarm code{font-family:ui-monospace,Consolas,monospace;font-size:13px;background:var(--card);padding:1px 5px;border-radius:3px}
+.f{background:var(--sunk);border:1px solid var(--hair);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;
+padding:13px 17px;margin:13px 0;overflow-x:auto}
+.f code{font-family:ui-monospace,Consolas,monospace;font-size:13.5px;line-height:1.85;white-space:pre;display:block}
+footer{border-top:1px solid var(--hair);padding:24px 0 50px;color:var(--muted);font-size:13px}
+footer code{font-size:12.5px}
+</style></head><body>
+<header><div class="wrap mast">
+<p class="eyebrow">Oasis Globe &middot; Live figures</p>
+<h1>Incentive, as it stands right now</h1>
+<p class="asof">Generated 6 Aug 2026, 12:25 pm IST &nbsp;&middot;&nbsp; period 2026-08-01 to 2026-08-06 &nbsp;&middot;&nbsp; 6 technicians</p>
+</div></header>
+<main class="wrap">
+
+<div class="alarm">
+  <h3>Every part in the catalogue has a cost of zero, so payouts are far higher than the rule intends</h3>
+  <p>All <b>168 parts</b> carry <code>base_cost = 0</code>. The Oasis rule pays
+  <code>price &minus; base_cost</code>, so with no cost recorded it hands over
+  <b>the entire selling price</b> of every Oasis part instead of the margin on it.</p>
+  <p>This period that is <b>₹30,849.7</b> of incentive against <b>₹58,485</b> billed —
+  <b>52.7%</b> of everything the team invoiced. Individual jobs run above 80%.</p>
+  <p>Kent and Aquaguard parts are unaffected — they pay a percentage of the price and never look at cost.
+  Filling in <code>base_cost</code> for the Oasis parts corrects this with no code change.</p>
+</div>
+
+<h2>This period at a glance</h2>
+<div class="kpis">
+  <div class="kpi"><p class="k">Billed</p><div class="v">₹58,485</div>
+    <p class="d">Every closed job from 2026-08-01.</p></div>
+  <div class="kpi warn"><p class="k">Incentive owed</p><div class="v">₹30,849.7</div>
+    <p class="d">52.7% of everything billed.</p></div>
+  <div class="kpi"><p class="k">Daily target</p><div class="v">₹10,000</div>
+    <p class="d">Per technician. Unlocks 10% on branded parts, backdated across the whole day.</p></div>
+  <div class="kpi"><p class="k">Parts with no cost</p><div class="v">168/168</div>
+    <p class="d">Each pays out its full price rather than its margin.</p></div>
+</div>
+
+<h2>Today &mdash; 2026-08-06</h2>
+<div class="tbl"><table>
+<thead><tr><th>Technician</th><th>Toward ₹10,000</th><th class="r">Billed</th>
+<th class="r">Target</th><th class="r">Rate</th><th class="r">Earned</th><th class="r">Jobs</th></tr></thead>
+<tbody><tr><td>Bhujang Sangle</td>
+    <td><div class="mini"><div class="mini-f" style="width:0%"></div></div></td>
+    <td class="r n">₹0</td>
+    <td class="r n">₹10,000 to go</td>
+    <td class="r n">6%</td>
+    <td class="r n">₹0</td>
+    <td class="r n">0</td></tr><tr><td>Chhagan Bhamre</td>
+    <td><div class="mini"><div class="mini-f" style="width:0%"></div></div></td>
+    <td class="r n">₹0</td>
+    <td class="r n">₹10,000 to go</td>
+    <td class="r n">6%</td>
+    <td class="r n">₹0</td>
+    <td class="r n">0</td></tr><tr><td>Shubham Jadhav</td>
+    <td><div class="mini"><div class="mini-f" style="width:0%"></div></div></td>
+    <td class="r n">₹0</td>
+    <td class="r n">₹10,000 to go</td>
+    <td class="r n">6%</td>
+    <td class="r n">₹0</td>
+    <td class="r n">0</td></tr><tr><td>atharva</td>
+    <td><div class="mini"><div class="mini-f" style="width:0%"></div></div></td>
+    <td class="r n">₹0</td>
+    <td class="r n">₹10,000 to go</td>
+    <td class="r n">6%</td>
+    <td class="r n">₹0</td>
+    <td class="r n">0</td></tr><tr><td>Narendra Kamble</td>
+    <td><div class="mini"><div class="mini-f" style="width:0%"></div></div></td>
+    <td class="r n">₹0</td>
+    <td class="r n">₹10,000 to go</td>
+    <td class="r n">6%</td>
+    <td class="r n">₹0</td>
+    <td class="r n">0</td></tr><tr><td>JADHAV</td>
+    <td><div class="mini"><div class="mini-f" style="width:0%"></div></div></td>
+    <td class="r n">₹0</td>
+    <td class="r n">₹10,000 to go</td>
+    <td class="r n">6%</td>
+    <td class="r n">₹0</td>
+    <td class="r n">0</td></tr></tbody></table></div>
+
+<h2>Period to date</h2>
+<div class="tbl"><table>
+<thead><tr><th>Technician</th><th class="r">Billed</th><th class="r">Incentive</th><th class="r">Share of billing</th><th class="r">Days worked</th></tr></thead>
+<tbody>
+  <tr><td>Bhujang Sangle</td>
+      <td class="r n">₹22,775</td>
+      <td class="r n">₹15,481.5</td>
+      <td class="r n hot">68%</td>
+      <td class="r n">4</td></tr>
+  <tr><td>Chhagan Bhamre</td>
+      <td class="r n">₹30,690</td>
+      <td class="r n">₹12,440.8</td>
+      <td class="r n ">40.5%</td>
+      <td class="r n">5</td></tr>
+  <tr><td>Shubham Jadhav</td>
+      <td class="r n">₹4,750</td>
+      <td class="r n">₹2,911</td>
+      <td class="r n hot">61.3%</td>
+      <td class="r n">4</td></tr>
+  <tr><td>atharva</td>
+      <td class="r n">₹270</td>
+      <td class="r n">₹16.4</td>
+      <td class="r n ">6.1%</td>
+      <td class="r n">1</td></tr>
+  <tr><td>Narendra Kamble</td>
+      <td class="r n">₹0</td>
+      <td class="r n">₹0</td>
+      <td class="r n ">0%</td>
+      <td class="r n">2</td></tr>
+  <tr><td>JADHAV</td>
+      <td class="r n">₹0</td>
+      <td class="r n">₹0</td>
+      <td class="r n ">0%</td>
+      <td class="r n">1</td></tr></tbody>
+<tfoot><tr><td>Total</td><td class="r n">₹58,485</td><td class="r n">₹30,849.7</td>
+<td class="r n">52.7%</td><td class="r n">&mdash;</td></tr></tfoot>
+</table></div>
+
+<h2>One real job, worked through</h2>
+<p>Shubham Jadhav &middot; <b>OG-050826-0012</b> &middot; 2026-08-05 &middot;
+billed ₹3,550 &middot; paid cash &middot;
+day rate 6% (target not reached)</p>
+<div class="tbl"><table>
+<thead><tr><th>Part</th><th class="r">Price</th><th class="r">Qty</th><th>Working</th><th class="r">Payout</th></tr></thead>
+<tbody><tr><td><span class="pill oasis">oasis</span></td>
+    <td class="r n">₹1,200</td><td class="r n">1</td>
+    <td class="n">margin ₹1,200</td><td class="r n">₹984</td></tr><tr><td><span class="pill oasis">oasis</span></td>
+    <td class="r n">₹250</td><td class="r n">1</td>
+    <td class="n">margin ₹250</td><td class="r n">₹205</td></tr><tr><td><span class="pill oasis">oasis</span></td>
+    <td class="r n">₹250</td><td class="r n">1</td>
+    <td class="n">margin ₹250</td><td class="r n">₹205</td></tr><tr><td><span class="pill oasis">oasis</span></td>
+    <td class="r n">₹500</td><td class="r n">1</td>
+    <td class="n">margin ₹500</td><td class="r n">₹410</td></tr><tr><td><span class="pill oasis">oasis</span></td>
+    <td class="r n">₹500</td><td class="r n">1</td>
+    <td class="n">margin ₹500</td><td class="r n">₹410</td></tr><tr><td><span class="pill oasis">oasis</span></td>
+    <td class="r n">₹350</td><td class="r n">1</td>
+    <td class="n">margin ₹350</td><td class="r n">₹287</td></tr><tr><td><span class="pill oasis">oasis</span></td>
+    <td class="r n">₹500</td><td class="r n">1</td>
+    <td class="n">margin ₹500</td><td class="r n">₹410</td></tr></tbody>
+<tfoot><tr><td colspan="4">Job payout &mdash; 82% of the bill</td>
+<td class="r n">₹2,911</td></tr></tfoot>
+</table></div>
+
+<h2>The rules being applied</h2>
+<div class="f"><code>Kent / Aquaguard   payout = price &times; qty &times; rate        rate = 6% or 10%
+Oasis              margin = (price &minus; base_cost) &times; qty
+                   payout = margin                     paid in cash
+                   payout = margin &times; 0.8200000000000001                paid online (18% GST removed)
+Any other brand    payout = 0
+Service charge     payout = 0   (still counts toward the ₹10,000 target)
+
+Day rate           10% when that technician billed ₹10,000 or more in one
+                   IST day, applied backwards across every job of that day</code></div>
+
+</main>
+<footer><div class="wrap">Read live from the database at generation time through <code>services/incentives.js</code>.
+Re-run <code>node --env-file=.env scripts/generate-incentive-report.mjs</code> to refresh.</div></footer>
+</body></html>
