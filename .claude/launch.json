@@ -4,21 +4,87 @@
     {
       "name": "backend",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--prefix", "oasis-globe/backend"],
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--prefix",
+        "oasis-globe/backend"
+      ],
       "port": 3000,
       "autoPort": true
     },
     {
       "name": "admin-dashboard",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--prefix", "oasis-globe/frontend", "--", "--port", "5180", "--strictPort"],
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--prefix",
+        "oasis-globe/frontend",
+        "--",
+        "--port",
+        "5180",
+        "--strictPort"
+      ],
       "port": 5180
     },
     {
       "name": "technician-app",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--prefix", "technician-app", "--", "--port", "5181", "--strictPort"],
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--prefix",
+        "technician-app",
+        "--",
+        "--port",
+        "5181",
+        "--strictPort"
+      ],
       "port": 5181
+    },
+    {
+      "name": "template-backend",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--prefix",
+        "../water-filter-automation-template/service-platform/backend"
+      ],
+      "port": 3000,
+      "autoPort": true
+    },
+    {
+      "name": "template-frontend",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--prefix",
+        "../water-filter-automation-template/service-platform/frontend",
+        "--",
+        "--port",
+        "5190",
+        "--strictPort"
+      ],
+      "port": 5190
+    },
+    {
+      "name": "website",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--prefix",
+        "website",
+        "--",
+        "--port",
+        "5182",
+        "--host",
+        "127.0.0.1"
+      ],
+      "port": 5182
     }
   ]
 }

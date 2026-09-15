@@ -1,0 +1,53 @@
+---
+import Base from "../layouts/Base.astro";
+import { biz, wa, msgs } from "../data/business.js";
+import { getConfig, rupee } from "../lib/config.js";
+import parts from "../data/parts.json";
+
+const cfg = await getConfig();
+const effective = new Date().toLocaleDateString("en-GB", { month: "long", year: "numeric", timeZone: "Asia/Kolkata" });
+const total = parts.reduce((n, g) => n + g.rows.length, 0);
+const warranty = [
+  cfg.warranty_install_days && `installation ${cfg.warranty_install_days} days`,
+  cfg.warranty_repair_days && `repair work ${cfg.warranty_repair_days} days`,
+].filter(Boolean).join(", ");
+---
+<Base title="Spare-parts Price List | Oasis Globe" description={`Water purifier spare-parts prices in Pune: ${total} parts for Oasis, Kent and Aquaguard purifiers. Prices include GST.`} plain>
+<div class="pl-page">
+  <div class="wrap pl-top">
+    <a href="/" style="color:var(--muted);display:inline-flex;gap:8px;align-items:center"><span aria-hidden="true">←</span> Back to site</a>
+    <a href={wa(msgs.price)} target="_blank" rel="noopener" data-event="whatsapp_click" class="btn btn-ink">Ask on WhatsApp</a>
+  </div>
+
+  <article class="pl" aria-labelledby="pl-h">
+    <header>
+      <div class="brand"><span class="dot" aria-hidden="true"></span>Oasis Globe</div>
+      <div class="eff">Spare-parts price list<br />Effective {effective}</div>
+    </header>
+    <div>
+      <h1 id="pl-h">Spare-parts<br />price list.</h1>
+      <p class="sub" style="font-size:16px;max-width:520px">
+        Genuine and compatible parts for the brands we service. Prices include GST.
+        Service visit <strong data-cfg="service_charge" data-prefix="₹">{rupee(cfg.service_charge)}</strong>;
+        labour is told to you on WhatsApp before work begins.
+        {warranty && <> Warranty: {warranty}, written on the bill.</>}
+      </p>
+    </div>
+
+    {parts.map((g) => (
+      <section aria-label={g.name}>
+        <h2>{g.name}</h2>
+        <table>
+          <thead><tr><th scope="col">Part</th><th scope="col">Fits</th><th scope="col">Price</th></tr></thead>
+          <tbody>{g.rows.map((r) => <tr><td>{r.part}</td><td>{r.fits}</td><td>{rupee(r.price)}</td></tr>)}</tbody>
+        </table>
+      </section>
+    ))}
+
+    <footer>
+      <p>Parts are replaced only after you approve the estimate on WhatsApp. Prices may change with supplier rates; the estimate you approve is the price you pay.</p>
+      <address>{biz.address}<br />{biz.phone}</address>
+    </footer>
+  </article>
+</div>
+</Base>
