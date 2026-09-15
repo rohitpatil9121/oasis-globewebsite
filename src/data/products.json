@@ -1,0 +1,53 @@
+[
+  {
+    "slug": "kent-grand-plus",
+    "brand": "Kent",
+    "model": "Grand Plus",
+    "price": 16499,
+    "spec": "9 L · RO + UV + UF",
+    "image": "/images/ro-home.jpg",
+    "description": "Wall-mounted RO + UV + UF purifier with a 9-litre tank and mineral retention. Suits a family of four to six.",
+    "specs": [
+      ["Capacity", "9 L storage"],
+      ["Technology", "RO + UV + UF, TDS controller"],
+      ["Purification", "Up to 20 L/hour"],
+      ["Installation", "Wall mount, included"],
+      ["Warranty", "1 year on unit"]
+    ],
+    "sample": true
+  },
+  {
+    "slug": "oasis-uc-70",
+    "brand": "Oasis",
+    "model": "UC-70 Under Counter",
+    "price": 18499,
+    "spec": "7 L · RO + UV + UF",
+    "image": "/images/hero-under-sink.jpg",
+    "description": "A 7-litre RO + UV + UF purifier that sits inside the kitchen cabinet, with a single tap on the counter. Nothing on the wall, nothing on the platform.",
+    "specs": [
+      ["Capacity", "7 L storage"],
+      ["Technology", "RO + UV + UF, mineral retention"],
+      ["Recovery", "Up to 50%"],
+      ["Installation", "Under counter, included"],
+      ["Warranty", "1 year on unit"]
+    ],
+    "sample": true
+  },
+  {
+    "slug": "livpure-glo-pro-plus",
+    "brand": "Livpure",
+    "model": "Glo Pro+",
+    "price": 11999,
+    "spec": "7 L · RO + UV + UF",
+    "image": "/images/technician-filter.jpg",
+    "description": "Compact wall-mounted purifier with RO + UV + UF and a 7-litre tank. Good value for a small family.",
+    "specs": [
+      ["Capacity", "7 L storage"],
+      ["Technology", "RO + UV + UF"],
+      ["Purification", "Up to 12 L/hour"],
+      ["Installation", "Wall mount, included"],
+      ["Warranty", "1 year on unit"]
+    ],
+    "sample": true
+  }
+]

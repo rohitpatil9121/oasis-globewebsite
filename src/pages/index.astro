@@ -1,0 +1,145 @@
+---
+import Base from "../layouts/Base.astro";
+import { biz, wa, msgs, services, trust, steps, faq } from "../data/business.js";
+import { getConfig, rupee } from "../lib/config.js";
+import products from "../data/products.json";
+import parts from "../data/parts.json";
+
+const cfg = await getConfig();
+const waService = wa(msgs.service);
+const tel = `tel:${biz.tel}`;
+const priceSample = parts.find((g) => g.name.startsWith("Oasis"))?.rows
+  .filter((r) => /Sediment|Carbon Filter|RO membranes|UV Chamber|SMPS|Pump 100GPD 1YR/i.test(r.part)).slice(0, 6) || [];
+const faqs = faq(cfg);
+
+// A service card's price: live figure from settings when it has one, else the text.
+const priceOf = (s) => (s.priceKey && cfg[s.priceKey] != null) ? rupee(cfg[s.priceKey]) : s.priceText;
+---
+<Base title="Water Purifier Service in Pune | Oasis Globe" description="Water purifier repair, installation and filter change in Pune. Exact estimate on WhatsApp before work begins. Kent, Aquaguard, Pureit, Livpure and Oasis.">
+<main id="top">
+  <section class="wrap hero" aria-labelledby="hero-h">
+    <div class="hero-copy">
+      <p class="eyebrow">Water purifier service • Pune</p>
+      <h1 id="hero-h" class="h-xl">Water purifier service. Done properly.</h1>
+      <p class="lead">Transparent pricing and an exact estimate on WhatsApp before work begins.</p>
+      <div class="btn-row">
+        <a href={waService} target="_blank" rel="noopener" data-event="whatsapp_click" class="btn btn-primary">WhatsApp us</a>
+        <a href={tel} data-event="call_click" class="btn btn-outline">Call</a>
+      </div>
+    </div>
+    <div class="hero-img"><img src="/images/hero-counter.png" alt="Water purifier installed beneath a kitchen counter" width="800" height="1000" loading="eager" /></div>
+  </section>
+  <p class="wrap tagline">Local service · Clear pricing · Direct WhatsApp</p>
+
+  <section class="trust" aria-label="Why Oasis Globe">
+    <div class="wrap">
+      {trust.map((t) => <div><h3>{t.title}</h3><p>{t.body}</p></div>)}
+    </div>
+  </section>
+
+  <section id="services" class="wrap section" aria-labelledby="services-h">
+    <div class="head">
+      <h2 id="services-h" class="h-md">Services, without the guesswork.</h2>
+      <p class="sub">Repair, installation and filter replacement with clear pricing before the work begins.</p>
+    </div>
+    <div class="cards">
+      {services.map((s) => (
+        <article class="card">
+          <div>
+            <h3>{s.name}</h3>
+            {s.priceKey && cfg[s.priceKey] != null
+              ? <span class="price" data-cfg={s.priceKey} data-prefix="₹">{priceOf(s)}</span>
+              : <span class="price">{priceOf(s)}</span>}
+          </div>
+          <p>{s.body}</p>
+          <a href={wa(s.msg)} target="_blank" rel="noopener" data-event="whatsapp_click" class="link">WhatsApp <span aria-hidden="true">→</span></a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="alt" aria-labelledby="price-h">
+    <div class="wrap section grid-2">
+      <div>
+        <h2 id="price-h" class="h-lg" style="margin-bottom:24px">Know the price.<br />Then decide.</h2>
+        <p class="sub" style="margin-bottom:40px;max-width:460px">Every spare part has a listed price. The estimate you approve on WhatsApp is what you pay.</p>
+        <a href="/price-list/" data-event="price_list_click" class="btn btn-ink" style="height:50px;padding:0 24px;font-size:15px;border-radius:9px">View spare-parts price list <span aria-hidden="true">→</span></a>
+      </div>
+      <a href="/price-list/" class="pricecard" aria-label="Open spare-parts price list">
+        <div>
+          <div class="meta"><span>Oasis Globe</span><span>Spare parts · {new Date().getFullYear()}</span></div>
+          <p class="title">Spare-parts<br />price list</p>
+          <div class="rows">{priceSample.map((r) => <div><span>{r.part}</span><span>{rupee(r.price)}</span></div>)}</div>
+          <p class="foot">Prices include GST. Labour told to you before work starts.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="wrap section" aria-labelledby="how-h">
+    <h2 id="how-h" class="h-md" style="margin-bottom:80px">How it works.</h2>
+    <ol class="steps">
+      {steps.map((st, i) => (
+        <li>
+          <div class="n"><span>{st.n}</span><span aria-hidden="true">{i < steps.length - 1 ? "→" : ""}</span></div>
+          <h3>{st.title}</h3><p>{st.body}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="wrap section-tight" aria-labelledby="brands-h">
+    <h2 id="brands-h" class="h-md" style="margin-bottom:48px">Brands we service.</h2>
+    <ul class="brands">{biz.brands.map((b) => <li>{b}</li>)}</ul>
+  </section>
+
+  <section id="purifiers" class="alt" aria-labelledby="prod-h">
+    <div class="wrap section">
+      <div class="head">
+        <h2 id="prod-h" class="h-md">Looking for a new purifier?</h2>
+        <p class="sub">Compare models, prices and specifications before you buy.</p>
+      </div>
+      <div class="products">
+        {products.map((p) => (
+          <article class="product">
+            <a href={`/purifiers/${p.slug}/`} data-event="product_view" class="img"><img src={p.image} alt={`${p.brand} ${p.model}`} width="600" height="600" loading="lazy" /></a>
+            <div class="body">
+              <span class="brand-tag">{p.brand}</span>
+              <h3><a href={`/purifiers/${p.slug}/`}>{p.model}</a></h3>
+              <p class="p">{rupee(p.price)}</p>
+              <p class="s">{p.spec}</p>
+              <a href={`/purifiers/${p.slug}/`} data-event="product_view" class="link">View details <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="areas" class="wrap section grid-2" aria-labelledby="areas-h" style="align-items:end">
+    <div>
+      <p class="eyebrow">Service area</p>
+      <h2 id="areas-h" class="h-lg">Pune,<br />close to home.</h2>
+    </div>
+    <ul class="areas">{biz.areas.map((a) => <li>{a}</li>)}</ul>
+  </section>
+
+  <section class="wrap section-tight grid-2" aria-labelledby="faq-h" style="align-items:start">
+    <h2 id="faq-h" class="h-md">Questions,<br />answered.</h2>
+    <div class="faq">
+      {faqs.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+    </div>
+  </section>
+
+  <section id="contact" class="cta" aria-labelledby="cta-h">
+    <div class="wrap">
+      <h2 id="cta-h">Need purifier service?</h2>
+      <p class="lead">Tell us what’s wrong. We’ll take it from there.</p>
+      <div class="btn-row">
+        <a href={waService} target="_blank" rel="noopener" data-event="whatsapp_click" class="btn btn-primary" style="height:52px;padding:0 28px;font-size:16px">WhatsApp us</a>
+        <a href={tel} data-event="call_click" class="btn btn-outline" style="height:52px;padding:0 28px;font-size:16px">Call us</a>
+      </div>
+    </div>
+  </section>
+</main>
+</Base>

@@ -1,0 +1,78 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { biz, wa, msgs, API } from "../data/business.js";
+
+const { title, description, plain = false, noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const waService = wa(msgs.service);
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex" />}
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={new URL("/images/hero-counter.png", Astro.site).href} />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: biz.name,
+    description: biz.tagline,
+    telephone: biz.tel,
+    address: { "@type": "PostalAddress", streetAddress: "Mankar Chowk, Kaspatewasti, Wakad", addressLocality: "Pune", addressRegion: "Maharashtra", postalCode: "411057", addressCountry: "IN" },
+    areaServed: biz.areas.map((a) => ({ "@type": "Place", name: a + ", Pune" })),
+    openingHours: "Mo-Sa 09:00-19:00",
+    url: Astro.site?.href,
+  })} />
+</head>
+<body>
+  {!plain && <Header />}
+  <slot />
+  {!plain && <Footer />}
+  {!plain && (
+    <a href={waService} target="_blank" rel="noopener" data-event="whatsapp_click" class="wa-bar" aria-label="WhatsApp for service">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>
+      WhatsApp for service
+    </a>
+  )}
+
+  <script is:inline define:vars={{ API }}>
+    // Click events for ads: whatsapp_click / call_click / price_list_click / product_view.
+    document.addEventListener("click", (e) => {
+      const el = e.target.closest("[data-event]");
+      if (!el) return;
+      const ev = el.getAttribute("data-event");
+      (window.dataLayer = window.dataLayer || []).push({ event: ev, href: el.href });
+      if (window.gtag) window.gtag("event", ev, { href: el.href });
+      if (window.fbq) window.fbq("trackCustom", ev, { href: el.href });
+    });
+
+    // Live charges: whatever the office saved on the dashboard since the last
+    // build. Elements carry data-cfg="service_charge" etc.; prefix/suffix optional.
+    fetch(API + "/api/public/config", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((cfg) => {
+        if (!cfg) return;
+        document.querySelectorAll("[data-cfg]").forEach((el) => {
+          const v = cfg[el.dataset.cfg];
+          if (v === null || v === undefined || v === "") return;
+          el.textContent = (el.dataset.prefix || "") + Number(v).toLocaleString("en-IN") + (el.dataset.suffix || "");
+        });
+      })
+      .catch(() => {});
+  </script>
+</body>
+</html>

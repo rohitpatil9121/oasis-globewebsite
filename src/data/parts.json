@@ -1,0 +1,477 @@
+[
+ {
+  "name": "Oasis spares — fits most purifiers",
+  "rows": [
+   {
+    "part": "3/8 Patti Valve",
+    "fits": "Most purifiers",
+    "price": 250
+   },
+   {
+    "part": "Compact Block",
+    "fits": "Most purifiers",
+    "price": 1050
+   },
+   {
+    "part": "Compact PCB",
+    "fits": "Most purifiers",
+    "price": 2450
+   },
+   {
+    "part": "Cover",
+    "fits": "Most purifiers",
+    "price": 450
+   },
+   {
+    "part": "CTO Carbon Block 10\"",
+    "fits": "Most purifiers",
+    "price": 900
+   },
+   {
+    "part": "Divert Valve 1/4",
+    "fits": "Most purifiers",
+    "price": 100
+   },
+   {
+    "part": "Divert Valve 3/8",
+    "fits": "Most purifiers",
+    "price": 100
+   },
+   {
+    "part": "DV Set",
+    "fits": "Most purifiers",
+    "price": 350
+   },
+   {
+    "part": "Elbow 1/4",
+    "fits": "Most purifiers",
+    "price": 100
+   },
+   {
+    "part": "Elbow 3/8",
+    "fits": "Most purifiers",
+    "price": 100
+   },
+   {
+    "part": "Faucet Tap",
+    "fits": "Most purifiers",
+    "price": 1500
+   },
+   {
+    "part": "GAC Carbon Filter 10\"",
+    "fits": "Most purifiers",
+    "price": 900
+   },
+   {
+    "part": "Hygiene MLT",
+    "fits": "Most purifiers",
+    "price": 499
+   },
+   {
+    "part": "LED Strip",
+    "fits": "Most purifiers",
+    "price": 500
+   },
+   {
+    "part": "MLT",
+    "fits": "Most purifiers",
+    "price": 499
+   },
+   {
+    "part": "Nozzle 1/4",
+    "fits": "Most purifiers",
+    "price": 100
+   },
+   {
+    "part": "Nozzle 3/8",
+    "fits": "Most purifiers",
+    "price": 100
+   },
+   {
+    "part": "Oasis Alkaline",
+    "fits": "Most purifiers",
+    "price": 1299
+   },
+   {
+    "part": "Oasis All filter Kit",
+    "fits": "Most purifiers",
+    "price": 4200
+   },
+   {
+    "part": "Oasis Carbon Filter",
+    "fits": "Most purifiers",
+    "price": 550
+   },
+   {
+    "part": "Oasis elbows/tees/joiners",
+    "fits": "Most purifiers",
+    "price": 30
+   },
+   {
+    "part": "Oasis Float Valve (KT)",
+    "fits": "Most purifiers",
+    "price": 425
+   },
+   {
+    "part": "Oasis Flow Restrictor (FRT)",
+    "fits": "Most purifiers",
+    "price": 250
+   },
+   {
+    "part": "Oasis inlet/feed valve",
+    "fits": "Most purifiers",
+    "price": 350
+   },
+   {
+    "part": "Oasis Mineral cartridge",
+    "fits": "Most purifiers",
+    "price": 549
+   },
+   {
+    "part": "Oasis O-rings/clamps",
+    "fits": "Most purifiers",
+    "price": 50
+   },
+   {
+    "part": "Oasis PP Spun filter",
+    "fits": "Most purifiers",
+    "price": 550
+   },
+   {
+    "part": "Oasis Pump 100GPD 1YR Warranty",
+    "fits": "Most purifiers",
+    "price": 2850
+   },
+   {
+    "part": "Oasis Pump 100GPD 2YR Warranty",
+    "fits": "Most purifiers",
+    "price": 3250
+   },
+   {
+    "part": "Oasis RO Housing",
+    "fits": "Most purifiers",
+    "price": 550
+   },
+   {
+    "part": "Oasis RO Membrane 100 GPD (1 yr warranty)",
+    "fits": "Most purifiers",
+    "price": 2250
+   },
+   {
+    "part": "Oasis RO Membrane 100 GPD + Housing",
+    "fits": "Most purifiers",
+    "price": 2850
+   },
+   {
+    "part": "Oasis RO membranes 100 GPD",
+    "fits": "Most purifiers",
+    "price": 2500
+   },
+   {
+    "part": "Oasis Sediment filter",
+    "fits": "Most purifiers",
+    "price": 550
+   },
+   {
+    "part": "Oasis SMPS",
+    "fits": "Most purifiers",
+    "price": 1299
+   },
+   {
+    "part": "Oasis Solenoid Valve (SV)",
+    "fits": "Most purifiers",
+    "price": 550
+   },
+   {
+    "part": "Oasis TDS Controller",
+    "fits": "Most purifiers",
+    "price": 350
+   },
+   {
+    "part": "Oasis UF 4\"",
+    "fits": "Most purifiers",
+    "price": 750
+   },
+   {
+    "part": "Oasis UF 8\"",
+    "fits": "Most purifiers",
+    "price": 1150
+   },
+   {
+    "part": "Oasis UV Chamber",
+    "fits": "Most purifiers",
+    "price": 850
+   },
+   {
+    "part": "Pipe 1/4 (per metre)",
+    "fits": "Most purifiers",
+    "price": 100
+   },
+   {
+    "part": "Pipe 3/8 (per metre)",
+    "fits": "Most purifiers",
+    "price": 100
+   },
+   {
+    "part": "Pre-Filter Set",
+    "fits": "Most purifiers",
+    "price": 1500
+   },
+   {
+    "part": "Pressure Regulator (PR)",
+    "fits": "Most purifiers",
+    "price": 450
+   },
+   {
+    "part": "PRV 1/4",
+    "fits": "Most purifiers",
+    "price": 850
+   },
+   {
+    "part": "PRV 3/8",
+    "fits": "Most purifiers",
+    "price": 850
+   },
+   {
+    "part": "Tap",
+    "fits": "Most purifiers",
+    "price": 200
+   },
+   {
+    "part": "Teflon Tape",
+    "fits": "Most purifiers",
+    "price": 30
+   }
+  ]
+ },
+ {
+  "name": "Kent spares",
+  "rows": [
+   {
+    "part": "3/8 Patti Valve",
+    "fits": "Kent",
+    "price": 250
+   },
+   {
+    "part": "Kent Ballast",
+    "fits": "Kent",
+    "price": 1175
+   },
+   {
+    "part": "Kent carbon filter",
+    "fits": "Kent",
+    "price": 650
+   },
+   {
+    "part": "Kent CC Ballast (200021)",
+    "fits": "Kent",
+    "price": 1100
+   },
+   {
+    "part": "Kent float valve",
+    "fits": "Kent",
+    "price": 325
+   },
+   {
+    "part": "Kent Flow Restrictor (FRT)",
+    "fits": "Kent",
+    "price": 325
+   },
+   {
+    "part": "Kent Grand Plus Wire Harness",
+    "fits": "Kent",
+    "price": 450
+   },
+   {
+    "part": "Kent Maxx Tank",
+    "fits": "Kent",
+    "price": 1500
+   },
+   {
+    "part": "Kent Maxx Wire Harness",
+    "fits": "Kent",
+    "price": 450
+   },
+   {
+    "part": "Kent Pearl Tank (old model)",
+    "fits": "Kent",
+    "price": 2500
+   },
+   {
+    "part": "Kent Pearl Wire Harness",
+    "fits": "Kent",
+    "price": 450
+   },
+   {
+    "part": "Kent Post Carbon",
+    "fits": "Kent",
+    "price": 550
+   },
+   {
+    "part": "Kent Post Carbon+Alkaline",
+    "fits": "Kent",
+    "price": 750
+   },
+   {
+    "part": "Kent Post Carbon+Copper",
+    "fits": "Kent",
+    "price": 750
+   },
+   {
+    "part": "Kent PP",
+    "fits": "Kent",
+    "price": 475
+   },
+   {
+    "part": "Kent Pump",
+    "fits": "Kent",
+    "price": 3000
+   },
+   {
+    "part": "Kent RO Ballast(200631)",
+    "fits": "Kent",
+    "price": 1100
+   },
+   {
+    "part": "Kent RO Membrane (200890)",
+    "fits": "Kent",
+    "price": 3100
+   },
+   {
+    "part": "Kent RO membranes",
+    "fits": "Kent",
+    "price": 2950
+   },
+   {
+    "part": "Kent Sediment filter",
+    "fits": "Kent",
+    "price": 650
+   },
+   {
+    "part": "Kent SMPS 2.5A(200016)",
+    "fits": "Kent",
+    "price": 1100
+   },
+   {
+    "part": "Kent Solenoid valve (SV)",
+    "fits": "Kent",
+    "price": 350
+   },
+   {
+    "part": "Kent Tap",
+    "fits": "Kent",
+    "price": 200
+   },
+   {
+    "part": "Kent UF 4\"",
+    "fits": "Kent",
+    "price": 750
+   },
+   {
+    "part": "Kent UF 8\"",
+    "fits": "Kent",
+    "price": 1225
+   },
+   {
+    "part": "Kent Ultra Ballast (200024)",
+    "fits": "Kent",
+    "price": 1200
+   },
+   {
+    "part": "Kent UV Assembly",
+    "fits": "Kent",
+    "price": 975
+   },
+   {
+    "part": "Kent UV lamp",
+    "fits": "Kent",
+    "price": 550
+   },
+   {
+    "part": "Kent-type Solenoid Valve (SV)",
+    "fits": "Kent",
+    "price": 350
+   },
+   {
+    "part": "Multifunctional 24V PCB",
+    "fits": "Kent",
+    "price": 2800
+   },
+   {
+    "part": "Oasis 1/4-inch Tubing (FG)",
+    "fits": "Kent",
+    "price": 150
+   },
+   {
+    "part": "Oasis Flush Valve (DT)",
+    "fits": "Kent",
+    "price": 425
+   },
+   {
+    "part": "Oasis High Pressure Switch (HPS)",
+    "fits": "Kent",
+    "price": 400
+   },
+   {
+    "part": "Oasis Low Pressure Switch (LPS)",
+    "fits": "Kent",
+    "price": 400
+   },
+   {
+    "part": "Oasis Non-return valve (NRV)",
+    "fits": "Kent",
+    "price": 250
+   },
+   {
+    "part": "Oasis Wire Harness",
+    "fits": "Kent",
+    "price": 450
+   },
+   {
+    "part": "Sensor",
+    "fits": "Kent",
+    "price": 350
+   },
+   {
+    "part": "UV Tube 11W",
+    "fits": "Kent",
+    "price": 550
+   },
+   {
+    "part": "UV Tube 4W",
+    "fits": "Kent",
+    "price": 550
+   },
+   {
+    "part": "UV Tube 8W",
+    "fits": "Kent",
+    "price": 550
+   }
+  ]
+ },
+ {
+  "name": "Aquaguard spares",
+  "rows": [
+   {
+    "part": "AG Crystal NXT UV+EA Kit (Combi Kit)",
+    "fits": "Aquaguard",
+    "price": 1840
+   },
+   {
+    "part": "AG Sure From Champ RO Kit(Nano Kit)",
+    "fits": "Aquaguard",
+    "price": 2450
+   },
+   {
+    "part": "AG Universal RO Kit With Ac 4Ea (Nano Kit)",
+    "fits": "Aquaguard",
+    "price": 4499
+   },
+   {
+    "part": "AQ Enhance RO Kit",
+    "fits": "Aquaguard",
+    "price": 3999
+   }
+  ]
+ }
+]
