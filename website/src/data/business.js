@@ -3,6 +3,10 @@
 // (Settings) through /api/public/config, see src/lib/config.js.
 // `confirmed: false` on an item means the owner has not verified it yet.
 
+// Root-relative paths must carry Astro's base (GitHub Pages serves the site
+// under /oasis-globewebsite/ until the domain is attached).
+export const href = (path) => import.meta.env.BASE_URL.replace(/\/$/, "") + path;
+
 export const API = "https://oasis-service-automation.onrender.com";
 
 export const biz = {

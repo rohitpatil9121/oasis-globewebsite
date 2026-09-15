@@ -1,6 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
-import { biz, wa, msgs, services, trust, steps, faq } from "../data/business.js";
+import { biz, wa, msgs, services, trust, steps, faq, href } from "../data/business.js";
 import { getConfig, rupee } from "../lib/config.js";
 import products from "../data/products.json";
 import parts from "../data/parts.json";
@@ -28,7 +28,7 @@ const priceOf = (s) => (s.priceKey && cfg[s.priceKey] != null) ? rupee(cfg[s.pri
         <a href={tel} data-event="call_click" class="btn btn-outline">Call</a>
       </div>
     </div>
-    <div class="hero-img"><Pic src="/images/hero-counter.jpg" alt="Water purifier installed beneath a kitchen counter" width="1067" height="1334" loading="eager" fetchpriority="high" /></div>
+    <div class="hero-img"><Pic src={href("/images/hero-counter.jpg")} alt="Water purifier installed beneath a kitchen counter" width="1067" height="1334" loading="eager" fetchpriority="high" /></div>
   </section>
   <p class="wrap tagline">Local service · Clear pricing · Direct WhatsApp</p>
 
@@ -64,9 +64,9 @@ const priceOf = (s) => (s.priceKey && cfg[s.priceKey] != null) ? rupee(cfg[s.pri
       <div>
         <h2 id="price-h" class="h-lg" style="margin-bottom:24px">Know the price.<br />Then decide.</h2>
         <p class="sub" style="margin-bottom:40px;max-width:460px">Every spare part has a listed price. The estimate you approve on WhatsApp is what you pay.</p>
-        <a href="/price-list/" data-event="price_list_click" class="btn btn-ink" style="height:50px;padding:0 24px;font-size:15px;border-radius:9px">View spare-parts price list <span aria-hidden="true">→</span></a>
+        <a href={href("/price-list/")} data-event="price_list_click" class="btn btn-ink" style="height:50px;padding:0 24px;font-size:15px;border-radius:9px">View spare-parts price list <span aria-hidden="true">→</span></a>
       </div>
-      <a href="/price-list/" class="pricecard" aria-label="Open spare-parts price list">
+      <a href={href("/price-list/")} class="pricecard" aria-label="Open spare-parts price list">
         <div>
           <div class="meta"><span>Oasis Globe</span><span>Spare parts · {new Date().getFullYear()}</span></div>
           <p class="title">Spare-parts<br />price list</p>
@@ -103,13 +103,13 @@ const priceOf = (s) => (s.priceKey && cfg[s.priceKey] != null) ? rupee(cfg[s.pri
       <div class="products">
         {products.map((p) => (
           <article class="product">
-            <a href={`/purifiers/${p.slug}/`} data-event="product_view" class="img"><Pic src={p.image} alt={`${p.brand} ${p.model}`} width="600" height="600" /></a>
+            <a href={href(`/purifiers/${p.slug}/`)} data-event="product_view" class="img"><Pic src={p.image} alt={`${p.brand} ${p.model}`} width="600" height="600" /></a>
             <div class="body">
               <span class="brand-tag">{p.brand}</span>
-              <h3><a href={`/purifiers/${p.slug}/`}>{p.model}</a></h3>
+              <h3><a href={href(`/purifiers/${p.slug}/`)}>{p.model}</a></h3>
               <p class="p">{rupee(p.price)}</p>
               <p class="s">{p.spec}</p>
-              <a href={`/purifiers/${p.slug}/`} data-event="product_view" class="link">View details <span aria-hidden="true">→</span></a>
+              <a href={href(`/purifiers/${p.slug}/`)} data-event="product_view" class="link">View details <span aria-hidden="true">→</span></a>
             </div>
           </article>
         ))}
