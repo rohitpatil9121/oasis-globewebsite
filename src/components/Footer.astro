@@ -1,18 +1,18 @@
 ---
-import { biz } from "../data/business.js";
-const home = Astro.url.pathname === "/" ? "" : "/";
+import { biz, href } from "../data/business.js";
+const home = Astro.url.pathname === import.meta.env.BASE_URL ? "" : href("/");
 ---
 <footer class="site-footer">
   <div class="wrap">
     <div class="top">
       <div>
-        <a href="/" class="brand" style="margin-bottom:12px"><img src="/images/logo.png" alt="Oasis Globe" width="390" height="144" class="logo" /></a>
+        <a href={href("/")} class="brand" style="margin-bottom:12px"><img src={href("/images/logo.png")} alt="Oasis Globe" width="390" height="144" class="logo" /></a>
         <p class="tag">{biz.tagline}</p>
       </div>
       <div class="links">
         <a href={home + "#services"}>Services</a>
         <a href={home + "#purifiers"}>Purifiers</a>
-        <a href="/price-list/">Price list</a>
+        <a href={href("/price-list/")}>Price list</a>
         <a href={home + "#contact"}>Contact</a>
       </div>
     </div>
