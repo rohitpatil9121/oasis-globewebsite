@@ -41,7 +41,9 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
 .site-header { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
 .site-header nav { height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 17px; letter-spacing: -.01em; white-space: nowrap; min-height: 44px; }
-.brand .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); display: inline-block; }
+.brand .logo { height: 48px; width: auto; }
+.site-footer .brand .logo { height: 36px; }
+.pl .brand .logo { height: 44px; }
 .nav-links { display: flex; gap: 24px; font-size: 15px; font-weight: 500; }
 .nav-links a { padding: 10px 6px; }
 .nav-links a:hover { color: var(--muted); }
@@ -188,6 +190,7 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
 @media (max-width: 760px) {
   :root { --pad: 20px; }
   .site-header nav { height: 60px; }
+  .brand .logo { height: 36px; }
   .section { padding: 80px 0; }
   .section-tight { padding: 0 0 80px; }
   .head { margin-bottom: 40px; }
