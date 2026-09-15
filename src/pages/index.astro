@@ -4,6 +4,7 @@ import { biz, wa, msgs, services, trust, steps, faq } from "../data/business.js"
 import { getConfig, rupee } from "../lib/config.js";
 import products from "../data/products.json";
 import parts from "../data/parts.json";
+import Pic from "../components/Pic.astro";
 
 const cfg = await getConfig();
 const waService = wa(msgs.service);
@@ -27,7 +28,7 @@ const priceOf = (s) => (s.priceKey && cfg[s.priceKey] != null) ? rupee(cfg[s.pri
         <a href={tel} data-event="call_click" class="btn btn-outline">Call</a>
       </div>
     </div>
-    <div class="hero-img"><img src="/images/hero-counter.png" alt="Water purifier installed beneath a kitchen counter" width="800" height="1000" loading="eager" /></div>
+    <div class="hero-img"><Pic src="/images/hero-counter.jpg" alt="Water purifier installed beneath a kitchen counter" width="1067" height="1334" loading="eager" fetchpriority="high" /></div>
   </section>
   <p class="wrap tagline">Local service · Clear pricing · Direct WhatsApp</p>
 
@@ -102,7 +103,7 @@ const priceOf = (s) => (s.priceKey && cfg[s.priceKey] != null) ? rupee(cfg[s.pri
       <div class="products">
         {products.map((p) => (
           <article class="product">
-            <a href={`/purifiers/${p.slug}/`} data-event="product_view" class="img"><img src={p.image} alt={`${p.brand} ${p.model}`} width="600" height="600" loading="lazy" /></a>
+            <a href={`/purifiers/${p.slug}/`} data-event="product_view" class="img"><Pic src={p.image} alt={`${p.brand} ${p.model}`} width="600" height="600" /></a>
             <div class="body">
               <span class="brand-tag">{p.brand}</span>
               <h3><a href={`/purifiers/${p.slug}/`}>{p.model}</a></h3>
