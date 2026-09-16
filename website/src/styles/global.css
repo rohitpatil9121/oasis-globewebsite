@@ -215,7 +215,7 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
   .steps .n { margin: 0; padding-top: 5px; }
   .steps .n span:last-child { display: none; }
   .steps h3 { font-size: 21px; margin-bottom: 4px; }
-  .brands { gap: 14px 28px; padding: 24px 0; }
+  .brands { justify-content: flex-start; gap: 16px 32px; padding: 24px 0; }
   .brands li { font-size: 16px; letter-spacing: .14em; }
   .areas { gap: 0 24px; }
   .areas li { font-size: 18px; padding: 14px 0; }
