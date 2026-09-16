@@ -49,6 +49,29 @@ const waService = wa(msgs.service);
     </a>
   )}
 
+  <script is:inline>
+    // Reveal-on-scroll: blocks fade/rise in the first time they come into
+    // view. Plain rect checks on scroll — no IntersectionObserver — so it
+    // cannot leave anything hidden if the observer never fires (background
+    // tab, embedded views, odd browsers). Siblings stagger by 60ms.
+    document.documentElement.classList.add("js");
+    const SEL = ".trust .wrap > div, .card, .steps li, .brands li, .product, .areas li, .faq details, .head, .grid-2 > *, .cta .wrap, .pl section";
+    let pending = [...document.querySelectorAll(SEL)];
+    pending.forEach((el) => { el.classList.add("reveal"); const i = [...el.parentElement.children].indexOf(el); el.style.setProperty("--d", Math.min(i, 5) * 60 + "ms"); });
+    let ticking = false;
+    const check = () => {
+      ticking = false;
+      const limit = innerHeight * 0.94;
+      pending = pending.filter((el) => { if (el.getBoundingClientRect().top < limit) { el.classList.add("in"); return false; } return true; });
+      if (!pending.length) { removeEventListener("scroll", onScroll); removeEventListener("resize", onScroll); }
+    };
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(check); } };
+    addEventListener("scroll", onScroll, { passive: true });
+    addEventListener("resize", onScroll);
+    check();
+    // Safety net: whatever is still pending 4 s after load is shown anyway.
+    setTimeout(() => pending.forEach((el) => el.classList.add("in")), 4000);
+  </script>
   <script is:inline define:vars={{ API }}>
     // Click events for ads: whatsapp_click / call_click / price_list_click / product_view.
     document.addEventListener("click", (e) => {
