@@ -15,7 +15,7 @@ const others = products.filter((x) => x.slug !== p.slug).map((x) => x.image);
 ---
 <Base title={`${name} — ${rupee(p.price)} | Oasis Globe`} description={`${name}: ${p.spec}. Price, specifications and installation in Pune. Ask on WhatsApp.`}>
 <main class="wrap">
-  <a href={href("/#purifiers")} class="back"><span aria-hidden="true">←</span> All purifiers</a>
+  <a href={href("/purifiers/")} class="back"><span aria-hidden="true">←</span> All purifiers</a>
   <article class="pdp">
     <div class="gallery">
       <div class="main"><Pic src={p.image} alt={name} width="800" height="800" loading="eager" fetchpriority="high" /></div>

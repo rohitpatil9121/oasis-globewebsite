@@ -29,7 +29,7 @@ const warranty = [
       <p class="sub" style="font-size:16px;max-width:520px">
         Genuine and compatible parts for the brands we service. Prices include GST.
         Service visit <strong data-cfg="service_charge" data-prefix="₹">{rupee(cfg.service_charge)}</strong>;
-        labour is told to you on WhatsApp before work begins.
+        the technician tells you the part price before fitting.
         {warranty && <> Warranty: {warranty}, written on the bill.</>}
       </p>
     </div>
@@ -45,7 +45,7 @@ const warranty = [
     ))}
 
     <footer>
-      <p>Parts are replaced only after you approve the estimate on WhatsApp. Prices may change with supplier rates; the estimate you approve is the price you pay.</p>
+      <p>The technician tells you the part price before fitting it. Prices may change with supplier rates; the price on the bill is the listed price on the day.</p>
       <address>{biz.address}<br />{biz.phone}</address>
     </footer>
   </article>
