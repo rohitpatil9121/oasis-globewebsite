@@ -13,7 +13,14 @@ a:hover { color: var(--accent); }
 button { font-family: inherit; }
 img { max-width: 100%; display: block; }
 *:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } html { scroll-behavior: auto; } }
+/* Scroll reveal: blocks rise 14px and fade in once, the first time they enter
+   the viewport. Only when JS marks the page (html.js), so without JS — or
+   with reduced motion — everything is simply visible. */
+html.js .reveal { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; transition-delay: var(--d, 0ms); }
+html.js .reveal.in { opacity: 1; transform: none; }
+.hero-img { animation: fade-in .7s ease both; }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } html.js .reveal { opacity: 1; transform: none; } html { scroll-behavior: auto; } }
 
 .wrap { max-width: var(--max); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
 .eyebrow { margin: 0 0 24px; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
