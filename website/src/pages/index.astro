@@ -64,7 +64,7 @@ const priceOf = (s) => (s.priceKey && cfg[s.priceKey] != null) ? rupee(cfg[s.pri
       {steps.map((st, i) => (
         <li>
           <div class="n"><span>{st.n}</span><span aria-hidden="true">{i < steps.length - 1 ? "→" : ""}</span></div>
-          <h3>{st.title}</h3><p>{st.body}</p>
+          <div><h3>{st.title}</h3><p>{st.body}</p></div>
         </li>
       ))}
     </ol>
