@@ -72,7 +72,7 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
 
 .trust { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .trust .wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-.trust div { padding: 40px 32px; border-left: 1px solid var(--line); }
+.trust .wrap > div { padding: 40px 32px; border-left: 1px solid var(--line); }
 .trust h3 { margin: 0 0 8px; font-size: 16px; letter-spacing: -.01em; }
 .trust p { margin: 0; font-size: 15px; line-height: 1.55; color: var(--muted); }
 
@@ -205,8 +205,9 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
   .tagline { padding-block: 28px 0; line-height: 1.8; }
   .hero-copy .btn-row .btn { flex: 1; }
   .trust .wrap { grid-template-columns: 1fr; }
-  .trust div { padding: 22px 0; border-left: 0; border-bottom: 1px solid var(--line); }
-  .trust div:last-child { border-bottom: 0; }
+  .trust .wrap > div { padding: 28px 0; border-left: 0; border-bottom: 1px solid var(--line); }
+  .trust .wrap > div:last-child { border-bottom: 0; }
+  .trust p { font-size: 15px; line-height: 1.6; }
   .trust h3 { font-size: 17px; }
   .card { padding: 26px 24px; }
   .card h3 { font-size: 22px; }
