@@ -2,15 +2,11 @@
 import Base from "../layouts/Base.astro";
 import { biz, wa, msgs, services, trust, steps, faq, href } from "../data/business.js";
 import { getConfig, rupee } from "../lib/config.js";
-import products from "../data/products.json";
-import parts from "../data/parts.json";
 import Pic from "../components/Pic.astro";
 
 const cfg = await getConfig();
 const waService = wa(msgs.service);
 const tel = `tel:${biz.tel}`;
-const priceSample = parts.find((g) => g.name.startsWith("Oasis"))?.rows
-  .filter((r) => /Sediment|Carbon Filter|RO membranes|UV Chamber|SMPS|Pump 100GPD 1YR/i.test(r.part)).slice(0, 6) || [];
 const faqs = faq(cfg);
 
 // A service card's price: live figure from settings when it has one, else the text.
@@ -22,7 +18,7 @@ const priceOf = (s) => (s.priceKey && cfg[s.priceKey] != null) ? rupee(cfg[s.pri
     <div class="hero-copy">
       <p class="eyebrow">Water purifier service • Pune</p>
       <h1 id="hero-h" class="h-xl">Water purifier service. Done properly.</h1>
-      <p class="lead">Transparent pricing and an exact estimate on WhatsApp before work begins.</p>
+      <p class="lead">Repair, installation and filter change across Pune. Fixed visit charge, genuine parts at listed prices.</p>
       <div class="btn-row">
         <a href={waService} target="_blank" rel="noopener" data-event="whatsapp_click" class="btn btn-primary">WhatsApp us</a>
         <a href={tel} data-event="call_click" class="btn btn-outline">Call</a>
@@ -41,7 +37,7 @@ const priceOf = (s) => (s.priceKey && cfg[s.priceKey] != null) ? rupee(cfg[s.pri
   <section id="services" class="wrap section" aria-labelledby="services-h">
     <div class="head">
       <h2 id="services-h" class="h-md">Services, without the guesswork.</h2>
-      <p class="sub">Repair, installation and filter replacement with clear pricing before the work begins.</p>
+      <p class="sub">Repair, installation and filter replacement. Fixed visit charge, parts at listed prices.</p>
     </div>
     <div class="cards">
       {services.map((s) => (
@@ -53,27 +49,12 @@ const priceOf = (s) => (s.priceKey && cfg[s.priceKey] != null) ? rupee(cfg[s.pri
               : <span class="price">{priceOf(s)}</span>}
           </div>
           <p>{s.body}</p>
-          <a href={wa(s.msg)} target="_blank" rel="noopener" data-event="whatsapp_click" class="link">WhatsApp <span aria-hidden="true">→</span></a>
+          <div class="btn-row" style="gap:20px">
+            <a href={wa(s.msg)} target="_blank" rel="noopener" data-event="whatsapp_click" class="link">WhatsApp <span aria-hidden="true">→</span></a>
+            {s.link && <a href={href(s.link.href)} data-event="price_list_click" class="link" style="color:var(--muted)">{s.link.text} <span aria-hidden="true">→</span></a>}
+          </div>
         </article>
       ))}
-    </div>
-  </section>
-
-  <section class="alt" aria-labelledby="price-h">
-    <div class="wrap section grid-2">
-      <div>
-        <h2 id="price-h" class="h-lg" style="margin-bottom:24px">Know the price.<br />Then decide.</h2>
-        <p class="sub" style="margin-bottom:40px;max-width:460px">Every spare part has a listed price. The estimate you approve on WhatsApp is what you pay.</p>
-        <a href={href("/price-list/")} data-event="price_list_click" class="btn btn-ink" style="height:50px;padding:0 24px;font-size:15px;border-radius:9px">View spare-parts price list <span aria-hidden="true">→</span></a>
-      </div>
-      <a href={href("/price-list/")} class="pricecard" aria-label="Open spare-parts price list">
-        <div>
-          <div class="meta"><span>Oasis Globe</span><span>Spare parts · {new Date().getFullYear()}</span></div>
-          <p class="title">Spare-parts<br />price list</p>
-          <div class="rows">{priceSample.map((r) => <div><span>{r.part}</span><span>{rupee(r.price)}</span></div>)}</div>
-          <p class="foot">Prices include GST. Labour told to you before work starts.</p>
-        </div>
-      </a>
     </div>
   </section>
 
@@ -95,25 +76,13 @@ const priceOf = (s) => (s.priceKey && cfg[s.priceKey] != null) ? rupee(cfg[s.pri
   </section>
 
   <section id="purifiers" class="alt" aria-labelledby="prod-h">
-    <div class="wrap section">
-      <div class="head">
-        <h2 id="prod-h" class="h-md">Looking for a new purifier?</h2>
-        <p class="sub">Compare models, prices and specifications before you buy.</p>
+    <div class="wrap section grid-2">
+      <div>
+        <h2 id="prod-h" class="h-md" style="margin-bottom:20px">Looking for a new purifier?</h2>
+        <p class="sub" style="margin-bottom:32px;max-width:460px">Kent, Aquaguard, Livpure and Oasis models with price and specifications, installed by us.</p>
+        <a href={href("/purifiers/")} data-event="product_view" class="btn btn-ink" style="height:50px;padding:0 24px;font-size:15px;border-radius:9px">See purifiers <span aria-hidden="true">→</span></a>
       </div>
-      <div class="products">
-        {products.map((p) => (
-          <article class="product">
-            <a href={href(`/purifiers/${p.slug}/`)} data-event="product_view" class="img"><Pic src={p.image} alt={`${p.brand} ${p.model}`} width="600" height="600" /></a>
-            <div class="body">
-              <span class="brand-tag">{p.brand}</span>
-              <h3><a href={href(`/purifiers/${p.slug}/`)}>{p.model}</a></h3>
-              <p class="p">{rupee(p.price)}</p>
-              <p class="s">{p.spec}</p>
-              <a href={href(`/purifiers/${p.slug}/`)} data-event="product_view" class="link">View details <span aria-hidden="true">→</span></a>
-            </div>
-          </article>
-        ))}
-      </div>
+      <a href={href("/purifiers/")} class="img-link" aria-label="See purifiers"><Pic src="/images/ro-home.jpg" alt="RO purifier" width="800" height="533" /></a>
     </div>
   </section>
 

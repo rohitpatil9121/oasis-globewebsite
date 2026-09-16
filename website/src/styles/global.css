@@ -55,20 +55,20 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
 .mobile-menu a:last-child { border-bottom: 0; }
 
 /* sections */
-.section { padding: 150px 0; }
-.section-tight { padding: 0 0 150px; }
+.section { padding-block: 150px; }
+.section-tight { padding-block: 0 150px; }
 .alt { background: var(--bg-alt); }
 .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 64px; align-items: center; }
 .head { max-width: 640px; margin-bottom: 72px; }
 .head h2 { margin-bottom: 20px; }
 
-.hero { padding: 72px 0 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr)); gap: 64px; align-items: center; }
+.hero { padding-block: 72px 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr)); gap: 64px; align-items: center; }
 .hero-copy { max-width: 560px; }
 .hero-copy h1 { margin-bottom: 28px; }
 .hero-copy .lead { margin-bottom: 40px; max-width: 480px; }
 .hero-img { aspect-ratio: 4/5; max-height: 680px; width: 100%; overflow: hidden; border-radius: 14px; background: var(--bg-alt); }
 .hero-img picture, .hero-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.tagline { padding: 0 0 80px; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.tagline { padding-block: 0 80px; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 
 .trust { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .trust .wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
@@ -103,6 +103,8 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
 .brands { list-style: none; margin: 0; padding: 36px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px 48px; }
 .brands li { font-size: 22px; font-weight: 500; letter-spacing: .16em; color: var(--body); }
 
+.img-link { display: block; border-radius: 14px; overflow: hidden; aspect-ratio: 3/2; background: var(--bg-alt); }
+.img-link picture, .img-link img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
 .product { background: var(--bg); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; transition: border-color .2s ease; }
 .product:hover { border-color: var(--faint); }
@@ -126,7 +128,7 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
 .faq details[open] summary::after { content: "–"; }
 .faq details p { margin: 0; padding: 0 48px 28px 0; font-size: 16px; line-height: 1.65; color: var(--muted); text-wrap: pretty; }
 
-.cta { border-top: 1px solid var(--line); background: linear-gradient(180deg, var(--bg) 0%, #F0F9FF 100%); text-align: center; padding: 180px 0; }
+.cta { border-top: 1px solid var(--line); background: linear-gradient(180deg, var(--bg) 0%, #F0F9FF 100%); text-align: center; padding-block: 180px; }
 .cta h2 { margin-bottom: 24px; font-size: clamp(44px, 6vw, 88px); letter-spacing: -.04em; line-height: 1; }
 .cta .lead { margin: 0 auto 48px; max-width: 420px; }
 .cta .btn-row { justify-content: center; }
@@ -145,7 +147,7 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
 .wa-bar { display: none; }
 
 /* product page */
-.pdp { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr)); gap: 80px; align-items: start; padding: 48px 0 150px; }
+.pdp { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr)); gap: 80px; align-items: start; padding-block: 48px 150px; }
 .pdp .gallery { display: grid; gap: 16px; }
 .pdp .main { aspect-ratio: 1/1; background: var(--bg-alt); border-radius: 14px; overflow: hidden; }
 .pdp picture, .pdp .main img, .pdp .thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -191,19 +193,21 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
   :root { --pad: 20px; }
   .site-header nav { height: 60px; }
   .brand .logo { height: 36px; }
-  .section { padding: 80px 0; }
-  .section-tight { padding: 0 0 80px; }
+  .section { padding-block: 80px; }
+  .section-tight { padding-block: 0 80px; }
   .head { margin-bottom: 40px; }
-  .hero { padding: 56px 0 0; gap: 32px; }
+  .hero { padding-block: 56px 0; gap: 32px; }
   .h-xl { font-size: 46px; }
   .h-lg { font-size: 40px; }
   .h-md { font-size: 36px; }
   .lead { font-size: 17px; }
   .sub { font-size: 17px; }
-  .tagline { padding: 28px 0 0; line-height: 1.8; }
+  .tagline { padding-block: 28px 0; line-height: 1.8; }
   .hero-copy .btn-row .btn { flex: 1; }
-  .trust .wrap { grid-template-columns: 1fr 1fr; }
-  .trust div { padding: 24px 16px 24px 0; border-left: 0; border-bottom: 1px solid var(--line); }
+  .trust .wrap { grid-template-columns: 1fr; }
+  .trust div { padding: 22px 0; border-left: 0; border-bottom: 1px solid var(--line); }
+  .trust div:last-child { border-bottom: 0; }
+  .trust h3 { font-size: 17px; }
   .card { padding: 26px 24px; }
   .card h3 { font-size: 22px; }
   .steps { grid-template-columns: 1fr; }
@@ -217,7 +221,7 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
   .areas li { font-size: 18px; padding: 14px 0; }
   .faq summary { font-size: 17px; padding: 20px 0; line-height: 1.35; }
   .faq details p { padding: 0 40px 22px 0; font-size: 15px; }
-  .cta { padding: 96px 0; }
+  .cta { padding-block: 96px; }
   .cta .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .cta .btn { height: 52px; padding: 0; }
   .site-footer .wrap { padding-top: 40px; gap: 32px; }
@@ -225,7 +229,7 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
   body { padding-bottom: 60px; }
   .wa-bar { position: fixed; left: 0; right: 0; bottom: 0; height: 60px; display: flex; align-items: center; justify-content: center; gap: 10px; background: var(--accent); color: var(--on-accent); font-size: 16px; font-weight: 500; z-index: 30; }
   .wa-bar:hover { background: var(--accent-dark); color: var(--on-accent); }
-  .pdp { gap: 32px; padding: 24px 0 80px; }
+  .pdp { gap: 32px; padding-block: 24px 80px; }
   .pdp .info { position: static; }
   .pl { padding: 32px 20px; margin: 20px auto 40px; }
   .pl td:nth-child(2) { display: none; }

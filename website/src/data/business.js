@@ -29,7 +29,6 @@ export const msgs = {
   service: "Hi, I need water purifier service. Please share the visit charge and availability.",
   install: "Hi, I need water purifier installation. Please share the price and availability.",
   filter: "Hi, I need a filter service for my water purifier. Please share the price and availability.",
-  amc: "Hi, I would like to know about your AMC plans.",
   price: "Hi, I have a question about the spare-parts price list.",
   product: (name) => `Hi, I am interested in ${name}. Please share the details.`,
 };
@@ -39,31 +38,30 @@ export const wa = (msg) => `https://wa.me/${biz.wa}?text=${encodeURIComponent(ms
 // Service cards. `priceKey` reads the live figure from config; `priceText`
 // is used when the office has no fixed figure (installation varies by lead).
 export const services = [
-  { name: "Repair / Service", priceKey: "service_charge", body: "A technician visits, checks the purifier and tells you what is wrong. The exact estimate comes on WhatsApp before any work.", msg: msgs.service },
+  { name: "Repair / Service", priceKey: "service_charge", body: "A technician visits, checks the purifier and fixes the problem. Any part needed is charged at the listed price — the technician tells you before fitting it.", msg: msgs.service },
   { name: "Installation", priceKey: "installation_charge", priceText: "from ₹250", body: "New purifier fitted, wall or under-counter, with a leak check before we leave.", msg: msgs.install },
-  { name: "Filter change", priceText: "Parts at list price", body: "Sediment, carbon, membrane or UV — replaced with genuine parts at the prices on our list. No hidden labour.", msg: msgs.filter },
-  { name: "AMC", priceText: "Ask on WhatsApp", body: "Annual maintenance with scheduled filter checks and priority visits.", msg: msgs.amc },
+  { name: "Filter change", priceText: "Parts at list price", body: "Sediment, carbon, membrane or UV — replaced with genuine parts at the prices on our list. No hidden labour.", msg: msgs.filter, link: { text: "See the price list", href: "/price-list/" } },
 ];
 
 export const trust = [
-  { title: "Price before work", body: "The exact estimate on WhatsApp. Work starts only after you approve." },
+  { title: "Quick response", body: "Reply on WhatsApp within minutes. Same-day visits across our Pune service area." },
   { title: "Direct WhatsApp", body: "You talk to our team, not a call centre." },
-  { title: "Same local technician", body: "A Pune team you can call back." },
+  { title: "Same local technician", body: "A Pune team you can call back, not a stranger every visit." },
   { title: "Written warranty", body: "Stated on the bill, every job." },
 ];
 
 export const steps = [
-  { n: "01", title: "WhatsApp", body: "Tell us what is wrong." },
-  { n: "02", title: "Estimate", body: "Technician sends the exact price." },
-  { n: "03", title: "Approve", body: "Say yes on WhatsApp." },
-  { n: "04", title: "Service", body: "Work done, warranty on the bill." },
+  { n: "01", title: "WhatsApp", body: "Tell us what is wrong and where you are." },
+  { n: "02", title: "Visit", body: "A technician comes the same day where possible." },
+  { n: "03", title: "Repair", body: "Fixed on the spot. Parts at listed prices, told to you before fitting." },
+  { n: "04", title: "Warranty", body: "Written on the bill. Call us back if the problem returns." },
 ];
 
 // FAQ answers that quote a charge are built in the page from live config.
 export const faq = (cfg) => [
   { q: "What is the visit charge?", a: `₹${cfg.service_charge} for a service visit within our area. If you go ahead with the repair, the technician's estimate covers everything — no separate visit fee on top.` },
   { q: "Which brands do you service?", a: "Kent, Aquaguard, Pureit, Livpure and Oasis. If your brand is not listed, message us and we will confirm." },
-  { q: "Will I know the price before the repair?", a: "Yes. After checking the purifier the technician sends a written estimate on WhatsApp. Work starts only after you approve it." },
+  { q: "How much will the repair cost?", a: `The visit is ₹${cfg.service_charge}. If a part is needed it is charged at the price on our spare-parts list, and the technician tells you the amount before fitting it.` },
   { q: "What if the spare part is not available?", a: "We tell you the expected time and come back to fit it. You pay for the part only when it is installed." },
   { q: "What warranty do you give?", a: cfg.warranty_repair_days
       ? `${cfg.warranty_repair_days} days on repair work and ${cfg.warranty_install_days || cfg.warranty_repair_days} days on installation, written on the bill. Branded parts carry the manufacturer's warranty.`
