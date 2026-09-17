@@ -84,8 +84,15 @@ const priceOf = (s) => (s.priceKey && cfg[s.priceKey] != null) ? rupee(cfg[s.pri
   </section>
 
   <section class="wrap section-tight" aria-labelledby="brands-h">
-    <h2 id="brands-h" class="h-md" style="margin-bottom:48px">Brands we service.</h2>
-    <ul class="brands">{biz.brands.map((b) => <li>{b}</li>)}</ul>
+    <h2 id="brands-h" class="h-md" style="margin-bottom:16px">We service all major brands.</h2>
+    <p class="sub" style="margin-bottom:40px">If your purifier is not listed, message us and we will confirm.</p>
+    <ul class="brand-tiles">
+      {biz.brandTiles.map((b) => (
+        <li>{b.logo
+          ? <img src={href(b.logo)} alt={b.name} loading="lazy" />
+          : <span style={`color:${b.color};${b.style}`}>{b.name}</span>}</li>
+      ))}
+    </ul>
   </section>
 
   <section id="purifiers" class="alt" aria-labelledby="prod-h">
