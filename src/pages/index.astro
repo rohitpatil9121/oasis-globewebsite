@@ -18,7 +18,7 @@ const priceOf = (s) => (s.priceKey && cfg[s.priceKey] != null) ? rupee(cfg[s.pri
     <div class="hero-copy">
       <p class="eyebrow">Water purifier service • Pune</p>
       <h1 id="hero-h" class="h-xl">Water purifier service. Done properly.</h1>
-      <p class="lead">Repair, installation and filter change across Pune. Fixed visit charge, genuine parts at listed prices.</p>
+      <p class="lead">Repair, installation and filter change across Pune. Pay only after the work is done.</p>
       <div class="btn-row">
         <a href={waService} target="_blank" rel="noopener" data-event="whatsapp_click" class="btn btn-primary">WhatsApp us</a>
         <a href={tel} data-event="call_click" class="btn btn-outline">Call</a>
@@ -26,11 +26,12 @@ const priceOf = (s) => (s.priceKey && cfg[s.priceKey] != null) ? rupee(cfg[s.pri
     </div>
     <div class="hero-img"><Pic src="/images/hero-counter.jpg" alt="Water purifier installed beneath a kitchen counter" width="1067" height="1334" loading="eager" fetchpriority="high" /></div>
   </section>
-  <p class="wrap tagline">Local service · Clear pricing · Direct WhatsApp</p>
+  <p class="wrap tagline">Pay after service · Free revisit · Our own technicians</p>
 
-  <section class="trust" aria-label="Why Oasis Globe">
-    <div class="wrap">
-      {trust.map((t) => <div><h3>{t.title}</h3><p>{t.body}</p></div>)}
+  <section class="trust" aria-labelledby="trust-h">
+    <div class="wrap trust-head"><h2 id="trust-h" class="eyebrow">Our promise</h2></div>
+    <div class="wrap trust-grid">
+      {trust(cfg).map((t, i) => <div><span class="num">0{i + 1}</span><h3>{t.title}</h3><p>{t.body}</p></div>)}
     </div>
   </section>
 
