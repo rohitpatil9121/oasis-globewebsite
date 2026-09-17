@@ -89,7 +89,7 @@ const priceOf = (s) => (s.priceKey && cfg[s.priceKey] != null) ? rupee(cfg[s.pri
     <ul class="brand-tiles">
       {biz.brandTiles.map((b) => (
         <li>{b.logo
-          ? <img src={href(b.logo)} alt={b.name} loading="lazy" />
+          ? <img src={href(b.logo)} alt={b.name} height="40" loading="lazy" decoding="async" />
           : <span style={`color:${b.color};${b.style}`}>{b.name}</span>}</li>
       ))}
     </ul>

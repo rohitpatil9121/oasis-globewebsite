@@ -25,9 +25,9 @@ export const biz = {
   // Drop official logo files in that folder and add `logo: "kent.svg"` etc.
   brandTiles: [
     { name: "Aquaguard", color: "#0B4EA2", style: "font-weight:600;letter-spacing:-.01em" },
-    { name: "KENT", color: "#0057A8", style: "font-weight:700;letter-spacing:.04em" },
-    { name: "pureit", color: "#1B3C8C", style: "font-weight:600;letter-spacing:-.02em" },
-    { name: "livpure", color: "#4B2E83", style: "font-weight:600;letter-spacing:-.02em" },
+    { name: "Kent", logo: "/images/brands/kent.svg" },
+    { name: "Pureit", logo: "/images/brands/pureit.png" },
+    { name: "Livpure", logo: "/images/brands/livpure.png" },
     { name: "Oasis", logo: "/images/logo.png" },
     { name: "& more…", color: "#374151", style: "font-weight:500" },
   ],

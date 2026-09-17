@@ -116,7 +116,7 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
 .jobs figcaption { margin-top: 12px; font-size: 14px; color: var(--muted); }
 .brand-tiles { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
 .brand-tiles li { display: flex; align-items: center; justify-content: center; height: 96px; padding: 0 16px; background: var(--bg-alt); border: 1px solid var(--line); border-radius: 14px; font-size: 22px; text-align: center; }
-.brand-tiles img { max-height: 44px; width: auto; }
+.brand-tiles img { height: 40px; width: auto; max-width: 100%; object-fit: contain; }
 .brands { list-style: none; margin: 0; padding: 36px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px 48px; }
 .brands li { font-size: 22px; font-weight: 500; letter-spacing: .16em; color: var(--body); }
 
@@ -238,7 +238,7 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
   .steps h3 { font-size: 21px; margin-bottom: 4px; }
   .brand-tiles { grid-template-columns: repeat(3, 1fr); gap: 10px; }
   .brand-tiles li { height: 78px; font-size: 17px; padding: 0 8px; border-radius: 12px; }
-  .brand-tiles img { max-height: 34px; }
+  .brand-tiles img { height: 30px; }
   .jobs { grid-template-columns: 1fr 1fr; gap: 12px; }
   .jobs figure:first-child { grid-column: 1 / -1; }
   .jobs figcaption { font-size: 13px; margin-top: 8px; }
