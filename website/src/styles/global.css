@@ -110,6 +110,10 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
 .steps h3 { margin: 0 0 10px; font-size: 24px; letter-spacing: -.02em; }
 .steps p { margin: 0; font-size: 16px; line-height: 1.6; color: var(--muted); }
 
+.jobs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.jobs figure { margin: 0; }
+.jobs picture, .jobs img { display: block; width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 14px; background: var(--bg-alt); }
+.jobs figcaption { margin-top: 12px; font-size: 14px; color: var(--muted); }
 .brands { list-style: none; margin: 0; padding: 36px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px 48px; }
 .brands li { font-size: 22px; font-weight: 500; letter-spacing: .16em; color: var(--body); }
 
@@ -228,6 +232,9 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
   .steps .n { margin: 0; padding-top: 5px; }
   .steps .n span:last-child { display: none; }
   .steps h3 { font-size: 21px; margin-bottom: 4px; }
+  .jobs { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .jobs figure:first-child { grid-column: 1 / -1; }
+  .jobs figcaption { font-size: 13px; margin-top: 8px; }
   .brands { justify-content: flex-start; gap: 16px 32px; padding: 24px 0; }
   .brands li { font-size: 16px; letter-spacing: .14em; }
   .areas { gap: 0 24px; }
