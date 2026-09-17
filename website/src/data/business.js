@@ -51,7 +51,7 @@ export const trust = (cfg = {}) => {
     { title: "Pay after the work is done", body: "No advance. You pay once the purifier is working and you have seen it." },
     { title: `Free revisit within ${days} days`, body: `If the purifier needs repair again within ${days} days of our visit, we come back with no service charge.` },
     { title: "Warranty written on the bill", body: "Every bill says what is covered and for how long. Nothing is left to a verbal promise." },
-    { title: "Our own technicians, no freelancers", body: "Trained in-house staff who fix the actual problem, not replace extra parts to earn more." },
+    { title: "Our own technicians, no freelancers", body: "Trained in-house staff. Their focus is how well your purifier cleans the water, not how many parts they can replace." },
   ];
 };
 
@@ -71,6 +71,6 @@ export const faq = (cfg) => [
   { q: "When do I pay?", a: "After the service is done and you have checked the purifier is working. We do not take an advance." },
   { q: "What if the problem comes back?", a: `If the purifier needs repair again within ${cfg.warranty_repair_days || 10} days of our visit, we come back and there is no service charge. You pay only for a new part if one is needed.` },
   { q: "What warranty do you give?", a: "The warranty is written on your bill: what is covered and for how many days. Branded parts also carry the manufacturer's warranty." },
-  { q: "Who will come to my home?", a: "Our own trained technician. We do not send freelancers. Our technicians are paid to solve your problem, not to sell you more parts." },
+  { q: "Who will come to my home?", a: "Our own trained technician. We do not send freelancers. Their job is to get clean water out of your purifier, not to sell you more parts." },
   { q: "Which areas do you cover?", a: biz.areas.join(", ") + "." },
 ];
