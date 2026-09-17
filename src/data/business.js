@@ -20,6 +20,17 @@ export const biz = {
   address: "Mankar Chowk, Kaspatewasti, Wakad, Pune 411057",
   hours: "Mon–Sat · 9 AM–7 PM",
   brands: ["KENT", "AQUAGUARD", "PUREIT", "LIVPURE", "OASIS"],
+  // Brand tiles on the home page. `logo` (a file in /public/images/brands/)
+  // wins when present; otherwise the name is set in the brand's colour.
+  // Drop official logo files in that folder and add `logo: "kent.svg"` etc.
+  brandTiles: [
+    { name: "Aquaguard", color: "#0B4EA2", style: "font-weight:600;letter-spacing:-.01em" },
+    { name: "KENT", color: "#0057A8", style: "font-weight:700;letter-spacing:.04em" },
+    { name: "pureit", color: "#1B3C8C", style: "font-weight:600;letter-spacing:-.02em" },
+    { name: "livpure", color: "#4B2E83", style: "font-weight:600;letter-spacing:-.02em" },
+    { name: "Oasis", logo: "/images/logo.png" },
+    { name: "& more…", color: "#374151", style: "font-weight:500" },
+  ],
   // TODO confirm service area with Bhushan.
   areas: ["Wakad", "Hinjewadi", "Baner", "Pimple Saudagar", "Pimple Nilakh", "Tathawade", "Balewadi", "PCMC"],
 };
