@@ -55,7 +55,7 @@ const waService = wa(msgs.service);
     // cannot leave anything hidden if the observer never fires (background
     // tab, embedded views, odd browsers). Siblings stagger by 60ms.
     document.documentElement.classList.add("js");
-    const SEL = ".trust .wrap > div, .card, .steps li, .brands li, .product, .areas li, .faq details, .head, .grid-2 > *, .cta .wrap, .pl section";
+    const SEL = ".trust .trust-grid > div, .card, .steps li, .brands li, .product, .areas li, .faq details, .head, .grid-2 > *, .cta .wrap, .pl section";
     let pending = [...document.querySelectorAll(SEL)];
     pending.forEach((el) => { el.classList.add("reveal"); const i = [...el.parentElement.children].indexOf(el); el.style.setProperty("--d", Math.min(i, 5) * 60 + "ms"); });
     let ticking = false;

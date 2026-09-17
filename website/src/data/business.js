@@ -43,18 +43,23 @@ export const services = [
   { name: "Filter change", priceText: "Parts at list price", body: "Sediment, carbon, membrane or UV — replaced with genuine parts at the prices on our list. No hidden labour.", msg: msgs.filter, link: { text: "See the price list", href: "/price-list/" } },
 ];
 
-export const trust = [
-  { title: "Quick response", body: "Reply on WhatsApp within minutes. Same-day visits across our Pune service area." },
-  { title: "Direct WhatsApp", body: "You talk to our team, not a call centre." },
-  { title: "Same local technician", body: "A Pune team you can call back, not a stranger every visit." },
-  { title: "Written warranty", body: "Stated on the bill, every job." },
-];
+// The four promises the owner wants front and centre (17 Sep 2026). The
+// free-revisit window reads the dashboard's repair warranty, default 10 days.
+export const trust = (cfg = {}) => {
+  const days = cfg.warranty_repair_days || 10;
+  return [
+    { title: "Pay after the work is done", body: "No advance. You pay once the purifier is working and you have seen it." },
+    { title: `Free revisit within ${days} days`, body: `If the purifier needs repair again within ${days} days of our visit, we come back with no service charge.` },
+    { title: "Warranty written on the bill", body: "Every bill says what is covered and for how long. Nothing is left to a verbal promise." },
+    { title: "Our own technicians, no freelancers", body: "Trained in-house staff who fix the actual problem, not replace extra parts to earn more." },
+  ];
+};
 
 export const steps = [
   { n: "01", title: "WhatsApp", body: "Tell us what is wrong and where you are." },
   { n: "02", title: "Visit", body: "A technician comes the same day where possible." },
   { n: "03", title: "Repair", body: "Fixed on the spot. Parts at listed prices, told to you before fitting." },
-  { n: "04", title: "Warranty", body: "Written on the bill. Call us back if the problem returns." },
+  { n: "04", title: "Pay", body: "Only after it is working. Warranty is written on your bill." },
 ];
 
 // FAQ answers that quote a charge are built in the page from live config.
@@ -63,8 +68,9 @@ export const faq = (cfg) => [
   { q: "Which brands do you service?", a: "Kent, Aquaguard, Pureit, Livpure and Oasis. If your brand is not listed, message us and we will confirm." },
   { q: "How much will the repair cost?", a: `The visit is ₹${cfg.service_charge}. If a part is needed it is charged at the price on our spare-parts list, and the technician tells you the amount before fitting it.` },
   { q: "What if the spare part is not available?", a: "We tell you the expected time and come back to fit it. You pay for the part only when it is installed." },
-  { q: "What warranty do you give?", a: cfg.warranty_repair_days
-      ? `${cfg.warranty_repair_days} days on repair work and ${cfg.warranty_install_days || cfg.warranty_repair_days} days on installation, written on the bill. Branded parts carry the manufacturer's warranty.`
-      : "Warranty on labour and genuine parts is stated in writing on the bill." },
+  { q: "When do I pay?", a: "After the service is done and you have checked the purifier is working. We do not take an advance." },
+  { q: "What if the problem comes back?", a: `If the purifier needs repair again within ${cfg.warranty_repair_days || 10} days of our visit, we come back and there is no service charge. You pay only for a new part if one is needed.` },
+  { q: "What warranty do you give?", a: "The warranty is written on your bill: what is covered and for how many days. Branded parts also carry the manufacturer's warranty." },
+  { q: "Who will come to my home?", a: "Our own trained technician. We do not send freelancers. Our technicians are paid to solve your problem, not to sell you more parts." },
   { q: "Which areas do you cover?", a: biz.areas.join(", ") + "." },
 ];
