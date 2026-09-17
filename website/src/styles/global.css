@@ -11,7 +11,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: Inter, 
 a { color: inherit; text-decoration: none; }
 a:hover { color: var(--accent); }
 button { font-family: inherit; }
-img { max-width: 100%; display: block; }
+img { max-width: 100%; height: auto; display: block; }
 *:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 /* Scroll reveal: blocks rise 14px and fade in once, the first time they enter
    the viewport. Only when JS marks the page (html.js), so without JS — or
@@ -112,7 +112,8 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
 
 .jobs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .jobs figure { margin: 0; }
-.jobs picture, .jobs img { display: block; width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 14px; background: var(--bg-alt); }
+.jobs picture { display: block; aspect-ratio: 1/1; border-radius: 14px; overflow: hidden; background: var(--bg-alt); }
+.jobs img { width: 100%; height: 100%; object-fit: cover; }
 .jobs figcaption { margin-top: 12px; font-size: 14px; color: var(--muted); }
 .brand-tiles { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
 .brand-tiles li { display: flex; align-items: center; justify-content: center; height: 96px; padding: 0 16px; background: var(--bg-alt); border: 1px solid var(--line); border-radius: 14px; font-size: 22px; text-align: center; }
@@ -215,12 +216,14 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
   .section-tight { padding-block: 0 80px; }
   .head { margin-bottom: 40px; }
   .hero { padding-block: 56px 0; gap: 32px; }
-  .h-xl { font-size: 46px; }
+  .h-xl { font-size: 40px; line-height: 1.06; }
   .h-lg { font-size: 40px; }
   .h-md { font-size: 36px; }
   .lead { font-size: 17px; }
   .sub { font-size: 17px; }
-  .tagline { padding-block: 28px 0; line-height: 1.8; }
+  .tagline { display: none; }
+  .hero { padding-bottom: 48px; }
+  .section-head-gap { margin-bottom: 32px !important; }
   .hero-copy .btn-row .btn { flex: 1; }
   .trust-head { padding-top: 40px; }
   .trust .trust-grid { grid-template-columns: 1fr; padding-bottom: 8px; }
@@ -241,6 +244,7 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
   .brand-tiles img { height: 30px; }
   .jobs { grid-template-columns: 1fr 1fr; gap: 12px; }
   .jobs figure:first-child { grid-column: 1 / -1; }
+  .jobs figure:first-child picture { aspect-ratio: 3/2; }
   .jobs figcaption { font-size: 13px; margin-top: 8px; }
   .brands { justify-content: flex-start; gap: 16px 32px; padding: 24px 0; }
   .brands li { font-size: 16px; letter-spacing: .14em; }
@@ -258,7 +262,9 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
   .wa-bar:hover { background: var(--accent-dark); color: var(--on-accent); }
   .pdp { gap: 32px; padding-block: 24px 80px; }
   .pdp .info { position: static; }
-  .pl { padding: 32px 20px; margin: 20px auto 40px; }
+  .pl { padding: 32px 20px; margin: 20px auto 40px; gap: 32px; }
+  .pl .eff { text-align: left; }
+  .pl footer address { text-align: left; }
   .pl td:nth-child(2) { display: none; }
   .pl th:nth-child(2) { display: none; }
 }
