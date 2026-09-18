@@ -51,7 +51,7 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
 .brand .logo { height: 48px; width: auto; }
 .site-footer .brand .logo { height: 36px; }
 .pl .brand .logo { height: 44px; }
-.nav-links { display: flex; gap: 24px; font-size: 15px; font-weight: 500; }
+.nav-links { display: flex; gap: 20px; font-size: 15px; font-weight: 500; white-space: nowrap; }
 .nav-links a { padding: 10px 6px; }
 .nav-links a:hover { color: var(--muted); }
 .menu-btn { display: none; background: none; border: 0; padding: 12px; margin: -12px; min-height: 44px; min-width: 44px; cursor: pointer; font-size: 14px; font-weight: 500; color: var(--ink); }
@@ -181,6 +181,53 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
 .pdp dd { margin: 0; font-weight: 500; text-align: right; }
 .back { font-size: 14px; font-weight: 500; color: var(--muted); display: inline-flex; gap: 8px; align-items: center; margin: 48px 0 0; }
 
+/* custom purifier builder */
+.cfg-head { max-width: 640px; margin-bottom: 56px; }
+.cfg { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 400px); gap: 56px; align-items: start; padding-bottom: 150px; }
+.cfg fieldset { border: 0; margin: 0 0 64px; padding: 0; min-width: 0; }
+.cfg legend { padding: 0; margin-bottom: 24px; font-size: 26px; font-weight: 600; letter-spacing: -.02em; display: flex; align-items: baseline; gap: 14px; }
+.cfg legend span { font-size: 13px; font-weight: 500; letter-spacing: .04em; color: var(--accent); }
+.cfg-designs, .cfg-row3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+.cfg-inc { margin: 16px 0 0; font-size: 13px; color: var(--muted); }
+.cfg-group h3 { margin: 32px 0 12px; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.cfg-group:first-of-type h3 { margin-top: 0; }
+.opt { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg); cursor: pointer; transition: border-color .18s ease, background .18s ease; }
+.opt:hover { border-color: var(--faint); }
+.opt input { position: absolute; opacity: 0; pointer-events: none; }
+/* .on is set by the page script, not :has() — older Android browsers lack it. */
+.opt.on { border-color: var(--accent); background: #F0F9FF; box-shadow: inset 0 0 0 1px var(--accent); }
+.opt:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 3px; }
+.opt .t { font-size: 16px; font-weight: 500; letter-spacing: -.01em; }
+.opt .n { font-size: 14px; line-height: 1.5; color: var(--muted); }
+.opt .p { font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.opt.design { padding: 10px 10px 16px; }
+.opt.design .ph { display: block; aspect-ratio: 4/3; border-radius: 8px; overflow: hidden; background: var(--bg-alt); margin-bottom: 8px; }
+.opt.design .ph img, .cfg-sum .ph img { width: 100%; height: 100%; object-fit: cover; }
+.opt.design .t, .opt.design .n, .opt.design .p { padding: 0 8px; }
+.opt.design .p { margin-top: auto; padding-top: 6px; }
+.opt.line { flex-direction: row; align-items: center; gap: 16px; margin-bottom: 10px; padding-left: 54px; }
+.opt.line::before { content: ""; position: absolute; left: 18px; top: 50%; width: 20px; height: 20px; margin-top: -10px; border: 1.5px solid var(--faint); border-radius: 6px; background: var(--bg); }
+.opt.line.on::before { border-color: var(--accent); background: var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 10.5l3.2 3.2L15 7'/%3E%3C/svg%3E") center/18px no-repeat; }
+.opt.line .txt { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.opt.line.off { opacity: .45; cursor: not-allowed; }
+.opt .tag { font-style: normal; font-size: 11px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); margin-left: 8px; white-space: nowrap; }
+.opt .tag[hidden] { display: none; }
+.cfg-sum { position: sticky; top: 108px; border: 1px solid var(--line); border-radius: 14px; padding: 20px 24px 24px; background: var(--bg); }
+.cfg-sum .ph { aspect-ratio: 4/3; border-radius: 10px; overflow: hidden; background: var(--bg-alt); margin: 0 -4px 24px; }
+.flow { list-style: none; margin: 0 0 24px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 0; font-size: 13px; font-weight: 500; }
+.flow li { padding: 5px 10px; border-radius: 99px; background: var(--bg-alt); border: 1px solid var(--line); }
+.flow li + li { margin-left: 18px; position: relative; }
+.flow li + li::before { content: "→"; position: absolute; left: -16px; top: 4px; color: var(--faint); font-weight: 400; }
+.cfg-sum dl { margin: 0; border-top: 1px solid var(--line); font-size: 14px; font-variant-numeric: tabular-nums; }
+.cfg-sum dl div { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.cfg-sum dt { color: var(--body); }
+.cfg-sum dd { margin: 0; font-weight: 500; white-space: nowrap; }
+.cfg-sum .total { display: flex; justify-content: space-between; align-items: baseline; padding: 18px 0 20px; font-size: 15px; color: var(--muted); }
+.cfg-sum .total strong { font-size: 30px; font-weight: 600; letter-spacing: -.02em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.cfg-sum .btn { width: 100%; }
+.cfg-sum .note { margin-top: 16px; line-height: 1.55; }
+.cfg-bar { display: none; }
+
 /* price list page */
 .pl-page { background: var(--bg-alt); min-height: 100vh; }
 .pl-top { padding-top: 24px; display: flex; justify-content: space-between; align-items: center; gap: 24px; font-size: 14px; font-weight: 500; }
@@ -207,6 +254,8 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
   .nav-links, .site-header .btn-ink { display: none; }
   .menu-btn { display: block; }
   .hero, .grid-2, .pdp { gap: 40px; }
+  .cfg { grid-template-columns: minmax(0, 1fr); gap: 0; padding-bottom: 80px; }
+  .cfg-sum { position: static; }
 }
 @media (max-width: 760px) {
   :root { --pad: 20px; }
@@ -262,6 +311,19 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
   .wa-bar:hover { background: var(--accent-dark); color: var(--on-accent); }
   .pdp { gap: 32px; padding-block: 24px 80px; }
   .pdp .info { position: static; }
+  .cfg-head { margin-bottom: 40px; }
+  .cfg fieldset { margin-bottom: 48px; }
+  .cfg legend { font-size: 22px; }
+  .cfg-row3 { grid-template-columns: 1fr; }
+  .cfg-designs { grid-template-columns: repeat(3, 72vw); overflow-x: auto; margin: 0 -20px; padding: 2px 20px 8px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .cfg-designs .opt { scroll-snap-align: center; }
+  .opt .tag:not([hidden]) { display: block; margin: 4px 0 0; }
+  .cfg-bar ~ .wa-bar { display: none; }
+  .cfg-bar { position: fixed; left: 0; right: 0; bottom: 0; height: 60px; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; background: var(--accent); color: var(--on-accent); z-index: 30; }
+  .cfg-bar:hover { color: var(--on-accent); }
+  .cfg-bar small { display: block; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+  .cfg-bar strong { font-size: 19px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .cfg-bar .go { font-size: 15px; font-weight: 500; }
   .pl { padding: 32px 20px; margin: 20px auto 40px; gap: 32px; }
   .pl .eff { text-align: left; }
   .pl footer address { text-align: left; }
