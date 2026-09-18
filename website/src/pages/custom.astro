@@ -1,0 +1,160 @@
+---
+// Build-your-own purifier. Options live in src/data/custom.json; add-on
+// prices are read from parts.json by part name, so the builder and the
+// price list can never disagree.
+import Base from "../layouts/Base.astro";
+import { biz, href } from "../data/business.js";
+import { rupee } from "../lib/config.js";
+import custom from "../data/custom.json";
+import parts from "../data/parts.json";
+import Pic from "../components/Pic.astro";
+
+const priceOf = Object.fromEntries(parts.flatMap((g) => g.rows).map((r) => [r.part, r.price]));
+const groups = custom.groups.map((g) => ({
+  ...g,
+  options: g.options.map((o) => {
+    const missing = (o.parts || []).filter((p) => !(p in priceOf));
+    if (missing.length) throw new Error(`custom.json: not in parts.json: ${missing.join(", ")}`);
+    return { ...o, price: o.price ?? o.parts.reduce((s, p) => s + priceOf[p], 0) };
+  }),
+}));
+const options = groups.flatMap((g) => g.options);
+const data = { wa: biz.wa, base: href(""), designs: custom.designs, water: custom.water, options };
+---
+<Base title="Build Your Own Water Purifier | Oasis Globe" description="Choose the body, tell us your water source and pick the purification stages. See the price as you go and send the build on WhatsApp.">
+<main class="wrap">
+  <section style="padding-top:64px">
+    <div class="cfg-head">
+      <p class="eyebrow">Custom purifier</p>
+      <h1 class="h-md">Build it for your water.</h1>
+      <p class="sub" style="margin-top:20px">Pick a body, tell us where your water comes from, and add only the stages it needs. The price updates as you choose.</p>
+      {custom.sample && <p class="note">Sample designs and prices — final list to come from the office.</p>}
+    </div>
+
+    <form class="cfg" id="cfg" onsubmit="return false">
+      <div class="cfg-steps">
+        <fieldset>
+          <legend><span>01</span> Body</legend>
+          <div class="cfg-designs">
+            {custom.designs.map((d, i) => (
+              <label class="opt design">
+                <input type="radio" name="design" value={d.id} checked={i === 0} />
+                <span class="ph"><Pic src={d.image} alt="" width="400" height="300" /></span>
+                <span class="t">{d.name}</span>
+                <span class="n">{d.note}</span>
+                <span class="p">{rupee(d.price)}</span>
+              </label>
+            ))}
+          </div>
+          <p class="cfg-inc">Every body includes: {custom.included.join(" · ")}</p>
+        </fieldset>
+
+        <fieldset>
+          <legend><span>02</span> Your water</legend>
+          <div class="cfg-row3">
+            {custom.water.map((w, i) => (
+              <label class="opt">
+                <input type="radio" name="water" value={w.id} checked={i === 0} />
+                <span class="t">{w.name}</span>
+                <span class="n">{w.note}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend><span>03</span> Inside</legend>
+          {groups.map((g) => (
+            <div class="cfg-group">
+              <h3>{g.title}</h3>
+              {g.options.map((o) => (
+                <label class="opt line" data-opt={o.id}>
+                  <input type="checkbox" name="opt" value={o.id} />
+                  <span class="txt">
+                    <span class="t">{o.name} <em class="tag" hidden></em></span>
+                    <span class="n">{o.note}</span>
+                  </span>
+                  <span class="p">+ {rupee(o.price)}</span>
+                </label>
+              ))}
+            </div>
+          ))}
+        </fieldset>
+      </div>
+
+      <aside class="cfg-sum" aria-live="polite">
+        <div class="ph" id="sum-ph"><Pic src={custom.designs[0].image} alt="" width="800" height="600" loading="eager" /></div>
+        <p class="eyebrow muted" style="margin:0 0 12px">Water path</p>
+        <ol class="flow" id="sum-flow"></ol>
+        <dl id="sum-lines"></dl>
+        <div class="total"><span>Total</span><strong id="sum-total"></strong></div>
+        <a id="sum-wa" href="#" target="_blank" rel="noopener" data-event="custom_whatsapp_click" class="btn btn-primary">Send this build on WhatsApp <span aria-hidden="true">→</span></a>
+        <p class="note">Installation is billed separately. We confirm the final price and fitting date on WhatsApp — you pay after it is installed and working.</p>
+      </aside>
+    </form>
+  </section>
+</main>
+
+<a id="bar-wa" href="#" target="_blank" rel="noopener" data-event="custom_whatsapp_click" class="cfg-bar">
+  <span><small>Your build</small><strong id="bar-total"></strong></span>
+  <span class="go">Send on WhatsApp →</span>
+</a>
+</Base>
+
+<script is:inline define:vars={{ data }}>
+  const form = document.getElementById("cfg");
+  const rupee = (n) => "₹" + n.toLocaleString("en-IN");
+  const box = (id) => form.querySelector(`input[name=opt][value="${id}"]`);
+
+  // Water source decides what is locked on (requires) and what is ticked
+  // for the customer as a starting point (suggests).
+  function applyWater(prefill) {
+    const w = data.water.find((x) => x.id === form.water.value);
+    data.options.forEach((o) => {
+      const b = box(o.id), tag = b.closest(".opt").querySelector(".tag");
+      const req = w.requires.includes(o.id), sug = w.suggests.includes(o.id);
+      if (req) b.checked = true;
+      else if (prefill) b.checked = sug;
+      b.dataset.locked = req ? "1" : "";
+      tag.hidden = !(req || sug);
+      tag.textContent = req ? "Needed for your water" : "Recommended";
+    });
+  }
+
+  function render() {
+    // An add-on that depends on another (TDS controller needs RO) switches off with it.
+    data.options.forEach((o) => {
+      if (!o.needs) return;
+      const b = box(o.id), ok = box(o.needs).checked;
+      b.disabled = !ok; if (!ok) b.checked = false;
+      b.closest(".opt").classList.toggle("off", !ok);
+    });
+    form.querySelectorAll(".opt").forEach((l) => l.classList.toggle("on", l.querySelector("input").checked));
+    const d = data.designs.find((x) => x.id === form.design.value);
+    const w = data.water.find((x) => x.id === form.water.value);
+    const picked = data.options.filter((o) => box(o.id).checked);
+    const total = d.price + picked.reduce((s, o) => s + o.price, 0);
+
+    const img = document.querySelector("#sum-ph img"), src = data.base + d.image;
+    if (!img.src.endsWith(src)) { document.querySelector("#sum-ph source").srcset = src.replace(/\.jpe?g$/i, ".webp"); img.src = src; }
+    const stages = ["Sediment", "Carbon", ...picked.filter((o) => o.stage).map((o) => o.stage), "Tank"];
+    document.getElementById("sum-flow").innerHTML = stages.map((s) => `<li>${s}</li>`).join("");
+    document.getElementById("sum-lines").innerHTML = [[d.name, d.price], ...picked.map((o) => [o.name, o.price])]
+      .map(([k, v]) => `<div><dt>${k}</dt><dd>${rupee(v)}</dd></div>`).join("");
+    document.getElementById("sum-total").textContent = document.getElementById("bar-total").textContent = rupee(total);
+
+    const msg = ["Hi, I want a custom Oasis purifier.", `Body: ${d.name}`, `Water: ${w.name}`,
+      `Add-ons: ${picked.map((o) => o.name).join(", ") || "none"}`, `Website total: ${rupee(total)}`,
+      "Please confirm the price and availability."].join("\n");
+    const url = `https://wa.me/${data.wa}?text=${encodeURIComponent(msg)}`;
+    document.getElementById("sum-wa").href = document.getElementById("bar-wa").href = url;
+  }
+
+  form.addEventListener("change", (e) => {
+    if (e.target.name === "water") applyWater(true);
+    if (e.target.dataset.locked) e.target.checked = true;
+    render();
+  });
+  applyWater(true);
+  render();
+</script>
