@@ -3,73 +3,163 @@
   "designs": [
     {
       "id": "wall",
-      "name": "Wall-mount classic",
+      "name": "Wall model",
       "price": 4500,
       "image": "/images/ro-home.jpg",
-      "note": "Hangs on the kitchen wall. 9 L tank."
+      "note": "Fixed on the kitchen wall. 9 litre tank."
     },
     {
       "id": "under",
-      "name": "Under-counter",
+      "name": "Under the sink",
       "price": 6500,
       "image": "/images/hero-under-sink.jpg",
-      "note": "Hidden in the cabinet, one tap on the counter. 7 L tank."
+      "note": "Hidden inside the cabinet. Only a tap on top. 7 litre tank."
     },
     {
       "id": "counter",
-      "name": "Counter-top",
+      "name": "Table top",
       "price": 5000,
       "image": "/images/hero-counter.jpg",
-      "note": "Sits on the platform. No drilling. 8 L tank."
+      "note": "Kept on the kitchen platform. No drilling. 8 litre tank."
     }
   ],
-  "included": ["Sediment filter", "Carbon filter", "Storage tank", "SMPS", "Pipes and fittings", "Tap"],
+  "included": [
+    "Dust filter",
+    "Carbon filter",
+    "Water tank",
+    "Power adapter",
+    "Pipes",
+    "Tap"
+  ],
   "water": [
     {
       "id": "corporation",
-      "name": "Corporation / PMC",
-      "note": "Low TDS. UV + UF is usually enough; RO is optional.",
+      "name": "Corporation water (PMC / PCMC)",
+      "note": "Soft water. UV + UF is enough. RO is your choice.",
       "requires": [],
-      "suggests": ["uv", "uf"]
+      "suggests": [
+        "uv",
+        "uf"
+      ]
     },
     {
       "id": "borewell",
-      "name": "Borewell",
-      "note": "High TDS. RO is needed to bring it down.",
-      "requires": ["ro"],
-      "suggests": ["uv", "tds"]
+      "name": "Borewell water",
+      "note": "Hard, salty water. You need RO.",
+      "requires": [
+        "ro"
+      ],
+      "suggests": [
+        "uv",
+        "tds"
+      ]
     },
     {
       "id": "mixed",
-      "name": "Tanker / mixed",
-      "note": "Quality changes day to day. RO + UV covers both cases.",
-      "requires": ["ro"],
-      "suggests": ["uv", "uf"]
+      "name": "Tanker or mixed water",
+      "note": "Water changes every day. RO + UV is the safe choice.",
+      "requires": [
+        "ro"
+      ],
+      "suggests": [
+        "uv",
+        "uf"
+      ]
     }
   ],
   "groups": [
     {
-      "title": "Purification",
+      "title": "Cleaning",
       "options": [
-        { "id": "ro", "name": "RO membrane 100 GPD + pump", "stage": "RO", "note": "Removes dissolved salts and hardness. 1-year warranty on both.", "parts": ["Oasis RO Membrane 100 GPD (1 yr warranty)", "Oasis Pump 100GPD 1YR Warranty"] },
-        { "id": "uv", "name": "UV chamber", "stage": "UV", "note": "Kills bacteria and viruses.", "parts": ["Oasis UV Chamber"] },
-        { "id": "uf", "name": "UF membrane", "stage": "UF", "note": "Final polish; holds back cysts and fine particles.", "parts": ["Oasis UF 4\""] }
+        {
+          "id": "ro",
+          "name": "RO filter + pump",
+          "stage": "RO",
+          "note": "Removes salt and hardness from the water. 1 year warranty.",
+          "parts": [
+            "Oasis RO Membrane 100 GPD (1 yr warranty)",
+            "Oasis Pump 100GPD 1YR Warranty"
+          ]
+        },
+        {
+          "id": "uv",
+          "name": "UV light",
+          "stage": "UV",
+          "note": "Kills germs in the water.",
+          "parts": [
+            "Oasis UV Chamber"
+          ]
+        },
+        {
+          "id": "uf",
+          "name": "UF filter",
+          "stage": "UF",
+          "note": "Removes very small dirt.",
+          "parts": [
+            "Oasis UF 4\""
+          ]
+        }
       ]
     },
     {
       "title": "Taste",
       "options": [
-        { "id": "tds", "name": "TDS controller", "needs": "ro", "note": "Keeps some natural minerals so RO water does not taste flat.", "parts": ["Oasis TDS Controller"] },
-        { "id": "mineral", "name": "Mineral cartridge", "stage": "Mineral", "needs": "ro", "note": "Adds calcium and magnesium back after RO.", "parts": ["Oasis Mineral cartridge"] },
-        { "id": "alkaline", "name": "Alkaline cartridge", "stage": "Alkaline", "note": "Raises pH slightly.", "parts": ["Oasis Alkaline"] }
+        {
+          "id": "tds",
+          "name": "TDS controller",
+          "needs": "ro",
+          "note": "Keeps the water tasty after RO.",
+          "parts": [
+            "Oasis TDS Controller"
+          ]
+        },
+        {
+          "id": "mineral",
+          "name": "Mineral filter",
+          "stage": "Mineral",
+          "needs": "ro",
+          "note": "Adds good minerals back to the water.",
+          "parts": [
+            "Oasis Mineral cartridge"
+          ]
+        },
+        {
+          "id": "alkaline",
+          "name": "Alkaline filter",
+          "stage": "Alkaline",
+          "note": "Makes the water less acidic.",
+          "parts": [
+            "Oasis Alkaline"
+          ]
+        }
       ]
     },
     {
-      "title": "Extras",
+      "title": "Extra",
       "options": [
-        { "id": "pump2", "name": "2-year pump warranty", "needs": "ro", "note": "Upgrade from the 1-year pump.", "price": 400 },
-        { "id": "faucet", "name": "Faucet tap", "note": "Steel long-neck tap instead of the standard one.", "parts": ["Faucet Tap"] },
-        { "id": "led", "name": "LED strip", "note": "Soft light inside the cabinet.", "parts": ["LED Strip"] }
+        {
+          "id": "pump2",
+          "name": "2 year pump warranty",
+          "needs": "ro",
+          "note": "One more year of warranty on the pump.",
+          "price": 400
+        },
+        {
+          "id": "faucet",
+          "name": "Steel tap",
+          "note": "A long steel tap in place of the normal tap.",
+          "parts": [
+            "Faucet Tap"
+          ]
+        },
+        {
+          "id": "led",
+          "name": "LED light",
+          "note": "A small light inside the purifier.",
+          "parts": [
+            "LED Strip"
+          ]
+        }
       ]
     }
   ]
