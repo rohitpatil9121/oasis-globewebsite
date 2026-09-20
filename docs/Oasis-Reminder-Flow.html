@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="hi">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oasis Reminder Flow</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#f3f7f6; --surface:#ffffff; --sunk:#e9f0ee; --line:#d5e0dd;
+  --ink:#10201d; --ink2:#47605b; --ink3:#7d938e;
+  --brand:#0f766e; --brand-ink:#ffffff; --brand-soft:#d9efeb;
+  --warn-bg:#fdf3d7; --warn-ink:#7a5200; --warn-line:#ecd48a;
+  --ok-bg:#def5e6; --ok-ink:#11603a;
+  --wa-wall:#e7ded3; --wa-in:#ffffff; --wa-out:#d9fdd3; --wa-ink:#111b21; --wa-sub:#667781; --wa-btn:#027eb5;
+  --shadow:0 1px 2px rgba(16,32,29,.06),0 8px 24px -12px rgba(16,32,29,.18);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0c1614; --surface:#13211e; --sunk:#0f1b19; --line:#25403a;
+  --ink:#e6f1ee; --ink2:#a3bab5; --ink3:#6f8a84;
+  --brand:#2bb3a6; --brand-ink:#04211e; --brand-soft:#173b36;
+  --warn-bg:#352a0c; --warn-ink:#f0d489; --warn-line:#5a4716;
+  --ok-bg:#12352a; --ok-ink:#8fe0b4;
+  --wa-wall:#0b141a; --wa-in:#202c33; --wa-out:#005c4b; --wa-ink:#e9edef; --wa-sub:#8696a0; --wa-btn:#53bdeb;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --ground:#0c1614; --surface:#13211e; --sunk:#0f1b19; --line:#25403a;
+  --ink:#e6f1ee; --ink2:#a3bab5; --ink3:#6f8a84;
+  --brand:#2bb3a6; --brand-ink:#04211e; --brand-soft:#173b36;
+  --warn-bg:#352a0c; --warn-ink:#f0d489; --warn-line:#5a4716;
+  --ok-bg:#12352a; --ok-ink:#8fe0b4;
+  --wa-wall:#0b141a; --wa-in:#202c33; --wa-out:#005c4b; --wa-ink:#e9edef; --wa-sub:#8696a0; --wa-btn:#53bdeb;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font:400 16px/1.6 Figtree,system-ui,"Segoe UI",sans-serif;padding-inline:16px;padding-block:40px 72px}
+.wrap{max-width:980px;margin-inline:auto;display:flex;flex-direction:column;gap:56px}
+h1,h2,h3{font-family:"Bricolage Grotesque",Figtree,system-ui,sans-serif;text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(30px,5vw,44px);font-weight:700;letter-spacing:-.02em}
+h2{font-size:clamp(22px,3.2vw,28px);font-weight:700;letter-spacing:-.01em}
+h3{font-size:17px;font-weight:600}
+p{margin:0;max-width:66ch}
+.lede{font-size:18px;color:var(--ink2);margin-top:12px}
+.eyebrow{font:500 12px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--brand)}
+code,.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.88em}
+header{display:flex;flex-direction:column;gap:6px}
+.note{background:var(--warn-bg);color:var(--warn-ink);border:1px solid var(--warn-line);border-radius:10px;padding:12px 16px;font-size:14.5px;max-width:none}
+
+/* the two roads */
+.roads{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:20px}
+.road{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:8px}
+.road b{color:var(--brand)}
+.road p{font-size:15px;color:var(--ink2)}
+
+/* steps */
+.step{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:32px;align-items:start}
+.step .say{display:flex;flex-direction:column;gap:12px}
+.num{font:500 13px/1 "JetBrains Mono",monospace;color:var(--brand-ink);background:var(--brand);width:30px;height:30px;border-radius:50%;display:grid;place-items:center}
+.say ul{margin:0;padding-left:20px;color:var(--ink2);font-size:15.5px;display:flex;flex-direction:column;gap:6px}
+.say li b{color:var(--ink)}
+@media (max-width:760px){.step{grid-template-columns:1fr;gap:18px}}
+
+/* mock dashboard screen */
+.screen{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;font-size:13px}
+.bar{display:flex;gap:6px;align-items:center;padding:9px 12px;background:var(--sunk);border-bottom:1px solid var(--line)}
+.bar i{width:9px;height:9px;border-radius:50%;background:var(--line);display:block}
+.bar span{margin-left:8px;color:var(--ink3);font:400 11px "JetBrains Mono",monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pad{padding:16px;display:flex;flex-direction:column;gap:12px}
+.ttl{font:700 18px "Bricolage Grotesque",sans-serif}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tab{padding:6px 12px;border-radius:8px;font-weight:600;color:var(--ink2)}
+.tab.on{background:var(--brand);color:var(--brand-ink)}
+.chip{border:1px solid var(--line);border-radius:7px;padding:3px 9px;color:var(--ink2);background:var(--surface)}
+.btn{background:var(--brand);color:var(--brand-ink);border-radius:8px;padding:7px 13px;font-weight:600}
+.btn.ghost{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+.tbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:380px}
+th{font:500 10.5px "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);text-align:left;padding:8px 10px;background:var(--sunk);border-block:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+td.ph{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink2);white-space:nowrap}
+.cb{width:14px;height:14px;border:1.5px solid var(--ink3);border-radius:3px;display:inline-block;vertical-align:middle}
+.cb.on{background:var(--brand);border-color:var(--brand);position:relative}
+.cb.on::after{content:"";position:absolute;left:3.5px;top:.5px;width:4px;height:8px;border:solid var(--brand-ink);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.foot{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-top:1px solid var(--line);background:var(--sunk);font-weight:600}
+.reply{color:var(--brand);font-weight:600}
+.muted{color:var(--ink3)}
+.okbar{background:var(--ok-bg);color:var(--ok-ink);border-radius:8px;padding:9px 12px}
+.field{border:1px solid var(--line);border-radius:8px;padding:9px 11px;color:var(--ink2);background:var(--ground);font-family:"JetBrains Mono",monospace;font-size:12px;white-space:pre-line}
+
+/* whatsapp */
+.wa{background:var(--wa-wall);border-radius:12px;border:1px solid var(--line);padding:14px;display:flex;flex-direction:column;gap:6px;color:var(--wa-ink);font-size:13.5px;line-height:1.45;box-shadow:var(--shadow)}
+.wa .who{font:500 11px "JetBrains Mono",monospace;color:var(--wa-sub);text-align:center;margin-bottom:4px}
+.b{max-width:88%;padding:8px 10px;border-radius:9px;background:var(--wa-in);white-space:pre-line}
+.b.me{background:var(--wa-out);align-self:flex-end}
+.b.tpl{border-bottom-left-radius:3px;border-bottom-right-radius:3px}
+.qr{max-width:88%;display:flex;flex-direction:column;gap:2px}
+.qr span{background:var(--wa-in);color:var(--wa-btn);text-align:center;padding:8px;font-weight:600;border-radius:3px}
+.qr span:last-child{border-radius:3px 3px 9px 9px}
+
+/* branches */
+.branches{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.branch{display:flex;flex-direction:column;gap:10px}
+.branch p{font-size:14.5px;color:var(--ink2)}
+.tag{align-self:flex-start;font:500 11px "JetBrains Mono",monospace;letter-spacing:.06em;background:var(--brand-soft);color:var(--brand);padding:4px 9px;border-radius:99px}
+
+/* rules */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface)}
+.rule{padding:18px 20px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 -1px -1px 0;display:flex;flex-direction:column;gap:4px}
+.rule p{font-size:14.5px;color:var(--ink2)}
+section{display:flex;flex-direction:column;gap:20px}
+</style>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">Oasis Globe · Dashboard → Marketing</span>
+  <h1>Service reminder ka poora flow</h1>
+  <p class="lede">Purane clients ko WhatsApp pe "6-monthly service due hai" ka message kaise jata hai, client ke jawab pe kya hota hai, aur wo jawab dashboard me kaha dikhta hai.</p>
+  <p class="note" style="margin-top:16px">Neeche ki screens dashboard ki <b>nakal (mock)</b> hain, asli screenshot nahi — naam aur number banavati hain, taaki ye page kisi ko bhi bheja ja sake aur kisi client ka number bahar na jaye. Layout, buttons aur wording wahi hai jo live dashboard me hai.</p>
+
+  <div class="roads">
+    <div class="road"><h3>Rasta 1 — <b>Marketing page</b> (haath se)</h3><p>Purani billing list ke ~4,662 clients. Owner clients chunta hai aur Send dabata hai. Template: <code>service_reminder_general</code>. Ye page isi raste ke baare me hai.</p></div>
+    <div class="road"><h3>Rasta 2 — <b>Automatic</b></h3><p>Jo client dashboard se service karwa chuka hai, use ticket close hone ke 6 mahine baad apne aap message jata hai — machine ka naam aur last service date ke saath. Roz max 20, sirf 10am–6pm. Koi button dabana nahi padta.</p></div>
+  </div>
+</header>
+
+<section>
+<div class="step">
+  <div class="say"><span class="num">1</span><h2>Clients list me aate hain</h2>
+    <ul>
+      <li>Dada ki Excel se <b>4,662 numbers</b> pehle hi import ho chuke hain.</li>
+      <li>Naye jodne ke liye upar <b>Add clients</b>: number type/paste karo (naam optional) ya Excel/CSV upload karo — koi bhi layout chalega.</li>
+      <li>Apne aap <b>skip</b> hote hain: jo number list me pehle se hai, jo dashboard ka client hai, jo staff ka hai, aur galat number.</li>
+    </ul>
+  </div>
+  <div class="screen"><div class="bar"><i></i><i></i><i></i><span>Marketing → Add clients</span></div>
+    <div class="pad">
+      <div class="ttl">Add clients</div>
+      <div class="muted">Type or paste numbers</div>
+      <div class="field">Rahul Patil 9822000000
+9890000000</div>
+      <div class="muted">Or upload an Excel / CSV file</div>
+      <div class="row"><span class="chip">Choose file</span><span class="muted">PartyReport.xlsx — 5,374 numbers found</span></div>
+      <div class="row" style="justify-content:flex-end"><span class="btn ghost">Cancel</span><span class="btn">Add 2 numbers</span></div>
+      <div class="okbar">1 client added. 1 were already in the list.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section>
+<div class="step">
+  <div class="say"><span class="num">2</span><h2>Chuno aur Send dabao</h2>
+    <ul>
+      <li><b>All clients</b> tab me sirf wo log hain jinhe abhi reminder nahi gaya.</li>
+      <li>Ek-ek tick karo, ya <b>Select first 50 / 100 / 200</b>. Search se naam ya number dhundo.</li>
+      <li><b>Send reminder</b> → confirm popup (har message ka paisa lagta hai) → messages background me jaate hain, har 1.5 second me ek. Ek baar me max 500.</li>
+      <li>Do baar click ho jaye to bhi kisi ko <b>double message nahi</b> jata.</li>
+    </ul>
+  </div>
+  <div class="screen"><div class="bar"><i></i><i></i><i></i><span>Marketing</span></div>
+    <div class="pad">
+      <div class="row" style="justify-content:space-between"><div class="ttl">Marketing</div><span class="btn ghost">+ Add clients</span></div>
+      <div class="row"><span class="tab on">All clients 4662</span><span class="tab">Reminder sent 0</span></div>
+      <div class="row muted">Select first <span class="chip">50</span><span class="chip">100</span><span class="chip">200</span></div>
+    </div>
+    <div class="tbl"><table>
+      <tr><th></th><th>Customer</th><th>Mobile</th></tr>
+      <tr><td><span class="cb on"></span></td><td><b>AAKASH PATIL</b></td><td class="ph">+91 98220 00001</td></tr>
+      <tr><td><span class="cb on"></span></td><td><b>Sunita Kulkarni</b></td><td class="ph">+91 98900 00002</td></tr>
+      <tr><td><span class="cb"></span></td><td><b>Ayan Enterprises</b> <span class="muted">← supplier, mat chuno</span></td><td class="ph">+91 84590 00003</td></tr>
+    </table></div>
+    <div class="foot"><span>2 selected</span><span class="btn">Send reminder</span></div>
+  </div>
+</div>
+</section>
+
+<section>
+<div class="step">
+  <div class="say"><span class="num">3</span><h2>Client ke WhatsApp pe ye aata hai</h2>
+    <ul>
+      <li>Meta-approved template jata hai; <b>naam ka pehla shabd</b> saaf hoke lagta hai — "DESPANDE SIR 8411…" → "Hello Despande", "Mr. Sharma" → "Hello Sharma".</li>
+      <li>Jaha naam ki jagah sirf number likha tha, waha <b>"Hello Customer"</b>.</li>
+      <li>Neeche <b>3 buttons</b> — client ko kuch type nahi karna padta.</li>
+      <li>Message jaate hi client <b>Reminder sent</b> tab me chala jata hai. Message fail hua to wo wapas All clients me aa jata hai.</li>
+    </ul>
+  </div>
+  <div class="wa"><div class="who">Oasis Globe · business account</div>
+    <div class="b tpl">Hello Aakash,
+
+As per our records, your water purifier is due for its regular 6-monthly service.
+
+Timely servicing and filter checks keep your drinking water safe and your purifier running smoothly.
+
+Tap a button below to book a visit, or let us know if it has already been serviced recently.
+
+Thank you,
+OasisGlobe, Wakad, Pune</div>
+    <div class="qr"><span>Book Service</span><span>Serviced Recently</span><span>Call Me Back</span></div>
+  </div>
+</div>
+</section>
+
+<section>
+  <div class="say" style="display:flex;flex-direction:column;gap:12px"><span class="num">4</span><h2>Client button dabata hai — teen raste</h2>
+  <p style="color:var(--ink2)">Teeno mock mode me fake number se test hue hain. Asli WhatsApp pe pehla test abhi owner ke apne number se hona baaki hai.</p></div>
+  <div class="branches">
+    <div class="branch"><span class="tag">BOOK SERVICE</span>
+      <div class="wa"><div class="b me">Book Service</div>
+        <div class="b">Hi. This is Oasis Globe water purifier service department.
+
+Please share:
+– Name:
+– Issue:
+– Address:
+– Photo of purifier.</div>
+        <div class="b me">Aakash Patil, Flat 12, Sunshine Society, Wakad</div>
+        <div class="b">Aakash Patil, your service request has been logged.
+
+Ticket ID: OG-170926-0017
+Service Issue: 6-monthly service</div></div>
+      <p>Bot naam aur address leta hai, <b>ticket ban jata hai</b> (issue apne aap "6-monthly service"), dono managers ko alert jata hai. Client ab dashboard ka proper client hai — <b>Marketing list se hat jata hai</b> aur aage se automatic reminder pata hai.</p>
+    </div>
+    <div class="branch"><span class="tag">CALL ME BACK</span>
+      <div class="wa"><div class="b me">Call Me Back</div><div class="b">Our team will get back to you shortly.</div></div>
+      <div class="wa"><div class="who">Manager ke WhatsApp pe</div><div class="b">Handoff requested for +91 98900 00002. Reason: Customer requested a call back</div></div>
+      <p>Koi ticket nahi banta. <b>Dono managers ko alert</b> jata hai ki is number pe phone karna hai.</p>
+    </div>
+    <div class="branch"><span class="tag">SERVICED RECENTLY</span>
+      <div class="wa"><div class="b me">Serviced Recently</div><div class="b">Thank you for letting us know. We will remind you when the next service is due. Message us here any time if you need help with your purifier.</div></div>
+      <p>Seedha thank-you jata hai. Bot beech me nahi aata, <b>koi ticket nahi banta</b>, kisi ko alert nahi jata.</p>
+      <p>Koi <b>STOP</b> likhe to use "Opted out" mark kar diya jata hai — dobara kabhi select nahi hoga.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+<div class="step">
+  <div class="say"><span class="num">5</span><h2>Jawab dashboard me kaha dikhta hai</h2>
+    <ul>
+      <li><b>Marketing → Reminder sent</b>: har client ke saamne <b>Reply</b> column — jo dabaya ya likha wo, nahi to "No reply yet". Reply pe click → uski chat.</li>
+      <li><b>All Chats</b>: thread tabhi banta hai jab client jawab de. Upar humara reminder, neeche uska jawab, naam purani list se. Bina jawab wale 200 reminders inbox nahi bharte.</li>
+      <li><b>Service Requests</b>: Book Service wale ka ticket yaha.</li>
+      <li><b>Move back</b>: kisi ko 6 mahine se pehle dobara bhejna ho to.</li>
+    </ul>
+  </div>
+  <div class="screen"><div class="bar"><i></i><i></i><i></i><span>Marketing → Reminder sent</span></div>
+    <div class="pad"><div class="row"><span class="tab">All clients 4660</span><span class="tab on">Reminder sent 2</span></div></div>
+    <div class="tbl"><table>
+      <tr><th>Customer</th><th>Mobile</th><th>Sent</th><th>Reply</th><th></th></tr>
+      <tr><td><b>AAKASH PATIL</b></td><td class="ph">+91 98220 00001</td><td class="muted">2h ago</td><td class="reply">Book Service</td><td class="muted">Move back</td></tr>
+      <tr><td><b>Sunita Kulkarni</b></td><td class="ph">+91 98900 00002</td><td class="muted">2h ago</td><td class="muted">No reply yet</td><td class="muted">Move back</td></tr>
+    </table></div>
+  </div>
+</div>
+</section>
+
+<section>
+  <div class="say" style="display:flex;flex-direction:column;gap:12px"><span class="num">6</span><h2>Uske baad, aur yaad rakhne wali baatein</h2></div>
+  <div class="rules">
+    <div class="rule"><h3>6 mahine baad wapas</h3><p>Reminder sent wala client 6 mahine baad apne aap All clients me laut aata hai, agle reminder ke liye.</p></div>
+    <div class="rule"><h3>Kharcha</h3><p>Har message ka Meta charge leta hai: Utility ~₹0.12, Marketing ~₹0.8–0.9 (approx). Meta me template ki <b>Category</b> dekh lo — wo khud badal sakta hai.</p></div>
+    <div class="rule"><h3>Dheere shuru karo</h3><p>Pehle sirf apne number pe test. Phir 50–100 roz. Zyada log block/report karein to Meta number ki quality gira deta hai — isi number se ticket wale messages bhi jaate hain.</p></div>
+    <div class="rule"><h3>List me non-customers hain</h3><p>Billing software ki poori party list hai — suppliers, "Enterprises", "Services" jaise ~237 naam. Bhejne se pehle dekh lo, unhe select mat karo.</p></div>
+    <div class="rule"><h3>Address kyun nahi hai</h3><p>Reminder ke liye chahiye nahi. Jo Book Service karta hai, bot usse address le leta hai — data apne aap poora ho jata hai.</p></div>
+    <div class="rule"><h3>Kaun bhej sakta hai</h3><p>Marketing page sirf <b>owner</b> login ko dikhta hai. Manager ya technician ko nahi.</p></div>
+  </div>
+</section>
+</div>

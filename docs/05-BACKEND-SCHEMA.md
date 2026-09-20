@@ -65,7 +65,7 @@ Target: **Supabase / PostgreSQL**. Base DDL in `db/schema.sql` (+ `policies.sql`
 Technician live-location pings (technician_id, lat, lng, recorded_at) powering the dashboard live map; plus `users` availability flag for the online/offline toggle.
 
 ### Incentives
-Computed in `backend/src/services/incentives.js` from closed tickets + payments + parts cost: Kent/Aqua slab 6%→10%, Oasis margin basis −18% GST. Display-only in app Earnings; reviewed on dashboard Incentives page.
+Computed in `backend/src/services/incentives.js` from closed tickets + customer rating. Each technician has `users.incentive_per_call` (fixed rupees, set from experience). Feedback: Bad ×0, Average ×1, Very Good ×2; unrated held at ₹0. Displayed on dashboard Incentives; technician app does not show rupees.
 
 ## 4. Integrity rules (enforced in service layer + constraints)
 

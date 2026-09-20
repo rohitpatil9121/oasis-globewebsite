@@ -34,7 +34,7 @@ Four roles, one system, one database, one customer history:
 - OTP login (WhatsApp `login_otp` template) against the shared `users` table.
 - **Home / Today:** stat tiles (Pending / Today / Done), job buckets — pending-from-previous-days, today's jobs, completed today, repeat calls (free within 10 days), escalations. Online/offline availability toggle.
 - **Job detail — the strict 9-step workflow:** Accept → Travel → Arrive (GPS proof) → Diagnose (issues + TDS in/out + parts + photos + note) → Estimate (fixed charge types, editable part prices) → Approval (WhatsApp OTP or manager) → Work Done (final TDS + new/old part photos) → Payment (split UPI/Cash/Card to ₹0) → Close (next-service interval, optional lead).
-- **Earnings tab:** incentive display (Kent/Aqua 6→10% slabs, Oasis margin −18% GST) — display only; computed server-side.
+- **Earnings tab:** incentive display is office-only; technician app does not show rupees. Server computes per-call amount × customer feedback (Bad ×0, Average ×1, Very Good ×2).
 - **Reviews:** average rating, per-category scores, recent feedback, incentive nudges.
 - **Help:** manager/office contacts, emergency support, issue guide, customer-script playbook.
 

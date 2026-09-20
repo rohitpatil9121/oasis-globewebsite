@@ -24,3 +24,6 @@ build/
 *.log
 .DS_Store
 Thumbs.db
+
+# Database dumps — contain password hashes and customer phone numbers.
+backups/

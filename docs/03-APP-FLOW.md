@@ -44,7 +44,7 @@ Persistent header: customer, job id, model, live status pill. Horizontal stepper
 Every advance: timestamp column set, `ticket_events` appended, exactly one WhatsApp milestone message enqueued, dashboard reflects live. Offline: submit queued, retried on reconnect.
 
 ### A4. Earnings (`Earnings.jsx`)
-Incentive summary per period: Kent/Aqua slab (6%→10%), Oasis margin (−18% GST), job list with per-job contribution. Read-only; server-computed (`incentives.js`).
+Office-only. Per closed call: technician's fixed `incentive_per_call` × feedback (Bad 0, Average 1×, Very Good 2×). Unrated jobs held at ₹0. Server-computed (`incentives.js`).
 
 ### A5. Reviews (`Reviews.jsx`)
 Average ⭐ + tiles (This Week / Jobs Rated / 5★) · streak vs needs-improvement cards · per-category scores (polite, first-time fix, on-time, done properly, communication) · recent feedback list · rating-growth nudge.
