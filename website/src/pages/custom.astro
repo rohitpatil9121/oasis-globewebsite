@@ -28,7 +28,7 @@ const data = { wa: biz.wa, base: href(""), designs: custom.designs, water: custo
       <p class="eyebrow">Custom purifier</p>
       <h1 class="h-md">Make your own purifier.</h1>
       <p class="sub" style="margin-top:20px">Choose a model. Tell us what water you get. Add only the filters you need. You see the price as you choose.</p>
-      {custom.sample && <p class="note">These are sample models and prices. The final list is coming soon.</p>}
+      {custom.sample && <p class="note">These are sample prices. The final prices are coming soon.</p>}
     </div>
 
     <form class="cfg" id="cfg" onsubmit="return false">
@@ -63,7 +63,7 @@ const data = { wa: biz.wa, base: href(""), designs: custom.designs, water: custo
         </fieldset>
 
         <fieldset>
-          <legend><span>3</span> Choose the filters</legend>
+          <legend><span>3</span> Add extra filters (optional)</legend>
           {groups.map((g) => (
             <div class="cfg-group">
               <h3>{g.title}</h3>
@@ -114,7 +114,6 @@ const data = { wa: biz.wa, base: href(""), designs: custom.designs, water: custo
       const b = box(o.id), tag = b.closest(".opt").querySelector(".tag");
       const req = w.requires.includes(o.id), sug = w.suggests.includes(o.id);
       if (req) b.checked = true;
-      else if (prefill) b.checked = sug;
       b.dataset.locked = req ? "1" : "";
       tag.hidden = !(req || sug);
       tag.textContent = req ? "You need this" : "Good for your water";
@@ -137,14 +136,14 @@ const data = { wa: biz.wa, base: href(""), designs: custom.designs, water: custo
 
     const img = document.querySelector("#sum-ph img"), src = data.base + d.image;
     if (!img.src.endsWith(src)) { document.querySelector("#sum-ph source").srcset = src.replace(/\.jpe?g$/i, ".webp"); img.src = src; }
-    const stages = ["Dust filter", "Carbon filter", ...picked.filter((o) => o.stage).map((o) => o.stage), "Tank"];
+    const stages = ["Pre-filter", "Sediment", "Carbon", "RO", "UV", "UF", ...picked.filter((o) => o.stage).map((o) => o.stage), "Tank"];
     document.getElementById("sum-flow").innerHTML = stages.map((s) => `<li>${s}</li>`).join("");
     document.getElementById("sum-lines").innerHTML = [[d.name, d.price], ...picked.map((o) => [o.name, o.price])]
       .map(([k, v]) => `<div><dt>${k}</dt><dd>${rupee(v)}</dd></div>`).join("");
     document.getElementById("sum-total").textContent = document.getElementById("bar-total").textContent = rupee(total);
 
     const msg = ["Hi, I want to make my own Oasis purifier.", `Model: ${d.name}`, `Water: ${w.name}`,
-      `Added: ${picked.map((o) => o.name).join(", ") || "none"}`, `Price on website: ${rupee(total)}`,
+      `Added: ${picked.map((o) => o.name).join(", ") || "no extra filters"}`, `Price on website: ${rupee(total)}`,
       "Please tell me the final price."].join("\n");
     const url = `https://wa.me/${data.wa}?text=${encodeURIComponent(msg)}`;
     document.getElementById("sum-wa").href = document.getElementById("bar-wa").href = url;

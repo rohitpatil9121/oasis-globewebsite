@@ -4,161 +4,110 @@
     {
       "id": "wall",
       "name": "Wall model",
-      "price": 4500,
+      "price": 8500,
       "image": "/images/ro-home.jpg",
       "note": "Fixed on the kitchen wall. 9 litre tank."
     },
     {
       "id": "under",
       "name": "Under the sink",
-      "price": 6500,
+      "price": 11000,
       "image": "/images/hero-under-sink.jpg",
       "note": "Hidden inside the cabinet. Only a tap on top. 7 litre tank."
     },
     {
       "id": "counter",
       "name": "Table top",
-      "price": 5000,
+      "price": 9000,
       "image": "/images/hero-counter.jpg",
       "note": "Kept on the kitchen platform. No drilling. 8 litre tank."
     }
   ],
   "included": [
-    "Dust filter",
-    "Carbon filter",
-    "Water tank",
-    "Power adapter",
-    "Pipes",
-    "Tap"
+    "5–10 micron pre-filter",
+    "5 micron sediment filter",
+    "Carbon filter (1100 IV)",
+    "RO membrane (100 GPD)",
+    "Copper-winding pump (100 GPD)",
+    "UV lamp (Philips 254 nm)",
+    "UF membrane",
+    "TDS controller",
+    "Detachable 9–10 L tank",
+    "Fitting",
+    "Warranty"
   ],
   "water": [
     {
       "id": "corporation",
       "name": "Corporation water (PMC / PCMC)",
-      "note": "Soft water. UV + UF is enough. RO is your choice.",
+      "note": "Soft water. Your RO unit handles it fully.",
       "requires": [],
       "suggests": [
-        "uv",
-        "uf"
+        "copper_zinc"
       ]
     },
     {
       "id": "borewell",
       "name": "Borewell water",
-      "note": "Hard, salty water. You need RO.",
-      "requires": [
-        "ro"
-      ],
+      "note": "Hard, salty water. Your RO unit brings it down. Adding minerals back is a good idea.",
+      "requires": [],
       "suggests": [
-        "uv",
-        "tds"
+        "mineral",
+        "alkaline"
       ]
     },
     {
       "id": "mixed",
       "name": "Tanker or mixed water",
-      "note": "Water changes every day. RO + UV is the safe choice.",
-      "requires": [
-        "ro"
-      ],
+      "note": "Water changes every day. Your RO + UV handles both.",
+      "requires": [],
       "suggests": [
-        "uv",
-        "uf"
+        "mineral"
       ]
     }
   ],
   "groups": [
     {
-      "title": "Cleaning",
+      "title": "Extra filters",
       "options": [
         {
-          "id": "ro",
-          "name": "RO filter + pump",
-          "stage": "RO",
-          "note": "Removes salt and hardness from the water. 1 year warranty.",
-          "parts": [
-            "Oasis RO Membrane 100 GPD (1 yr warranty)",
-            "Oasis Pump 100GPD 1YR Warranty"
-          ]
-        },
-        {
-          "id": "uv",
-          "name": "UV light",
-          "stage": "UV",
-          "note": "Kills germs in the water.",
-          "parts": [
-            "Oasis UV Chamber"
-          ]
-        },
-        {
-          "id": "uf",
-          "name": "UF filter",
-          "stage": "UF",
-          "note": "Removes very small dirt.",
-          "parts": [
-            "Oasis UF 4\""
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Taste",
-      "options": [
-        {
-          "id": "tds",
-          "name": "TDS controller",
-          "needs": "ro",
-          "note": "Keeps the water tasty after RO.",
-          "parts": [
-            "Oasis TDS Controller"
-          ]
-        },
-        {
-          "id": "mineral",
-          "name": "Mineral filter",
-          "stage": "Mineral",
-          "needs": "ro",
-          "note": "Adds good minerals back to the water.",
-          "parts": [
-            "Oasis Mineral cartridge"
-          ]
+          "id": "post_carbon",
+          "name": "Post carbon filter",
+          "stage": "Post carbon",
+          "note": "Makes the water taste better after the tank.",
+          "price": 600
         },
         {
           "id": "alkaline",
           "name": "Alkaline filter",
           "stage": "Alkaline",
           "note": "Makes the water less acidic.",
-          "parts": [
-            "Oasis Alkaline"
-          ]
+          "price": 1300
+        },
+        {
+          "id": "copper_zinc",
+          "name": "Copper + Zinc filter",
+          "stage": "Copper+Zinc",
+          "note": "Adds copper and zinc to the water.",
+          "price": 1200
+        },
+        {
+          "id": "mineral",
+          "name": "Mineral filter",
+          "stage": "Mineral",
+          "note": "Adds good minerals back to the water.",
+          "price": 600
         }
       ]
     },
     {
-      "title": "Extra",
+      "title": "Extra tank",
       "options": [
         {
-          "id": "pump2",
-          "name": "2 year pump warranty",
-          "needs": "ro",
-          "note": "One more year of warranty on the pump.",
-          "price": 400
-        },
-        {
-          "id": "faucet",
-          "name": "Steel tap",
-          "note": "A long steel tap in place of the normal tap.",
-          "parts": [
-            "Faucet Tap"
-          ]
-        },
-        {
-          "id": "led",
-          "name": "LED light",
-          "note": "A small light inside the purifier.",
-          "parts": [
-            "LED Strip"
-          ]
+          "id": "alk_tank",
+          "name": "Separate alkaline tank with its own tap",
+          "note": "A second tank and tap that gives alkaline water on its own.",
+          "price": 1800
         }
       ]
     }
