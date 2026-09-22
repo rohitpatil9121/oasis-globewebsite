@@ -1,0 +1,126 @@
+---
+// One page per brand we service — "kent service centre pune",
+// "aquaguard repair near me". We are an independent service company, not an
+// authorised centre for any brand, and the page says so in as many words:
+// claiming otherwise would be a lie and the brands do act on it.
+import Base from "../../layouts/Base.astro";
+import { biz, wa, msgs, trust, steps, slug, href } from "../../data/business.js";
+import { brands } from "../../data/seo.js";
+import { getConfig, rupee } from "../../lib/config.js";
+import Pic from "../../components/Pic.astro";
+
+export function getStaticPaths() {
+  return brands.map((b) => ({ params: { brand: b.slug }, props: { b } }));
+}
+
+const { b } = Astro.props;
+const cfg = await getConfig();
+const waBrand = wa(`Hi, I need service for my ${b.name} water purifier. Please share the visit charge and availability.`);
+const tel = `tel:${biz.tel}`;
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: `${b.name} water purifier repair and service`,
+    provider: { "@type": "LocalBusiness", name: biz.name, telephone: biz.tel },
+    areaServed: biz.areas.map((a) => ({ "@type": "Place", name: a + ", Pune" })),
+    description: `Independent repair, filter change and installation service for ${b.name} water purifiers in Pune.`,
+    ...(cfg.service_charge != null
+      ? { offers: { "@type": "Offer", price: cfg.service_charge, priceCurrency: "INR" } }
+      : {}),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", Astro.site).href },
+      { "@type": "ListItem", position: 2, name: `${b.name} purifier service` },
+    ],
+  },
+];
+---
+<Base
+  schema={schema}
+  title={`${b.name} Water Purifier Service in Pune | Repair & Filter Change | Oasis Globe`}
+  description={`${b.name} purifier repair, filter and membrane change in Pune. Independent service by our own technicians. Pay after the work is done, warranty written on the bill.`}>
+<main>
+  <section class="wrap hero" aria-labelledby="hero-h">
+    <div class="hero-copy">
+      <p class="eyebrow">{b.name} purifier service • Pune</p>
+      <h1 id="hero-h" class="h-xl">{b.name} purifier giving trouble?</h1>
+      <p class="lead">
+        We repair and service {b.name} purifiers across west Pune — {b.models}.
+        Our own technicians come, parts are charged at our listed prices, and you
+        pay only after the purifier is working.
+      </p>
+      <div class="btn-row">
+        <a href={waBrand} target="_blank" rel="noopener" data-event="whatsapp_click" class="btn btn-primary">WhatsApp us</a>
+        <a href={tel} data-event="call_click" class="btn btn-outline">Call</a>
+      </div>
+    </div>
+    <div class="hero-img"><Pic src="/images/job-open-unit.jpg" alt={`A ${b.name} type water purifier opened up during a service`} width="840" height="840" loading="eager" fetchpriority="high" /></div>
+  </section>
+  <p class="wrap tagline">Pay after service · Free revisit · Our own technicians</p>
+
+  <section class="wrap section" aria-labelledby="what-h">
+    <div class="head">
+      <h2 id="what-h" class="h-md">What usually goes wrong on a {b.name}.</h2>
+      <p class="sub">The jobs we are called out for most often.</p>
+    </div>
+    <ul class="areas" style="max-width:760px">
+      {b.common.map((c) => <li style="white-space:normal">{c}</li>)}
+    </ul>
+    <p class="note" style="max-width:640px;margin-top:32px">
+      Oasis Globe is an independent service company. We are not an authorised
+      {" " + b.name} service centre and we are not connected to {b.name}. If your
+      purifier is still under the manufacturer's warranty, use their service —
+      it will cost you nothing. We are for units out of warranty, or when you
+      want someone who turns up.
+    </p>
+  </section>
+
+  <section class="trust" aria-labelledby="trust-h">
+    <div class="wrap trust-head"><h2 id="trust-h" class="eyebrow">Our promise</h2></div>
+    <div class="wrap trust-grid">
+      {trust(cfg).map((t, i) => <div><span class="num">0{i + 1}</span><h3>{t.title}</h3><p>{t.body}</p></div>)}
+    </div>
+  </section>
+
+  <section class="wrap section" aria-labelledby="how-h">
+    <h2 id="how-h" class="h-md section-head-gap" style="margin-bottom:80px">How it works.</h2>
+    <ol class="steps">
+      {steps.map((st, i) => (
+        <li>
+          <div class="n"><span>{st.n}</span><span aria-hidden="true">{i < steps.length - 1 ? "→" : ""}</span></div>
+          <div><h3>{st.title}</h3><p>{st.body}</p></div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="wrap section grid-2" aria-labelledby="other-h" style="align-items:end">
+    <div>
+      <p class="eyebrow">Other brands</p>
+      <h2 id="other-h" class="h-lg">Not a<br />{b.name}?</h2>
+    </div>
+    <ul class="areas">
+      {brands.filter((x) => x.slug !== b.slug).map((x) => (
+        <li><a href={href(`/brands/${x.slug}/`)} style="color:inherit">{x.name}</a></li>
+      ))}
+      <li><a href={href("/price-list/")} style="color:inherit">Parts price list</a></li>
+    </ul>
+  </section>
+
+  <section id="contact" class="cta" aria-labelledby="cta-h">
+    <div class="wrap">
+      <h2 id="cta-h">Need {b.name} service?</h2>
+      <p class="lead">Tell us what’s wrong. We’ll take it from there.</p>
+      <div class="btn-row">
+        <a href={waBrand} target="_blank" rel="noopener" data-event="whatsapp_click" class="btn btn-primary" style="height:52px;padding:0 28px;font-size:16px">WhatsApp us</a>
+        <a href={tel} data-event="call_click" class="btn btn-outline" style="height:52px;padding:0 28px;font-size:16px">Call us</a>
+      </div>
+    </div>
+  </section>
+</main>
+</Base>

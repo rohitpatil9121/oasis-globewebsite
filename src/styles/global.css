@@ -329,3 +329,13 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
   .pl td:nth-child(2) { display: none; }
   .pl th:nth-child(2) { display: none; }
 }
+
+/* Footer link columns — the brand, problem and area pages live here, which is
+   both how a visitor finds them and how a crawler reaches them. */
+.site-footer .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding: 32px 0 8px; border-top: 1px solid var(--line); }
+.site-footer .cols h3 { margin: 0 0 12px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.site-footer .cols a { display: block; margin-bottom: 8px; font-size: 14px; color: var(--body); }
+.site-footer .cols a:hover { color: var(--accent); }
+@media (max-width: 720px) {
+  .site-footer .cols { grid-template-columns: 1fr; gap: 24px; }
+}
