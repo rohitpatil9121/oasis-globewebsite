@@ -35,6 +35,13 @@ export const biz = {
   areas: ["Wakad", "Hinjewadi", "Baner", "Pimple Saudagar", "Pimple Nilakh", "Tathawade", "Balewadi", "PCMC"],
 };
 
+// "Pimple Saudagar" -> "pimple-saudagar". Used for the /areas/<slug>/ pages.
+export const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+// Each area page lists the neighbouring areas we also cover, so a visitor who
+// landed on the wrong one can get to theirs and the pages link to each other.
+export const nearby = (area) => biz.areas.filter((a) => a !== area).slice(0, 5);
+
 // Pre-filled WhatsApp messages. The bot reads these and starts intake directly.
 export const msgs = {
   service: "Hi, I need water purifier service. Please share the visit charge and availability.",

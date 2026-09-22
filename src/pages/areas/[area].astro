@@ -1,0 +1,147 @@
+---
+// One page per service area. These exist because the searches that actually
+// bring work are local — "RO service Wakad", "water purifier repair near me"
+// — and a page that names the area can rank for them where the home page
+// cannot. Nothing here is invented about the locality: the page says what we
+// do, what it costs and who comes, with the area named and its neighbours
+// linked. Google penalises thin duplicate pages, so if this ever stops
+// carrying real information, delete it rather than padding it.
+import Base from "../../layouts/Base.astro";
+import { biz, wa, msgs, services, trust, steps, slug, nearby, href } from "../../data/business.js";
+import { getConfig, rupee } from "../../lib/config.js";
+import Pic from "../../components/Pic.astro";
+
+export function getStaticPaths() {
+  return biz.areas.map((area) => ({ params: { area: slug(area) }, props: { area } }));
+}
+
+const { area } = Astro.props;
+const cfg = await getConfig();
+const waArea = wa(`Hi, I need water purifier service in ${area}. Please share the visit charge and availability.`);
+const tel = `tel:${biz.tel}`;
+const others = nearby(area);
+const priceOf = (s) => (s.priceKey && cfg[s.priceKey] != null) ? rupee(cfg[s.priceKey]) : s.priceText;
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: "Water purifier repair and service",
+    provider: { "@type": "LocalBusiness", name: biz.name, telephone: biz.tel },
+    areaServed: { "@type": "Place", name: `${area}, Pune` },
+    description: `Water purifier repair, installation and filter change in ${area}, Pune. Kent, Aquaguard, Pureit, Livpure and Oasis serviced.`,
+    ...(cfg.service_charge != null
+      ? { offers: { "@type": "Offer", price: cfg.service_charge, priceCurrency: "INR" } }
+      : {}),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", Astro.site).href },
+      { "@type": "ListItem", position: 2, name: `${area} water purifier service` },
+    ],
+  },
+];
+---
+<Base
+  schema={schema}
+  title={`Water Purifier Service in ${area}, Pune | RO Repair | Oasis Globe`}
+  description={`Water purifier repair, installation and filter change in ${area}, Pune. Kent, Aquaguard, Pureit and Livpure serviced by our own technicians. Pay after the work is done.`}>
+<main>
+  <section class="wrap hero" aria-labelledby="hero-h">
+    <div class="hero-copy">
+      <p class="eyebrow">Water purifier service • {area}</p>
+      <h1 id="hero-h" class="h-xl">Purifier trouble in {area}?</h1>
+      <p class="lead">
+        We repair, install and service water purifiers across {area} and the rest of
+        west Pune. Our own technicians come, not freelancers, and you pay only after
+        the purifier is working.
+      </p>
+      <div class="btn-row">
+        <a href={waArea} target="_blank" rel="noopener" data-event="whatsapp_click" class="btn btn-primary">WhatsApp us</a>
+        <a href={tel} data-event="call_click" class="btn btn-outline">Call</a>
+      </div>
+    </div>
+    <div class="hero-img"><Pic src="/images/technician-filter.jpg" alt={`Technician replacing a water purifier filter in ${area}`} width="1200" height="800" loading="eager" fetchpriority="high" /></div>
+  </section>
+  <p class="wrap tagline">Pay after service · Free revisit · Our own technicians</p>
+
+  <section class="wrap section" aria-labelledby="services-h">
+    <div class="head">
+      <h2 id="services-h" class="h-md">What we do in {area}.</h2>
+      <p class="sub">Repair, installation and filter replacement. Fixed visit charge, parts at listed prices.</p>
+    </div>
+    <div class="cards">
+      {services.map((s) => (
+        <article class="card">
+          <div>
+            <h3>{s.name}</h3>
+            {s.priceKey && cfg[s.priceKey] != null
+              ? <span class="price" data-cfg={s.priceKey} data-prefix="₹">{priceOf(s)}</span>
+              : <span class="price">{priceOf(s)}</span>}
+          </div>
+          <p>{s.body}</p>
+          <div class="btn-row" style="gap:20px">
+            <a href={wa(s.msg)} target="_blank" rel="noopener" data-event="whatsapp_click" class="link">WhatsApp <span aria-hidden="true">→</span></a>
+            {s.link && <a href={href(s.link.href)} data-event="price_list_click" class="link" style="color:var(--muted)">{s.link.text} <span aria-hidden="true">→</span></a>}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="trust" aria-labelledby="trust-h">
+    <div class="wrap trust-head"><h2 id="trust-h" class="eyebrow">Our promise</h2></div>
+    <div class="wrap trust-grid">
+      {trust(cfg).map((t, i) => <div><span class="num">0{i + 1}</span><h3>{t.title}</h3><p>{t.body}</p></div>)}
+    </div>
+  </section>
+
+  <section class="wrap section" aria-labelledby="brands-h">
+    <h2 id="brands-h" class="h-md" style="margin-bottom:16px">Brands we service in {area}.</h2>
+    <p class="sub" style="margin-bottom:40px">If your purifier is not listed, message us and we will confirm.</p>
+    <ul class="brand-tiles">
+      {biz.brandTiles.map((b) => (
+        <li>{b.logo
+          ? <img src={href(b.logo)} alt={b.name} height="40" loading="lazy" decoding="async" />
+          : <span style={`color:${b.color};${b.style}`}>{b.name}</span>}</li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="wrap section" aria-labelledby="how-h">
+    <h2 id="how-h" class="h-md section-head-gap" style="margin-bottom:80px">How it works.</h2>
+    <ol class="steps">
+      {steps.map((st, i) => (
+        <li>
+          <div class="n"><span>{st.n}</span><span aria-hidden="true">{i < steps.length - 1 ? "→" : ""}</span></div>
+          <div><h3>{st.title}</h3><p>{st.body}</p></div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section id="areas" class="wrap section grid-2" aria-labelledby="areas-h" style="align-items:end">
+    <div>
+      <p class="eyebrow">Also nearby</p>
+      <h2 id="areas-h" class="h-lg">Not in<br />{area}?</h2>
+    </div>
+    <ul class="areas">
+      {others.map((a) => <li><a href={href(`/areas/${slug(a)}/`)} style="color:inherit">{a}</a></li>)}
+      <li><a href={href("/#areas")} style="color:inherit">All areas</a></li>
+    </ul>
+  </section>
+
+  <section id="contact" class="cta" aria-labelledby="cta-h">
+    <div class="wrap">
+      <h2 id="cta-h">Need purifier service in {area}?</h2>
+      <p class="lead">Tell us what’s wrong. We’ll take it from there.</p>
+      <div class="btn-row">
+        <a href={waArea} target="_blank" rel="noopener" data-event="whatsapp_click" class="btn btn-primary" style="height:52px;padding:0 28px;font-size:16px">WhatsApp us</a>
+        <a href={tel} data-event="call_click" class="btn btn-outline" style="height:52px;padding:0 28px;font-size:16px">Call us</a>
+      </div>
+    </div>
+  </section>
+</main>
+</Base>
