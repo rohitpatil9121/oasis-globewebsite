@@ -30,10 +30,15 @@ jobs:
       - run: npm ci
       # Charges/warranty are fetched from the Oasis backend at build time
       # (src/lib/config.js); on a timeout the shipped defaults are used.
+      # The site lives on its own domain, so the URL is pinned here rather than
+      # read from configure-pages. That output follows the Pages settings: it
+      # returns the github.io URL until a custom domain is saved, and http://
+      # until "Enforce HTTPS" is ticked — both of which end up baked into every
+      # canonical tag and sitemap entry of whatever build runs in between.
       - run: npm run build
         env:
-          SITE: ${{ steps.pages.outputs.origin }}
-          BASE: ${{ steps.pages.outputs.base_path }}/
+          SITE: https://oasisglobe.in
+          BASE: /
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
