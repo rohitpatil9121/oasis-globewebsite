@@ -1,6 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
-import { biz, wa, msgs, services, trust, steps, faq, href } from "../data/business.js";
+import { biz, wa, msgs, services, trust, steps, faq, href, slug } from "../data/business.js";
 import { getConfig, rupee } from "../lib/config.js";
 import Pic from "../components/Pic.astro";
 
@@ -11,8 +11,35 @@ const faqs = faq(cfg);
 
 // A service card's price: live figure from settings when it has one, else the text.
 const priceOf = (s) => (s.priceKey && cfg[s.priceKey] != null) ? rupee(cfg[s.priceKey]) : s.priceText;
+
+// Structured data. The FAQ block is the same text that is on the page — Google
+// requires that, and it can show the answers directly in the results. The
+// services are declared with the areas they are offered in, which is what a
+// local search ("RO service in Wakad") is matched against.
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  ...services.map((s) => ({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: s.name,
+    description: s.body,
+    provider: { "@type": "LocalBusiness", name: biz.name, telephone: biz.tel },
+    areaServed: biz.areas.map((a) => ({ "@type": "Place", name: a + ", Pune" })),
+    ...(s.priceKey && cfg[s.priceKey] != null
+      ? { offers: { "@type": "Offer", price: cfg[s.priceKey], priceCurrency: "INR" } }
+      : {}),
+  })),
+];
 ---
-<Base title="Water Purifier Service in Pune | Oasis Globe" description="Water purifier repair, installation and filter change in Pune. Our technicians focus on how clean your water comes out, not on replacing parts. Pay after the work is done.">
+<Base schema={schema} title="Water Purifier Service in Pune | RO Repair & Installation | Oasis Globe" description="Water purifier repair, installation and filter change in Wakad, Hinjewadi, Baner and across Pune. Kent, Aquaguard, Pureit and Livpure serviced. Pay after the work is done.">
 <main id="top">
   <section class="wrap hero" aria-labelledby="hero-h">
     <div class="hero-copy">
@@ -110,7 +137,7 @@ const priceOf = (s) => (s.priceKey && cfg[s.priceKey] != null) ? rupee(cfg[s.pri
       <p class="eyebrow">Service area</p>
       <h2 id="areas-h" class="h-lg">Pune,<br />close to home.</h2>
     </div>
-    <ul class="areas">{biz.areas.map((a) => <li>{a}</li>)}</ul>
+    <ul class="areas">{biz.areas.map((a) => <li><a href={href(`/areas/${slug(a)}/`)} style="color:inherit">{a}</a></li>)}</ul>
   </section>
 
   <section class="wrap section-tight grid-2" aria-labelledby="faq-h" style="align-items:start">

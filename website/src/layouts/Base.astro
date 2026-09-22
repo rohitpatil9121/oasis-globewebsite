@@ -4,7 +4,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { biz, wa, msgs, API, href } from "../data/business.js";
 
-const { title, description, plain = false, noindex = false } = Astro.props;
+const { title, description, plain = false, noindex = false, schema = [] } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const waService = wa(msgs.service);
 ---
@@ -26,6 +26,10 @@ const waService = wa(msgs.service);
   <meta property="og:type" content="website" />
   <meta property="og:url" content={canonical} />
   <meta property="og:image" content={new URL("/images/hero-counter.jpg", Astro.site).href} />
+  <meta property="og:image:alt" content="Water purifier installed beneath a kitchen counter" />
+  <meta property="og:site_name" content={biz.name} />
+  <meta property="og:locale" content="en_IN" />
+  <meta name="twitter:card" content="summary_large_image" />
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -36,7 +40,13 @@ const waService = wa(msgs.service);
     areaServed: biz.areas.map((a) => ({ "@type": "Place", name: a + ", Pune" })),
     openingHours: "Mo-Sa 09:00-19:00",
     url: Astro.site?.href,
+    image: new URL("/images/hero-counter.jpg", Astro.site).href,
+    logo: new URL("/images/logo.png", Astro.site).href,
+    priceRange: "₹₹",
+    currenciesAccepted: "INR",
+    knowsAbout: biz.brands.map((b) => b + " water purifier service"),
   })} />
+  {schema.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
 </head>
 <body>
   {!plain && <Header />}
