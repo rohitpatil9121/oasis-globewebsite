@@ -203,8 +203,8 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
 .opt.design { padding: 10px 10px 16px; }
 .opt.design .ph { display: block; aspect-ratio: 4/3; border-radius: 8px; overflow: hidden; background: var(--bg-alt); margin-bottom: 8px; }
 .opt.design .ph img, .cfg-sum .ph img { width: 100%; height: 100%; object-fit: cover; }
-.opt.design .t, .opt.design .n, .opt.design .p { padding: 0 8px; }
-.opt.design .p { margin-top: auto; padding-top: 6px; }
+.opt.design .t, .opt.design .n { padding: 0 8px; }
+.opt.design .n { margin-bottom: 4px; }
 .opt.line { flex-direction: row; align-items: center; gap: 16px; margin-bottom: 10px; padding-left: 54px; }
 .opt.line::before { content: ""; position: absolute; left: 18px; top: 50%; width: 20px; height: 20px; margin-top: -10px; border: 1.5px solid var(--faint); border-radius: 6px; background: var(--bg); }
 .opt.line.on::before { border-color: var(--accent); background: var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 10.5l3.2 3.2L15 7'/%3E%3C/svg%3E") center/18px no-repeat; }
@@ -221,9 +221,8 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
 .cfg-sum dl { margin: 0; border-top: 1px solid var(--line); font-size: 14px; font-variant-numeric: tabular-nums; }
 .cfg-sum dl div { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); }
 .cfg-sum dt { color: var(--body); }
-.cfg-sum dd { margin: 0; font-weight: 500; white-space: nowrap; }
-.cfg-sum .total { display: flex; justify-content: space-between; align-items: baseline; padding: 18px 0 20px; font-size: 15px; color: var(--muted); }
-.cfg-sum .total strong { font-size: 30px; font-weight: 600; letter-spacing: -.02em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.cfg-sum dd { margin: 0; font-weight: 500; text-align: right; }
+.cfg-sum .ask { margin: 18px 0 16px; font-size: 15px; color: var(--body); }
 .cfg-sum .btn { width: 100%; }
 .cfg-sum .note { margin-top: 16px; line-height: 1.55; }
 .cfg-bar { display: none; }
@@ -322,7 +321,7 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
   .cfg-bar { position: fixed; left: 0; right: 0; bottom: 0; height: 60px; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; background: var(--accent); color: var(--on-accent); z-index: 30; }
   .cfg-bar:hover { color: var(--on-accent); }
   .cfg-bar small { display: block; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
-  .cfg-bar strong { font-size: 19px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .cfg-bar strong { font-size: 16px; font-weight: 600; }
   .cfg-bar .go { font-size: 15px; font-weight: 500; }
   .pl { padding: 32px 20px; margin: 20px auto 40px; gap: 32px; }
   .pl .eff { text-align: left; }

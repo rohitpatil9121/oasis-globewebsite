@@ -1,34 +1,26 @@
 ---
-// Build-your-own purifier. Options live in src/data/custom.json; add-on
-// prices are read from parts.json by part name, so the builder and the
-// price list can never disagree.
+// Build-your-own purifier. Options live in src/data/custom.json. The page
+// shows no prices: the customer picks a build and sends it on WhatsApp, and
+// the office quotes the price there.
 import Base from "../layouts/Base.astro";
 import { biz, href } from "../data/business.js";
-import { rupee } from "../lib/config.js";
 import custom from "../data/custom.json";
-import parts from "../data/parts.json";
 import Pic from "../components/Pic.astro";
 
-const priceOf = Object.fromEntries(parts.flatMap((g) => g.rows).map((r) => [r.part, r.price]));
-const groups = custom.groups.map((g) => ({
-  ...g,
-  options: g.options.map((o) => {
-    const missing = (o.parts || []).filter((p) => !(p in priceOf));
-    if (missing.length) throw new Error(`custom.json: not in parts.json: ${missing.join(", ")}`);
-    return { ...o, price: o.price ?? o.parts.reduce((s, p) => s + priceOf[p], 0) };
-  }),
-}));
+// No prices anywhere on this page — the owner has not given the final list
+// yet (23 Sep 2026: "kuch price mat daal abhi, bas contact on WhatsApp").
+// The figures stay in custom.json for when he does; nothing reads them.
+const groups = custom.groups;
 const options = groups.flatMap((g) => g.options);
 const data = { wa: biz.wa, base: href(""), designs: custom.designs, water: custom.water, options };
 ---
-<Base title="Make Your Own Water Purifier | Oasis Globe" description="Choose a model, tell us your water type and add the filters you need. See the price as you choose and send it to us on WhatsApp.">
+<Base title="Make Your Own Water Purifier | Oasis Globe" description="Choose a model, tell us your water type and add the filters you need. Send your build on WhatsApp and we tell you the price.">
 <main class="wrap">
   <section style="padding-top:64px">
     <div class="cfg-head">
       <p class="eyebrow">Custom purifier</p>
       <h1 class="h-md">Make your own purifier.</h1>
-      <p class="sub" style="margin-top:20px">Choose a model. Tell us what water you get. Add only the filters you need. You see the price as you choose.</p>
-      {custom.sample && <p class="note">These are sample prices. The final prices are coming soon.</p>}
+      <p class="sub" style="margin-top:20px">Choose a model. Tell us what water you get. Add only the filters you need. Send it to us on WhatsApp and we tell you the price.</p>
     </div>
 
     <form class="cfg" id="cfg" onsubmit="return false">
@@ -42,7 +34,6 @@ const data = { wa: biz.wa, base: href(""), designs: custom.designs, water: custo
                 <span class="ph"><Pic src={d.image} alt="" width="400" height="300" /></span>
                 <span class="t">{d.name}</span>
                 <span class="n">{d.note}</span>
-                <span class="p">{rupee(d.price)}</span>
               </label>
             ))}
           </div>
@@ -74,7 +65,6 @@ const data = { wa: biz.wa, base: href(""), designs: custom.designs, water: custo
                     <span class="t">{o.name} <em class="tag" hidden></em></span>
                     <span class="n">{o.note}</span>
                   </span>
-                  <span class="p">+ {rupee(o.price)}</span>
                 </label>
               ))}
             </div>
@@ -87,23 +77,22 @@ const data = { wa: biz.wa, base: href(""), designs: custom.designs, water: custo
         <p class="eyebrow muted" style="margin:0 0 12px">How your water gets clean</p>
         <ol class="flow" id="sum-flow"></ol>
         <dl id="sum-lines"></dl>
-        <div class="total"><span>Total</span><strong id="sum-total"></strong></div>
-        <a id="sum-wa" href="#" target="_blank" rel="noopener" data-event="custom_whatsapp_click" class="btn btn-primary">Send on WhatsApp <span aria-hidden="true">→</span></a>
-        <p class="note">Fitting charge is extra. We tell you the final price and the fitting date on WhatsApp. You pay only after it is fitted and working.</p>
+        <p class="ask">Send your build to us and we tell you the price.</p>
+        <a id="sum-wa" href="#" target="_blank" rel="noopener" data-event="custom_whatsapp_click" class="btn btn-primary">Get price on WhatsApp <span aria-hidden="true">→</span></a>
+        <p class="note">We tell you the price, the fitting charge and the fitting date on WhatsApp. You pay only after it is fitted and working.</p>
       </aside>
     </form>
   </section>
 </main>
 
 <a id="bar-wa" href="#" target="_blank" rel="noopener" data-event="custom_whatsapp_click" class="cfg-bar">
-  <span><small>Total</small><strong id="bar-total"></strong></span>
-  <span class="go">Send on WhatsApp →</span>
+  <span><small>Your build</small><strong id="bar-count"></strong></span>
+  <span class="go">Get price on WhatsApp →</span>
 </a>
 </Base>
 
 <script is:inline define:vars={{ data }}>
   const form = document.getElementById("cfg");
-  const rupee = (n) => "₹" + n.toLocaleString("en-IN");
   const box = (id) => form.querySelector(`input[name=opt][value="${id}"]`);
 
   // Water source decides what is locked on (requires) and what is ticked
@@ -132,19 +121,19 @@ const data = { wa: biz.wa, base: href(""), designs: custom.designs, water: custo
     const d = data.designs.find((x) => x.id === form.design.value);
     const w = data.water.find((x) => x.id === form.water.value);
     const picked = data.options.filter((o) => box(o.id).checked);
-    const total = d.price + picked.reduce((s, o) => s + o.price, 0);
 
     const img = document.querySelector("#sum-ph img"), src = data.base + d.image;
     if (!img.src.endsWith(src)) { document.querySelector("#sum-ph source").srcset = src.replace(/\.jpe?g$/i, ".webp"); img.src = src; }
     const stages = ["Pre-filter", "Sediment", "Carbon", "RO", "UV", "UF", ...picked.filter((o) => o.stage).map((o) => o.stage), "Tank"];
     document.getElementById("sum-flow").innerHTML = stages.map((s) => `<li>${s}</li>`).join("");
-    document.getElementById("sum-lines").innerHTML = [[d.name, d.price], ...picked.map((o) => [o.name, o.price])]
-      .map(([k, v]) => `<div><dt>${k}</dt><dd>${rupee(v)}</dd></div>`).join("");
-    document.getElementById("sum-total").textContent = document.getElementById("bar-total").textContent = rupee(total);
+    document.getElementById("sum-lines").innerHTML = [["Model", d.name], ["Water", w.name],
+      ["Extra filters", picked.map((o) => o.name).join(", ") || "None"]]
+      .map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("");
+    document.getElementById("bar-count").textContent = d.name + (picked.length ? " + " + picked.length + " extra" : "");
 
     const msg = ["Hi, I want to make my own Oasis purifier.", `Model: ${d.name}`, `Water: ${w.name}`,
-      `Added: ${picked.map((o) => o.name).join(", ") || "no extra filters"}`, `Price on website: ${rupee(total)}`,
-      "Please tell me the final price."].join("\n");
+      `Added: ${picked.map((o) => o.name).join(", ") || "no extra filters"}`,
+      "Please tell me the price."].join("\n");
     const url = `https://wa.me/${data.wa}?text=${encodeURIComponent(msg)}`;
     document.getElementById("sum-wa").href = document.getElementById("bar-wa").href = url;
   }
