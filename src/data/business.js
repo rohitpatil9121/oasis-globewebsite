@@ -12,11 +12,13 @@ export const API = "https://oasis-service-automation.onrender.com";
 export const biz = {
   name: "Oasis Globe",
   tagline: "Water purifier sales & service in Pune.",
-  // TODO confirm with Bhushan: this is the number on the old site. If the
-  // customer WhatsApp is the "92" number, change `wa` and `phone` here only.
-  phone: "+91 88550 00093",
-  tel: "+918855000093",
-  wa: "918855000093",
+  // The customer-facing number, confirmed 23 Sep 2026 — it is the one on the
+  // WhatsApp Business display picture. The site had the "93" number, which is
+  // not where customers should land. Google Business Profile must carry this
+  // same number: a mismatch costs local ranking.
+  phone: "+91 88550 00092",
+  tel: "+918855000092",
+  wa: "918855000092",
   address: "Mankar Chowk, Kaspatewasti, Wakad, Pune 411057",
   hours: "Mon–Sat · 9 AM–7 PM",
   brands: ["KENT", "AQUAGUARD", "PUREIT", "LIVPURE", "OASIS"],
