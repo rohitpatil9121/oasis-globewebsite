@@ -12,7 +12,7 @@ import Pic from "../components/Pic.astro";
 // The figures stay in custom.json for when he does; nothing reads them.
 const groups = custom.groups;
 const options = groups.flatMap((g) => g.options);
-const data = { wa: biz.wa, base: href(""), designs: custom.designs, water: custom.water, options };
+const data = { wa: biz.wa, base: href(""), designs: custom.designs, cabinets: custom.cabinets, water: custom.water, options };
 ---
 <Base title="Make Your Own Water Purifier | Oasis Globe" description="Choose a model, tell us your water type and add the filters you need. Send your build on WhatsApp and we tell you the price.">
 <main class="wrap">
@@ -41,7 +41,21 @@ const data = { wa: biz.wa, base: href(""), designs: custom.designs, water: custo
         </fieldset>
 
         <fieldset>
-          <legend><span>2</span> What water do you get?</legend>
+          <legend><span>2</span> Choose your cabinet look</legend>
+          <p class="cfg-hint">The colour and design of the outer cabinet. The purifier inside is the same.</p>
+          <div class="cfg-cabs">
+            {custom.cabinets.map((c, i) => (
+              <label class="opt cab">
+                <input type="radio" name="cabinet" value={c.id} checked={i === 0} />
+                <span class="ph"><Pic src={c.image} alt={c.name} width="220" height="150" /></span>
+                <span class="t">{c.name}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend><span>3</span> What water do you get?</legend>
           <div class="cfg-row3">
             {custom.water.map((w, i) => (
               <label class="opt">
@@ -54,7 +68,7 @@ const data = { wa: biz.wa, base: href(""), designs: custom.designs, water: custo
         </fieldset>
 
         <fieldset>
-          <legend><span>3</span> Add extra filters (optional)</legend>
+          <legend><span>4</span> Add extra filters (optional)</legend>
           {groups.map((g) => (
             <div class="cfg-group">
               <h3>{g.title}</h3>
@@ -73,7 +87,7 @@ const data = { wa: biz.wa, base: href(""), designs: custom.designs, water: custo
       </div>
 
       <aside class="cfg-sum" aria-live="polite">
-        <div class="ph" id="sum-ph"><Pic src={custom.designs[0].image} alt="" width="800" height="600" loading="eager" /></div>
+        <div class="ph" id="sum-ph"><Pic src={custom.cabinets[0].image} alt="" width="800" height="600" loading="eager" /></div>
         <p class="eyebrow muted" style="margin:0 0 12px">How your water gets clean</p>
         <ol class="flow" id="sum-flow"></ol>
         <dl id="sum-lines"></dl>
@@ -119,19 +133,20 @@ const data = { wa: biz.wa, base: href(""), designs: custom.designs, water: custo
     });
     form.querySelectorAll(".opt").forEach((l) => l.classList.toggle("on", l.querySelector("input").checked));
     const d = data.designs.find((x) => x.id === form.design.value);
+    const cab = data.cabinets.find((x) => x.id === form.cabinet.value);
     const w = data.water.find((x) => x.id === form.water.value);
     const picked = data.options.filter((o) => box(o.id).checked);
 
-    const img = document.querySelector("#sum-ph img"), src = data.base + d.image;
+    const img = document.querySelector("#sum-ph img"), src = data.base + cab.image;
     if (!img.src.endsWith(src)) { document.querySelector("#sum-ph source").srcset = src.replace(/\.jpe?g$/i, ".webp"); img.src = src; }
     const stages = ["Pre-filter", "Sediment", "Carbon", "RO", "UV", "UF", ...picked.filter((o) => o.stage).map((o) => o.stage), "Tank"];
     document.getElementById("sum-flow").innerHTML = stages.map((s) => `<li>${s}</li>`).join("");
-    document.getElementById("sum-lines").innerHTML = [["Model", d.name], ["Water", w.name],
+    document.getElementById("sum-lines").innerHTML = [["Model", d.name], ["Cabinet", cab.name], ["Water", w.name],
       ["Extra filters", picked.map((o) => o.name).join(", ") || "None"]]
       .map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("");
-    document.getElementById("bar-count").textContent = d.name + (picked.length ? " + " + picked.length + " extra" : "");
+    document.getElementById("bar-count").textContent = d.name + " · " + cab.name + (picked.length ? " + " + picked.length + " extra" : "");
 
-    const msg = ["Hi, I want to make my own Oasis purifier.", `Model: ${d.name}`, `Water: ${w.name}`,
+    const msg = ["Hi, I want to make my own Oasis purifier.", `Model: ${d.name}`, `Cabinet: ${cab.name}`, `Water: ${w.name}`,
       `Added: ${picked.map((o) => o.name).join(", ") || "no extra filters"}`,
       "Please tell me the price."].join("\n");
     const url = `https://wa.me/${data.wa}?text=${encodeURIComponent(msg)}`;
