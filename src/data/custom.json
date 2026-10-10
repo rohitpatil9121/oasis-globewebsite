@@ -95,13 +95,13 @@
       "id": "marble-gray-brown",
       "name": "Marble Gray Brown",
       "image": "/images/cabinets/marble-gray-brown.jpg",
-      "tank": "fixed"
+      "tank": "none"
     },
     {
       "id": "blue-granite",
       "name": "Blue Granite",
       "image": "/images/cabinets/blue-granite.jpg",
-      "tank": "fixed"
+      "tank": "none"
     },
     {
       "id": "white-fonix",
@@ -119,19 +119,19 @@
       "id": "lavender",
       "name": "Lavender",
       "image": "/images/cabinets/lavender.jpg",
-      "tank": "fixed"
+      "tank": "none"
     },
     {
       "id": "marble-design",
       "name": "Marble Design",
       "image": "/images/cabinets/marble-design.jpg",
-      "tank": "fixed"
+      "tank": "none"
     },
     {
       "id": "marble-brown",
       "name": "Marble Brown",
       "image": "/images/cabinets/marble-brown.jpg",
-      "tank": "fixed"
+      "tank": "none"
     },
     {
       "id": "white-gold-wave",
