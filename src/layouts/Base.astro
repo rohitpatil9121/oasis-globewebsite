@@ -33,6 +33,7 @@ const waService = wa(msgs.service);
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
+    "@id": new URL("/#business", Astro.site).href,
     name: biz.name,
     description: biz.tagline,
     telephone: biz.tel,
@@ -45,6 +46,13 @@ const waService = wa(msgs.service);
     priceRange: "₹₹",
     currenciesAccepted: "INR",
     knowsAbout: biz.brands.map((b) => b + " water purifier service"),
+    makesOffer: ["Water purifier repair and service", "Water purifier installation", "New water purifiers: Oasis Globe, Kent, Aquaguard", "Custom-built water purifiers"].map((n) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: n } })),
+  })} />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: biz.name,
+    url: Astro.site?.href,
   })} />
   {schema.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
 </head>

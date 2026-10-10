@@ -18,6 +18,8 @@ const { b } = Astro.props;
 const cfg = await getConfig();
 const waBrand = wa(`Hi, I need service for my ${b.name} water purifier. Please share the visit charge and availability.`);
 const tel = `tel:${biz.tel}`;
+// New units of this brand, where we list them.
+const buy = { kent: "/purifiers/kent/", aquaguard: "/purifiers/aquaguard/", oasis: "/purifiers/" }[b.slug];
 
 const schema = [
   {
@@ -94,6 +96,7 @@ const schema = [
       {brands.filter((x) => x.slug !== b.slug).map((x) => (
         <li><a href={href(`/brands/${x.slug}/`)} style="color:inherit">{x.name}</a></li>
       ))}
+      {buy && <li><a href={href(buy)} style="color:inherit">New {b.name} purifiers</a></li>}
       <li><a href={href("/price-list/")} style="color:inherit">Parts price list</a></li>
     </ul>
   </section>

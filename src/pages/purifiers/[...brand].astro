@@ -1,0 +1,106 @@
+---
+// Branded purifiers, one page per brand so each can be found on its own
+// search ("Kent water purifier price Pune"): /purifiers/ is our own Oasis
+// Globe range, /purifiers/kent/ and /purifiers/aquaguard/ the other two.
+// Kent and Aquaguard models, specs and MRP are as printed in the two company
+// brochures (src/data/kent.json, aquaguard.json). Oasis models carry no price
+// yet — the office quotes on WhatsApp.
+import Base from "../../layouts/Base.astro";
+import { biz, wa, href } from "../../data/business.js";
+import { rupee } from "../../lib/config.js";
+import { oasisModels } from "../../data/purifiers.js";
+import kent from "../../data/kent.json";
+import aquaguard from "../../data/aquaguard.json";
+import Pic from "../../components/Pic.astro";
+
+export function getStaticPaths() {
+  const cats = [
+    { path: undefined, name: "Oasis Globe", brand: "Oasis", dir: "oasis", fit: "contain", service: "oasis", items: oasisModels },
+    { path: "kent", name: "Kent", brand: "Kent", dir: "kent", fit: "contain", service: "kent", items: kent },
+    { path: "aquaguard", name: "Aquaguard", brand: "Aquaguard", dir: "aquaguard", fit: "cover", service: "aquaguard", items: aquaguard },
+  ];
+  const tabs = cats.map((c) => ({ name: c.name, link: `/purifiers/${c.path ? c.path + "/" : ""}` }));
+  return cats.map((c) => ({ params: { brand: c.path }, props: { c, tabs } }));
+}
+
+const { c, tabs } = Astro.props;
+const self = `/purifiers/${c.path ? c.path + "/" : ""}`;
+// Aquaguard sells the same model name as RO+UV and as UV, so the full name
+// carries the type.
+const full = (m) => `${c.brand} ${m.name}${c.path === "aquaguard" ? " " + m.note.split(" · ")[0] : ""}`;
+const ask = (m) => wa(`Hi, I want to buy this water purifier: ${full(m)}. Please tell me the price.`);
+const priced = c.items.filter((m) => m.mrp);
+const low = priced.length ? Math.min(...priced.map((m) => m.mrp)) : null;
+const names = c.items.slice(0, 3).map((m) => m.name).join(", ");
+
+const title = low
+  ? `${c.name} Water Purifier Price in Pune | ${c.items.length} Models with MRP | Oasis Globe`
+  : `${c.name} Water Purifiers in Pune | Prospera, Inspera, Spectra, Fonix`;
+const description = low
+  ? `${c.name} water purifiers in Pune with MRP, from ${rupee(low)}: ${names} and ${c.items.length - 3} more. Fitted by our own technicians. Ask on WhatsApp.`
+  : `${c.name} water purifiers in Pune: ${names} and ${c.items.length - 3} more models. Our own brand, fitted by our own technicians. Get the price on WhatsApp.`;
+
+const abs = (p) => new URL(href(p), Astro.site).href;
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `${c.name} water purifiers`,
+    numberOfItems: c.items.length,
+    itemListElement: c.items.map((m, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Product",
+        name: `${full(m)} water purifier`,
+        brand: { "@type": "Brand", name: c.brand },
+        category: "Water purifier",
+        image: abs(`/images/${c.dir}/${m.slug}.jpg`),
+        ...(m.note ? { description: m.note } : {}),
+        ...(m.mrp ? { offers: {
+          "@type": "Offer", price: m.mrp, priceCurrency: "INR", url: abs(self),
+          seller: { "@type": "LocalBusiness", name: biz.name, telephone: biz.tel },
+        } } : {}),
+      },
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: abs("/") },
+      { "@type": "ListItem", position: 2, name: "Branded purifiers", ...(c.path ? { item: abs("/purifiers/") } : {}) },
+      ...(c.path ? [{ "@type": "ListItem", position: 3, name: `${c.name} purifiers` }] : []),
+    ],
+  },
+];
+---
+<Base schema={schema} title={title} description={description}>
+<main class="wrap">
+  <section class="section" style="padding-bottom:0" aria-labelledby="branded-h">
+    <p class="eyebrow">Branded purifiers</p>
+    <h1 id="branded-h" class="h-md" style="margin-bottom:28px">{c.name} water purifiers.</h1>
+    <nav class="topics three" aria-label="Brands">
+      {tabs.map((t) => <a href={href(t.link)} aria-current={t.link === self ? "page" : undefined}>{t.name}</a>)}
+    </nav>
+  </section>
+
+  <section class="cat" aria-labelledby="models-h">
+    <h2 id="models-h" class="cat-h">{c.name} <span>{c.items.length} models</span></h2>
+    <div class="products">
+      {c.items.map((m) => (
+        <article class={`product ${c.fit}`}>
+          <span class="img"><Pic src={`/images/${c.dir}/${m.slug}.jpg`} alt={`${full(m)} water purifier`} width={m.w} height={m.h} /></span>
+          <div class="body">
+            <h3>{m.name}</h3>
+            <p class="s">{m.note}</p>
+            {m.mrp && <p class="p">MRP {rupee(m.mrp)}</p>}
+            <a href={ask(m)} target="_blank" rel="noopener" data-event="whatsapp_click" class="link">{m.mrp ? "Ask on WhatsApp" : "Get price on WhatsApp"} <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+      ))}
+    </div>
+    <p class="sub" style="margin:40px 0 0;font-size:16px">Already have a {c.brand} purifier? <a href={href(`/brands/${c.service}/`)} class="link" style="font-size:16px">{c.brand} repair and service <span aria-hidden="true">→</span></a></p>
+  </section>
+</main>
+</Base>

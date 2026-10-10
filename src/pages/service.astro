@@ -1,0 +1,122 @@
+---
+// The service page: what we do, what it costs, which brands. It has its own
+// URL (not a section of the home page) so the Service button opens only this,
+// and so "water purifier service Pune" has one page that is about nothing else.
+import Base from "../layouts/Base.astro";
+import { biz, wa, msgs, services, trust, faq, href } from "../data/business.js";
+import { getConfig, rupee } from "../lib/config.js";
+import Facts from "../components/Facts.astro";
+
+const cfg = await getConfig();
+const waService = wa(msgs.service);
+const tel = `tel:${biz.tel}`;
+const faqs = faq(cfg);
+
+// A service card's price: live figure from settings when it has one, else the text.
+const priceOf = (s) => (s.priceKey && cfg[s.priceKey] != null) ? rupee(cfg[s.priceKey]) : s.priceText;
+
+// Structured data. The FAQ block is the same text that is on the page — Google
+// requires that, and it can show the answers directly in the results. The
+// services are declared with the areas they are offered in, which is what a
+// local search ("RO service in Wakad") is matched against.
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  ...services.map((s) => ({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: s.name,
+    description: s.body,
+    provider: { "@type": "LocalBusiness", name: biz.name, telephone: biz.tel },
+    areaServed: biz.areas.map((a) => ({ "@type": "Place", name: a + ", Pune" })),
+    ...(s.priceKey && cfg[s.priceKey] != null
+      ? { offers: { "@type": "Offer", price: cfg[s.priceKey], priceCurrency: "INR" } }
+      : {}),
+  })),
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: new URL(href("/"), Astro.site).href },
+      { "@type": "ListItem", position: 2, name: "Service" },
+    ],
+  },
+];
+---
+<Base schema={schema} title="Water Purifier Repair & Service in Pune | Installation, Filter Change | Oasis Globe" description="Water purifier repair, installation and filter change in Wakad, Hinjewadi, Baner and across Pune. Kent, Aquaguard, Pureit, Livpure and Oasis serviced. Fixed visit charge, pay after the work is done.">
+<main>
+  <section class="wrap section" aria-labelledby="services-h">
+    <div class="head">
+      <h1 id="services-h" class="h-md">Water purifier service.</h1>
+      <p class="sub">Visit charge is fixed. Parts at our list price.</p>
+      <div class="btn-row" style="margin-top:28px">
+        <a href={waService} target="_blank" rel="noopener" data-event="whatsapp_click" class="btn btn-primary">WhatsApp us</a>
+        <a href={tel} data-event="call_click" class="btn btn-outline">Call</a>
+        <a href={href("/price-list/")} data-event="price_list_click" class="btn btn-outline">Parts price list</a>
+      </div>
+      <Facts cfg={cfg} />
+    </div>
+    <div class="cards">
+      {services.map((s) => (
+        <article class="card">
+          <div>
+            <h2>{s.name}</h2>
+            {s.priceKey && cfg[s.priceKey] != null
+              ? <span class="price" data-cfg={s.priceKey} data-prefix="₹">{priceOf(s)}</span>
+              : <span class="price">{priceOf(s)}</span>}
+          </div>
+          <p>{s.body}</p>
+          <div class="btn-row" style="gap:20px">
+            <a href={wa(s.msg)} target="_blank" rel="noopener" data-event="whatsapp_click" class="link">WhatsApp <span aria-hidden="true">→</span></a>
+            {s.link && <a href={href(s.link.href)} data-event="price_list_click" class="link" style="color:var(--muted)">{s.link.text} <span aria-hidden="true">→</span></a>}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="trust" aria-labelledby="trust-h">
+    <div class="wrap trust-head"><h2 id="trust-h" class="eyebrow">Our promise</h2></div>
+    <div class="wrap trust-grid">
+      {trust(cfg).map((t, i) => <div><span class="num">0{i + 1}</span><h3>{t.title}</h3><p>{t.body}</p></div>)}
+    </div>
+  </section>
+
+  <section class="wrap section" aria-labelledby="brands-h">
+    <h2 id="brands-h" class="h-md" style="margin-bottom:16px">We repair all big brands.</h2>
+    <p class="sub" style="margin-bottom:40px">Your brand not here? Send a message, we will tell you.</p>
+    <ul class="brand-tiles">
+      {biz.brandTiles.map((b) => (
+        <li>{b.logo
+          ? <img src={href(b.logo)} alt={b.name} height="40" loading="lazy" decoding="async" />
+          : <span style={`color:${b.color};${b.style}`}>{b.name}</span>}</li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="wrap section-tight grid-2" aria-labelledby="faq-h" style="align-items:start">
+    <h2 id="faq-h" class="h-md">Common questions.</h2>
+    <div class="faq">
+      {faqs.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+    </div>
+  </section>
+
+  <section id="contact" class="cta" aria-labelledby="cta-h">
+    <div class="wrap">
+      <h2 id="cta-h">Need purifier service?</h2>
+      <p class="lead">Tell us the problem on WhatsApp.</p>
+      <div class="btn-row">
+        <a href={waService} target="_blank" rel="noopener" data-event="whatsapp_click" class="btn btn-primary" style="height:52px;padding:0 28px;font-size:16px">WhatsApp us</a>
+        <a href={tel} data-event="call_click" class="btn btn-outline" style="height:52px;padding:0 28px;font-size:16px">Call us</a>
+      </div>
+    </div>
+  </section>
+</main>
+</Base>

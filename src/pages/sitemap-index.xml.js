@@ -5,7 +5,7 @@ import { brands, problems } from "../data/seo.js";
 
 export function GET({ site }) {
   const paths = [
-    "/", "/purifiers/", "/custom/", "/price-list/",
+    "/", "/service/", "/purifiers/", "/purifiers/kent/", "/purifiers/aquaguard/", "/custom/", "/price-list/",
     ...biz.areas.map((a) => `/areas/${slug(a)}/`),
     ...brands.map((b) => `/brands/${b.slug}/`),
     ...problems.map((p) => `/problems/${p.slug}/`),
