@@ -22,5 +22,53 @@ export const oasisModels = [
   { slug: "fonix", name: "Fonix", note: "", w: 800, h: 632 },
 ];
 
+// The same models grouped the way a shop shelf shows them: one card per range
+// on /purifiers/, and a page per range (/purifiers/oasis/<slug>/) where the
+// customer picks the model or the cabinet colour. `facts` are as printed in
+// the owner's Prospera-10 and Inspera-10 leaflets (11 Oct 2026); Spectra and
+// Fonix have no leaflet yet, so they say only what is printed on the unit.
+// Spectra's colours are the catalogue renders in public/images/cabinets/.
+const model = (slug) => ({ ...oasisModels.find((x) => x.slug === slug), image: `/images/oasis/${slug}.jpg` });
+const COMMON_FACTS = [
+  "Philips UV-C lamp and Philips ballast (254 nm) in a reflector chamber, to kill bacteria in the water.",
+  "Hollow fibre UF membrane, 0.01 micron.",
+  "Water first passes a sediment filter, then Oasis sediment and activated carbon filters.",
+  "Stops by itself when there is no water coming in or the tank is full, and uses no power when it is not running.",
+  "LED indicator, and you can see the water level.",
+  "Pre-filter unit free with the purifier.",
+  "Made by an ISO 9001:2015 certified company.",
+];
+export const oasisFamilies = [
+  {
+    slug: "prospera", name: "Prospera", tag: "RO + UV + UF + TDS", pick: "Choose a model",
+    intro: "For every kind of drinking water: borewell, tanker or tap. 7 stage purification that gives pure water with minerals. A compact purifier that looks good in the kitchen.",
+    facts: ["Oasis 100 GPD RO membrane and booster pump. The membrane supports high TDS water.", ...COMMON_FACTS],
+    variants: ["prospera-max", "prospera-10l", "prospera-9l", "prospera-alkaline", "prospera-utc"].map(model),
+  },
+  {
+    slug: "inspera", name: "Inspera", tag: "UV + UF + Copper", pick: "Choose a model",
+    intro: "For every kind of drinking water: borewell, tanker or tap. 5 stage purification that gives pure water with minerals. A compact purifier that looks good in the kitchen.",
+    facts: COMMON_FACTS,
+    variants: ["inspera-6-5l"].map(model),
+  },
+  {
+    slug: "spectra", name: "Spectra", tag: "UV", pick: "Choose a colour",
+    intro: "A UV purifier without a storage tank, in four cabinet colours.",
+    facts: [],
+    variants: [
+      { slug: "spectra-marble-gray-brown", name: "Marble Gray Brown", note: "UV", image: "/images/oasis/spectra.jpg", w: 587, h: 800 },
+      { slug: "spectra-marble-brown", name: "Marble Brown", note: "UV", image: "/images/cabinets/marble-brown.jpg", w: 642, h: 800 },
+      { slug: "spectra-blue-granite", name: "Blue Granite", note: "UV", image: "/images/cabinets/blue-granite.jpg", w: 648, h: 800 },
+      { slug: "spectra-lavender", name: "Lavender", note: "UV", image: "/images/cabinets/lavender.jpg", w: 647, h: 800 },
+    ],
+  },
+  {
+    slug: "fonix", name: "Fonix", tag: "", pick: "Choose a model",
+    intro: "",
+    facts: [],
+    variants: ["fonix"].map(model),
+  },
+];
+
 // Kent and Aquaguard models live in kent.json and aquaguard.json, built from
 // the two company brochures (names, specs and MRP as printed there).

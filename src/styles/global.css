@@ -399,3 +399,30 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
   .site-footer .cols a { margin: 0; padding: 9px 0; }
   .pl-top > a:first-child { padding: 12px 0; }
 }
+
+/* Product page for one Oasis range: photo on the left, the range's details and
+   its models / colours to pick from on the right. */
+.pdp { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; padding: 56px 0 96px; }
+.pdp-img { position: sticky; top: 96px; aspect-ratio: 1/1; padding: 32px; background: #fff; border: 1px solid var(--line); border-radius: 14px; }
+.pdp-img picture, .pdp-img img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.pdp-info .eyebrow a { color: inherit; }
+.pdp-tag { display: block; margin-top: 10px; font-size: 18px; font-weight: 500; letter-spacing: 0; color: var(--muted); }
+.pdp-facts { margin: 24px 0 0; padding: 0 0 0 20px; display: grid; gap: 8px; font-size: 15px; line-height: 1.55; color: var(--body); }
+.pdp-vars { margin: 32px 0 28px; padding: 24px 0 0; border: 0; border-top: 1px solid var(--line); min-width: 0; }
+.pdp-vars legend { padding: 0 12px 0 0; font-size: 14px; color: var(--muted); }
+.pdp-vars legend strong { color: var(--ink); font-weight: 600; }
+.pdp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 10px; }
+.pdp-var { position: relative; display: flex; flex-direction: column; gap: 4px; padding: 6px 6px 10px; text-align: center; border: 1px solid var(--line); border-radius: 10px; cursor: pointer; transition: border-color .15s ease; }
+.pdp-var:hover { border-color: var(--faint); }
+.pdp-var:has(input:checked) { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.pdp-var:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 3px; }
+.pdp-var input { position: absolute; opacity: 0; pointer-events: none; }
+.pdp-var .ph { display: block; aspect-ratio: 1/1; border-radius: 6px; overflow: hidden; background: #fff; }
+.pdp-var .ph picture, .pdp-var .ph img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.pdp-var .t { font-size: 13px; font-weight: 500; }
+.pdp-var .n { font-size: 11.5px; line-height: 1.35; color: var(--muted); }
+@media (max-width: 860px) {
+  .pdp { grid-template-columns: 1fr; gap: 28px; padding: 28px 0 64px; }
+  .pdp-img { position: static; padding: 20px; aspect-ratio: 4/3; }
+  .pdp-grid { grid-template-columns: repeat(3, 1fr); }
+}

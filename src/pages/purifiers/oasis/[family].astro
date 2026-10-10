@@ -1,0 +1,102 @@
+---
+// One page per Oasis Globe range (Prospera, Inspera, Spectra, Fonix): what the
+// range is, then its models or cabinet colours to pick from, the way a shop
+// site shows variations. Picking one swaps the photo, the name and the
+// WhatsApp message. Data: oasisFamilies in src/data/purifiers.js. No prices —
+// the office quotes on WhatsApp.
+import Base from "../../../layouts/Base.astro";
+import { biz, wa, href } from "../../../data/business.js";
+import { oasisFamilies } from "../../../data/purifiers.js";
+import Pic from "../../../components/Pic.astro";
+
+export function getStaticPaths() {
+  return oasisFamilies.map((f) => ({ params: { family: f.slug }, props: { f } }));
+}
+
+const { f } = Astro.props;
+const colours = f.pick === "Choose a colour";
+// "Prospera MAX" already carries the range name; a colour does not.
+const full = (v) => (colours ? `${f.name} ${v.name}` : v.name);
+const msg = (v) => `Hi, I want to buy this water purifier: Oasis ${full(v)}. Please tell me the price.`;
+const first = f.variants[0];
+const many = f.variants.length > 1;
+
+const title = `Oasis ${f.name} Water Purifier in Pune${f.tag ? ` | ${f.tag}` : ""} | Oasis Globe`;
+const description = `Oasis ${f.name} water purifier${f.tag ? ` (${f.tag})` : ""} in Pune${many ? `: ${f.variants.map((v) => v.name).join(", ")}` : ""}. Fitted by our own technicians. Get the price on WhatsApp.`;
+
+const abs = (p) => new URL(href(p), Astro.site).href;
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "ProductGroup",
+    name: `Oasis ${f.name} water purifier`,
+    brand: { "@type": "Brand", name: "Oasis" },
+    category: "Water purifier",
+    ...(f.intro ? { description: f.intro } : {}),
+    url: abs(`/purifiers/oasis/${f.slug}/`),
+    hasVariant: f.variants.map((v) => ({
+      "@type": "Product", name: `Oasis ${full(v)} water purifier`, image: abs(v.image),
+      ...(v.note ? { description: v.note } : {}),
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: abs("/") },
+      { "@type": "ListItem", position: 2, name: "Oasis Globe purifiers", item: abs("/purifiers/") },
+      { "@type": "ListItem", position: 3, name: f.name },
+    ],
+  },
+];
+const data = { wa: biz.wa, base: href(""), variants: f.variants.map((v) => ({ slug: v.slug, name: full(v), note: v.note, image: v.image, msg: msg(v) })) };
+---
+<Base schema={schema} title={title} description={description}>
+<main class="wrap">
+  <section class="pdp" aria-labelledby="pdp-h">
+    <div class="pdp-img" id="pdp-img"><Pic src={first.image} alt={`Oasis ${full(first)} water purifier`} width={first.w} height={first.h} loading="eager" /></div>
+    <div class="pdp-info">
+      <p class="eyebrow"><a href={href("/purifiers/")}>Oasis Globe</a> · {f.name}</p>
+      <h1 id="pdp-h" class="h-md">Oasis {f.name}{f.tag && <span class="pdp-tag">{f.tag}</span>}</h1>
+      {f.intro && <p class="sub" style="margin-top:20px">{f.intro}</p>}
+      {f.facts.length > 0 && <ul class="pdp-facts">{f.facts.map((x) => <li>{x}</li>)}</ul>}
+
+      <form id="pdp-form" onsubmit="return false">
+        <fieldset class="pdp-vars">
+          <legend>{many ? f.pick : colours ? "Colour" : "Model"}: <strong id="pdp-name">{full(first)}</strong></legend>
+          <div class="pdp-grid">
+            {f.variants.map((v, i) => (
+              <label class="pdp-var">
+                <input type="radio" name="variant" value={v.slug} checked={i === 0} />
+                <span class="ph"><Pic src={v.image} alt="" width={v.w} height={v.h} /></span>
+                <span class="t">{v.name}</span>
+                {!colours && v.note && <span class="n">{v.note}</span>}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      </form>
+
+      <a id="pdp-wa" href={wa(msg(first))} target="_blank" rel="noopener" data-event="whatsapp_click" class="btn btn-primary">Get price on WhatsApp <span aria-hidden="true">→</span></a>
+      <p class="note">We tell you the price, the fitting charge and the fitting date on WhatsApp.</p>
+    </div>
+  </section>
+</main>
+</Base>
+
+<script is:inline define:vars={{ data }}>
+  const form = document.getElementById("pdp-form");
+  function show(slug, keep) {
+    const v = data.variants.find((x) => x.slug === slug) || data.variants[0];
+    form.variant.value = v.slug;
+    const img = document.querySelector("#pdp-img img"), src = data.base + v.image;
+    document.querySelector("#pdp-img source").srcset = src.replace(/\.jpe?g$/i, ".webp");
+    img.src = src; img.alt = `Oasis ${v.name} water purifier`;
+    document.getElementById("pdp-name").textContent = v.name;
+    document.getElementById("pdp-wa").href = `https://wa.me/${data.wa}?text=${encodeURIComponent(v.msg)}`;
+    if (!keep) history.replaceState(null, "", "#" + v.slug);
+  }
+  form.addEventListener("change", () => show(form.variant.value));
+  // A link to one model (…/prospera/#prospera-9l) opens with it picked.
+  if (location.hash) show(location.hash.slice(1), true);
+</script>

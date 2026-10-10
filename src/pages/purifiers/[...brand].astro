@@ -8,7 +8,7 @@
 import Base from "../../layouts/Base.astro";
 import { biz, wa, href } from "../../data/business.js";
 import { rupee } from "../../lib/config.js";
-import { oasisModels } from "../../data/purifiers.js";
+import { oasisModels, oasisFamilies } from "../../data/purifiers.js";
 import kent from "../../data/kent.json";
 import aquaguard from "../../data/aquaguard.json";
 import Pic from "../../components/Pic.astro";
@@ -31,6 +31,10 @@ const full = (m) => `${c.brand} ${m.name}${c.path === "aquaguard" ? " " + m.note
 const ask = (m) => wa(`Hi, I want to buy this water purifier: ${full(m)}. Please tell me the price.`);
 const priced = c.items.filter((m) => m.mrp);
 const low = priced.length ? Math.min(...priced.map((m) => m.mrp)) : null;
+// Our own range is shown one card per family (Prospera, Inspera…); the card
+// opens that family's page, where the model or colour is picked.
+const families = c.path ? null : oasisFamilies;
+const familyOf = (m) => families.find((f) => f.variants.some((v) => v.slug === m.slug) || f.slug === m.slug);
 const names = c.items.slice(0, 3).map((m) => m.name).join(", ");
 
 const title = low
@@ -56,6 +60,7 @@ const schema = [
         brand: { "@type": "Brand", name: c.brand },
         category: "Water purifier",
         image: abs(`/images/${c.dir}/${m.slug}.jpg`),
+        ...(families ? { url: abs(`/purifiers/oasis/${familyOf(m).slug}/`) } : {}),
         ...(m.note ? { description: m.note } : {}),
         ...(m.mrp ? { offers: {
           "@type": "Offer", price: m.mrp, priceCurrency: "INR", url: abs(self),
@@ -86,9 +91,19 @@ const schema = [
   </section>
 
   <section class="cat" aria-labelledby="models-h">
-    <h2 id="models-h" class="cat-h">{c.name} <span>{c.items.length} models</span></h2>
+    <h2 id="models-h" class="cat-h">{c.name} <span>{families ? `${families.length} ranges · ${c.items.length} models` : `${c.items.length} models`}</span></h2>
     <div class="products">
-      {c.items.map((m) => (
+      {families && families.map((f) => (
+        <article class="product contain">
+          <a class="img" href={href(`/purifiers/oasis/${f.slug}/`)} tabindex="-1" aria-hidden="true"><Pic src={f.variants[0].image} alt="" width={f.variants[0].w} height={f.variants[0].h} /></a>
+          <div class="body">
+            <h3><a href={href(`/purifiers/oasis/${f.slug}/`)}>{f.name}</a></h3>
+            <p class="s">{[f.tag, f.variants.length > 1 ? `${f.variants.length} ${f.pick === "Choose a colour" ? "colours" : "models"}` : f.variants[0].note].filter(Boolean).join(" · ")}</p>
+            <a href={href(`/purifiers/oasis/${f.slug}/`)} class="link">See {f.name} <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+      ))}
+      {!families && c.items.map((m) => (
         <article class={`product ${c.fit}`}>
           <span class="img"><Pic src={`/images/${c.dir}/${m.slug}.jpg`} alt={`${full(m)} water purifier`} width={m.w} height={m.h} /></span>
           <div class="body">

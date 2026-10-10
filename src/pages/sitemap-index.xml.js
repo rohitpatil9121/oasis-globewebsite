@@ -2,10 +2,12 @@
 // is listed here. robots.txt points at this file.
 import { biz, slug } from "../data/business.js";
 import { brands, problems } from "../data/seo.js";
+import { oasisFamilies } from "../data/purifiers.js";
 
 export function GET({ site }) {
   const paths = [
     "/", "/service/", "/purifiers/", "/purifiers/kent/", "/purifiers/aquaguard/", "/custom/", "/price-list/",
+    ...oasisFamilies.map((f) => `/purifiers/oasis/${f.slug}/`),
     ...biz.areas.map((a) => `/areas/${slug(a)}/`),
     ...brands.map((b) => `/brands/${b.slug}/`),
     ...problems.map((p) => `/problems/${p.slug}/`),
