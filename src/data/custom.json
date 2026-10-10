@@ -16,101 +16,134 @@
       "note": "Hidden inside the cabinet. Only a tap on top. 7 litre tank."
     }
   ],
+  "tanks": [
+    {
+      "id": "detachable",
+      "name": "Detachable tank"
+    },
+    {
+      "id": "fixed",
+      "name": "Not detachable tank"
+    },
+    {
+      "id": "none",
+      "name": "Without tank"
+    }
+  ],
   "cabinets": [
     {
       "id": "black-copper-digital",
       "name": "Black Copper Digital",
-      "image": "/images/cabinets/black-copper-digital.jpg"
+      "image": "/images/cabinets/black-copper-digital.jpg",
+      "tank": "fixed"
     },
     {
       "id": "black-gold-copper",
       "name": "Black Gold Copper",
-      "image": "/images/cabinets/black-gold-copper.jpg"
+      "image": "/images/cabinets/black-gold-copper.jpg",
+      "tank": "detachable"
     },
     {
       "id": "teal-black",
       "name": "Teal Black",
-      "image": "/images/cabinets/teal-black.jpg"
+      "image": "/images/cabinets/teal-black.jpg",
+      "tank": "detachable"
     },
     {
       "id": "white-gold-curve",
       "name": "White Gold Curve",
-      "image": "/images/cabinets/white-gold-curve.jpg"
+      "image": "/images/cabinets/white-gold-curve.jpg",
+      "tank": "fixed"
     },
     {
       "id": "black-wave",
       "name": "Black Wave",
-      "image": "/images/cabinets/black-wave.jpg"
+      "image": "/images/cabinets/black-wave.jpg",
+      "tank": "none"
     },
     {
       "id": "black-transparent",
       "name": "Black Transparent",
-      "image": "/images/cabinets/black-transparent.jpg"
+      "image": "/images/cabinets/black-transparent.jpg",
+      "tank": "detachable"
     },
     {
       "id": "white-blue-gold",
       "name": "White Blue Gold",
-      "image": "/images/cabinets/white-blue-gold.jpg"
+      "image": "/images/cabinets/white-blue-gold.jpg",
+      "tank": "detachable"
     },
     {
       "id": "blue-transparent",
       "name": "Blue Transparent",
-      "image": "/images/cabinets/blue-transparent.jpg"
+      "image": "/images/cabinets/blue-transparent.jpg",
+      "tank": "detachable"
     },
     {
       "id": "aqua-transparent",
       "name": "Aqua Transparent",
-      "image": "/images/cabinets/aqua-transparent.jpg"
+      "image": "/images/cabinets/aqua-transparent.jpg",
+      "tank": "detachable"
     },
     {
       "id": "navy-hot-cold",
       "name": "Navy Hot & Cold",
-      "image": "/images/cabinets/navy-hot-cold.jpg"
+      "image": "/images/cabinets/navy-hot-cold.jpg",
+      "tank": "fixed"
     },
     {
       "id": "marble-gray-brown",
       "name": "Marble Gray Brown",
-      "image": "/images/cabinets/marble-gray-brown.jpg"
+      "image": "/images/cabinets/marble-gray-brown.jpg",
+      "tank": "fixed"
     },
     {
       "id": "blue-granite",
       "name": "Blue Granite",
-      "image": "/images/cabinets/blue-granite.jpg"
+      "image": "/images/cabinets/blue-granite.jpg",
+      "tank": "fixed"
     },
     {
       "id": "white-fonix",
       "name": "White Fonix",
-      "image": "/images/cabinets/white-fonix.jpg"
+      "image": "/images/cabinets/white-fonix.jpg",
+      "tank": "fixed"
     },
     {
       "id": "graphite-silver",
       "name": "Graphite Silver",
-      "image": "/images/cabinets/graphite-silver.jpg"
+      "image": "/images/cabinets/graphite-silver.jpg",
+      "tank": "fixed"
     },
     {
       "id": "lavender",
       "name": "Lavender",
-      "image": "/images/cabinets/lavender.jpg"
+      "image": "/images/cabinets/lavender.jpg",
+      "tank": "fixed"
     },
     {
       "id": "marble-design",
       "name": "Marble Design",
-      "image": "/images/cabinets/marble-design.jpg"
+      "image": "/images/cabinets/marble-design.jpg",
+      "tank": "fixed"
     },
     {
       "id": "marble-brown",
       "name": "Marble Brown",
-      "image": "/images/cabinets/marble-brown.jpg"
+      "image": "/images/cabinets/marble-brown.jpg",
+      "tank": "fixed"
     },
     {
       "id": "white-gold-wave",
       "name": "White Gold Wave",
-      "image": "/images/cabinets/white-gold-wave.jpg"
+      "image": "/images/cabinets/white-gold-wave.jpg",
+      "tank": "none"
     },
     {
       "id": "blue-transparent-white-tap",
       "name": "Blue Transparent 2",
-      "image": "/images/cabinets/blue-transparent-white-tap.jpg"
+      "image": "/images/cabinets/blue-transparent-white-tap.jpg",
+      "tank": "detachable"
     }
   ],
   "filters": [
@@ -160,7 +193,6 @@
   "included": [
     "Copper-winding pump (100 GPD)",
     "TDS controller",
-    "Detachable 9–10 L tank",
     "Fitting",
     "Warranty"
   ],

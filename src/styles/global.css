@@ -200,6 +200,14 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
 .cfg legend { padding: 0; margin-bottom: 24px; font-size: 26px; font-weight: 600; letter-spacing: -.02em; display: flex; align-items: baseline; gap: 14px; }
 .cfg legend span { font-size: 13px; font-weight: 500; letter-spacing: .04em; color: var(--accent); }
 .cfg-designs, .cfg-row3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+.cfg-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+.cfg-tabs label { cursor: pointer; }
+.cfg-tabs input { position: absolute; opacity: 0; pointer-events: none; }
+.cfg-tabs span { display: flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 99px; font-size: 14px; font-weight: 500; transition: border-color .2s ease; }
+.cfg-tabs label:hover span { border-color: var(--accent); }
+.cfg-tabs input:checked + span { border-color: var(--accent); background: #F0F9FF; color: var(--accent-dark); }
+.cfg-tabs input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 3px; }
+.opt[hidden] { display: none; }
 .cfg-checks { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
 .cfg-checks .opt.line { margin-bottom: 0; }
 .opt .info { color: var(--body); }

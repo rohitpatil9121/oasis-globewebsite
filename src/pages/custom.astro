@@ -11,7 +11,7 @@ import Pic from "../components/Pic.astro";
 // yet (23 Sep 2026: "kuch price mat daal abhi, bas contact on WhatsApp").
 // The figures stay in custom.json for when he does; nothing reads them.
 const options = custom.groups.flatMap((g) => g.options);
-const data = { wa: biz.wa, base: href(""), designs: custom.designs, cabinets: custom.cabinets, filters: custom.filters, options };
+const data = { wa: biz.wa, base: href(""), designs: custom.designs, tanks: custom.tanks, cabinets: custom.cabinets, filters: custom.filters, options };
 ---
 <Base title="Make Your Own Water Purifier | Oasis Globe" description="Choose a model, a cabinet look and the filters you need. Send your build on WhatsApp and we tell you the price.">
 <main class="wrap">
@@ -42,9 +42,15 @@ const data = { wa: biz.wa, base: href(""), designs: custom.designs, cabinets: cu
         <fieldset>
           <legend><span>2</span> Choose your cabinet look</legend>
           <p class="cfg-hint">The colour and design of the outer cabinet. The purifier inside is the same.</p>
+          <div class="cfg-tabs" role="group" aria-label="Tank type">
+            <label><input type="radio" name="tank" value="all" checked /><span>All</span></label>
+            {custom.tanks.map((t) => (
+              <label><input type="radio" name="tank" value={t.id} /><span>{t.name}</span></label>
+            ))}
+          </div>
           <div class="cfg-cabs">
             {custom.cabinets.map((c, i) => (
-              <label class="opt cab">
+              <label class="opt cab" data-tank={c.tank}>
                 <input type="radio" name="cabinet" value={c.id} checked={i === 0} />
                 <span class="ph"><Pic src={c.image} alt={c.name} width="220" height="150" /></span>
                 <span class="t">{c.name}</span>
@@ -108,6 +114,16 @@ const data = { wa: biz.wa, base: href(""), designs: custom.designs, cabinets: cu
   const form = document.getElementById("cfg");
   const ticked = (name, list) => list.filter((x) => form.querySelector(`input[name=${name}][value="${x.id}"]`).checked);
 
+  // The tank buttons only narrow the cabinet list. If the cabinet that was
+  // chosen is no longer in the list, the first one shown is chosen instead.
+  function applyTank() {
+    const want = form.tank.value;
+    const cabs = [...form.querySelectorAll(".opt.cab")];
+    cabs.forEach((l) => { l.hidden = want !== "all" && l.dataset.tank !== want; });
+    const picked = form.querySelector("input[name=cabinet]:checked");
+    if (picked.closest(".opt").hidden) cabs.find((l) => !l.hidden).querySelector("input").checked = true;
+  }
+
   function render() {
     form.querySelectorAll(".opt").forEach((l) => l.classList.toggle("on", l.querySelector("input").checked));
     const d = data.designs.find((x) => x.id === form.design.value);
@@ -115,23 +131,24 @@ const data = { wa: biz.wa, base: href(""), designs: custom.designs, cabinets: cu
     const filters = ticked("filter", data.filters);
     const extras = ticked("opt", data.options);
     const list = (xs) => xs.map((x) => x.name).join(", ") || "None";
+    const tank = data.tanks.find((t) => t.id === cab.tank).name;
 
     const img = document.querySelector("#sum-ph img"), src = data.base + cab.image;
     if (!img.src.endsWith(src)) { document.querySelector("#sum-ph source").srcset = src.replace(/\.jpe?g$/i, ".webp"); img.src = src; }
     const stages = [...filters.map((f) => f.stage), ...extras.filter((o) => o.stage).map((o) => o.stage), "Tank"];
     document.getElementById("sum-flow").innerHTML = stages.map((s) => `<li>${s}</li>`).join("");
-    document.getElementById("sum-lines").innerHTML = [["Model", d.name], ["Cabinet", cab.name],
+    document.getElementById("sum-lines").innerHTML = [["Model", d.name], ["Cabinet", cab.name], ["Tank", tank],
       ["Filters", list(filters)], ["Extra filters", list(extras)]]
       .map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("");
     document.getElementById("bar-count").textContent = d.name + " · " + (filters.length + extras.length) + " filters";
 
-    const msg = ["Hi, I want to make my own Oasis purifier.", `Model: ${d.name}`, `Cabinet: ${cab.name}`,
+    const msg = ["Hi, I want to make my own Oasis purifier.", `Model: ${d.name}`, `Cabinet: ${cab.name}`, `Tank: ${tank}`,
       `Filters: ${list(filters)}`, `Extra filters: ${list(extras)}`,
       "Please tell me the price."].join("\n");
     const url = `https://wa.me/${data.wa}?text=${encodeURIComponent(msg)}`;
     document.getElementById("sum-wa").href = document.getElementById("bar-wa").href = url;
   }
 
-  form.addEventListener("change", render);
+  form.addEventListener("change", (e) => { if (e.target.name === "tank") applyTank(); render(); });
   render();
 </script>
