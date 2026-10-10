@@ -200,6 +200,9 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
 .cfg legend { padding: 0; margin-bottom: 24px; font-size: 26px; font-weight: 600; letter-spacing: -.02em; display: flex; align-items: baseline; gap: 14px; }
 .cfg legend span { font-size: 13px; font-weight: 500; letter-spacing: .04em; color: var(--accent); }
 .cfg-designs, .cfg-row3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+.cfg-checks { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+.cfg-checks .opt.line { margin-bottom: 0; }
+.opt .info { color: var(--body); }
 .cfg-inc { margin: 16px 0 0; font-size: 13px; color: var(--muted); }
 .cfg-group h3 { margin: 32px 0 12px; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 .cfg-group:first-of-type h3 { margin-top: 0; }
@@ -338,6 +341,10 @@ h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.03em; line-height: 1
   .cfg fieldset { margin-bottom: 48px; }
   .cfg legend { font-size: 22px; }
   .cfg-row3 { grid-template-columns: 1fr; }
+  .cfg-checks { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .cfg-checks.stack { grid-template-columns: 1fr; }
+  .cfg-checks .opt.line { padding: 12px 10px 12px 42px; gap: 8px; }
+  .cfg-checks .opt.line::before { left: 12px; }
   .cfg-designs { grid-template-columns: repeat(3, 72vw); overflow-x: auto; margin: 0 -20px; padding: 2px 20px 8px; scroll-snap-type: x mandatory; scrollbar-width: none; }
   .cfg-designs .opt { scroll-snap-align: center; }
   .opt .tag:not([hidden]) { display: block; margin: 4px 0 0; }
