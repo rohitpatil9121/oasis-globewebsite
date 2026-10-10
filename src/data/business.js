@@ -12,14 +12,19 @@ export const API = "https://oasis-service-automation.onrender.com";
 export const biz = {
   name: "Oasis Globe",
   tagline: "Water purifier sales & service in Pune.",
-  // The customer-facing number, confirmed 23 Sep 2026 — it is the one on the
-  // WhatsApp Business display picture. The site had the "93" number, which is
-  // not where customers should land. Google Business Profile must carry this
-  // same number: a mismatch costs local ranking.
-  phone: "+91 88550 00092",
-  tel: "+918855000092",
-  wa: "918855000092",
+  // Two numbers (Rohit, 10 Oct 2026). This one, the "91" number, is the main
+  // one: buying a purifier, the custom builder and every general button. The
+  // "92" number below (`svc`) is only for service — that is where the WhatsApp
+  // bot takes the pre-filled service messages. Google Business Profile should
+  // carry the same number as here: a mismatch costs local ranking.
+  phone: "+91 88550 00091",
+  tel: "+918855000091",
+  wa: "918855000091",
   address: "Mankar Chowk, Kaspatewasti, Wakad, Pune 411057",
+  // Our Google Maps listing (link from the owner, 10 Oct 2026) and the pin it
+  // points to. Google matches the site to the Business Profile through these.
+  map: "https://maps.app.goo.gl/JAHKkvxFKL3KYoXN8",
+  geo: { lat: 18.5914129, lng: 73.7727545 },
   hours: "Mon–Sat · 9 AM–7 PM",
   brands: ["KENT", "AQUAGUARD", "PUREIT", "LIVPURE", "OASIS"],
   // Brand tiles on the home page. `logo` (a file in /public/images/brands/)
@@ -33,12 +38,16 @@ export const biz = {
     { name: "Oasis", logo: "/images/logo.png" },
     { name: "& more…", color: "#374151", style: "font-weight:500" },
   ],
-  // TODO confirm service area with Bhushan.
-  areas: ["Wakad", "Hinjewadi", "Baner", "Pimple Saudagar", "Pimple Nilakh", "Tathawade", "Balewadi", "PCMC"],
+  // The owner's list (10 Oct 2026, "service centre SEO area focus"). Each one
+  // gets an /areas/<slug>/ page, so add or remove a name only when he does.
+  areas: ["Wakad", "Hinjewadi Phase 1", "Baner", "Balewadi", "Aundh", "Pimple Saudagar", "Pimple Nilakh", "Rahatani", "Thergaon", "Dange Chowk", "Tathawade"],
 };
 
 // "Pimple Saudagar" -> "pimple-saudagar". Used for the /areas/<slug>/ pages.
-export const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+// Hinjewadi keeps the address it had before it was narrowed to Phase 1, so
+// the page Google already knows does not disappear.
+const SLUGS = { "Hinjewadi Phase 1": "hinjewadi" };
+export const slug = (s) => SLUGS[s] || s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
 // Each area page lists the neighbouring areas we also cover, so a visitor who
 // landed on the wrong one can get to theirs and the pages link to each other.
@@ -46,6 +55,7 @@ export const nearby = (area) => biz.areas.filter((a) => a !== area).slice(0, 5);
 
 // Pre-filled WhatsApp messages. The bot reads these and starts intake directly.
 export const msgs = {
+  hello: "Hi, I want to know about your water purifiers and service.",
   service: "Hi, I need water purifier service. Please share the visit charge and availability.",
   install: "Hi, I need water purifier installation. Please share the price and availability.",
   filter: "Hi, I need a filter service for my water purifier. Please share the price and availability.",
@@ -54,6 +64,12 @@ export const msgs = {
 };
 
 export const wa = (msg) => `https://wa.me/${biz.wa}?text=${encodeURIComponent(msg)}`;
+
+// The service number, and the pages that are about service: there the header
+// button, the phone bar and every call link use it instead of the main one.
+export const svc = { phone: "+91 88550 00092", tel: "+918855000092", wa: "918855000092" };
+export const waSvc = (msg) => `https://wa.me/${svc.wa}?text=${encodeURIComponent(msg)}`;
+export const isServicePath = (path) => /\/(service|areas|brands|problems|price-list)\//.test(path);
 
 // Service cards. `priceKey` reads the live figure from config; `priceText`
 // is used when the office has no fixed figure (installation varies by lead).

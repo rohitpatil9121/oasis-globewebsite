@@ -1,5 +1,5 @@
 ---
-import { biz, href, slug } from "../data/business.js";
+import { biz, svc, href, slug } from "../data/business.js";
 import { brands, problems } from "../data/seo.js";
 ---
 <footer class="site-footer">
@@ -31,7 +31,7 @@ import { brands, problems } from "../data/seo.js";
       </div>
     </div>
     <div class="bottom">
-      <address>{biz.address}<br /><a href={`tel:${biz.tel}`} data-event="call_click" style="color:var(--ink)">{biz.phone}</a> · {biz.hours}</address>
+      <address>{biz.address} · <a href={biz.map} target="_blank" rel="noopener" data-event="map_click" style="color:var(--ink)">Google Maps</a><br />Purifiers: <a href={`tel:${biz.tel}`} data-event="call_click" style="color:var(--ink)">{biz.phone}</a> · Service: <a href={`tel:${svc.tel}`} data-event="call_click" style="color:var(--ink)">{svc.phone}</a><br />{biz.hours}</address>
       <span>© {new Date().getFullYear()} Oasis Globe</span>
     </div>
   </div>

@@ -3,13 +3,13 @@
 // URL (not a section of the home page) so the Service button opens only this,
 // and so "water purifier service Pune" has one page that is about nothing else.
 import Base from "../layouts/Base.astro";
-import { biz, wa, msgs, services, trust, faq, href } from "../data/business.js";
+import { biz, svc, waSvc, msgs, services, trust, faq, href } from "../data/business.js";
 import { getConfig, rupee } from "../lib/config.js";
 import Facts from "../components/Facts.astro";
 
 const cfg = await getConfig();
-const waService = wa(msgs.service);
-const tel = `tel:${biz.tel}`;
+const waService = waSvc(msgs.service);
+const tel = `tel:${svc.tel}`;
 const faqs = faq(cfg);
 
 // A service card's price: live figure from settings when it has one, else the text.
@@ -34,7 +34,7 @@ const schema = [
     "@type": "Service",
     serviceType: s.name,
     description: s.body,
-    provider: { "@type": "LocalBusiness", name: biz.name, telephone: biz.tel },
+    provider: { "@type": "LocalBusiness", name: biz.name, telephone: svc.tel },
     areaServed: biz.areas.map((a) => ({ "@type": "Place", name: a + ", Pune" })),
     ...(s.priceKey && cfg[s.priceKey] != null
       ? { offers: { "@type": "Offer", price: cfg[s.priceKey], priceCurrency: "INR" } }
@@ -74,7 +74,7 @@ const schema = [
           </div>
           <p>{s.body}</p>
           <div class="btn-row" style="gap:20px">
-            <a href={wa(s.msg)} target="_blank" rel="noopener" data-event="whatsapp_click" class="link">WhatsApp <span aria-hidden="true">→</span></a>
+            <a href={waSvc(s.msg)} target="_blank" rel="noopener" data-event="whatsapp_click" class="link">WhatsApp <span aria-hidden="true">→</span></a>
             {s.link && <a href={href(s.link.href)} data-event="price_list_click" class="link" style="color:var(--muted)">{s.link.text} <span aria-hidden="true">→</span></a>}
           </div>
         </article>

@@ -4,7 +4,7 @@
 // authorised centre for any brand, and the page says so in as many words:
 // claiming otherwise would be a lie and the brands do act on it.
 import Base from "../../layouts/Base.astro";
-import { biz, wa, msgs, trust, slug, href } from "../../data/business.js";
+import { biz, svc, waSvc, msgs, trust, slug, href } from "../../data/business.js";
 import { brands } from "../../data/seo.js";
 import { getConfig, rupee } from "../../lib/config.js";
 import Pic from "../../components/Pic.astro";
@@ -16,8 +16,8 @@ export function getStaticPaths() {
 
 const { b } = Astro.props;
 const cfg = await getConfig();
-const waBrand = wa(`Hi, I need service for my ${b.name} water purifier. Please share the visit charge and availability.`);
-const tel = `tel:${biz.tel}`;
+const waBrand = waSvc(`Hi, I need service for my ${b.name} water purifier. Please share the visit charge and availability.`);
+const tel = `tel:${svc.tel}`;
 // New units of this brand, where we list them.
 const buy = { kent: "/purifiers/kent/", aquaguard: "/purifiers/aquaguard/", oasis: "/purifiers/" }[b.slug];
 
@@ -26,7 +26,7 @@ const schema = [
     "@context": "https://schema.org",
     "@type": "Service",
     serviceType: `${b.name} water purifier repair and service`,
-    provider: { "@type": "LocalBusiness", name: biz.name, telephone: biz.tel },
+    provider: { "@type": "LocalBusiness", name: biz.name, telephone: svc.tel },
     areaServed: biz.areas.map((a) => ({ "@type": "Place", name: a + ", Pune" })),
     description: `Independent repair, filter change and installation service for ${b.name} water purifiers in Pune.`,
     ...(cfg.service_charge != null

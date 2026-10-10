@@ -3,7 +3,7 @@
 // "why does my RO water taste bad". These answer the question first and ask
 // for the job second: a page that only says "call us" ranks for nothing.
 import Base from "../../layouts/Base.astro";
-import { biz, wa, trust, href } from "../../data/business.js";
+import { biz, svc, waSvc, trust, href } from "../../data/business.js";
 import { problems } from "../../data/seo.js";
 import { getConfig } from "../../lib/config.js";
 import Pic from "../../components/Pic.astro";
@@ -14,8 +14,8 @@ export function getStaticPaths() {
 
 const { p } = Astro.props;
 const cfg = await getConfig();
-const waProblem = wa(`Hi, my water purifier problem: ${p.title.toLowerCase()}. Please share the visit charge and availability.`);
-const tel = `tel:${biz.tel}`;
+const waProblem = waSvc(`Hi, my water purifier problem: ${p.title.toLowerCase()}. Please share the visit charge and availability.`);
+const tel = `tel:${svc.tel}`;
 const others = problems.filter((x) => x.slug !== p.slug);
 
 const schema = [

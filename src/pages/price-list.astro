@@ -1,6 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
-import { biz, wa, msgs, href } from "../data/business.js";
+import { biz, svc, waSvc, msgs, href } from "../data/business.js";
 import { getConfig, rupee } from "../lib/config.js";
 import parts from "../data/parts.json";
 
@@ -16,7 +16,7 @@ const warranty = [
 <div class="pl-page">
   <div class="wrap pl-top">
     <a href={href("/")} style="color:var(--muted);display:inline-flex;gap:8px;align-items:center"><span aria-hidden="true">←</span> Back to site</a>
-    <a href={wa(msgs.price)} target="_blank" rel="noopener" data-event="whatsapp_click" class="btn btn-ink">Ask on WhatsApp</a>
+    <a href={waSvc(msgs.price)} target="_blank" rel="noopener" data-event="whatsapp_click" class="btn btn-ink">Ask on WhatsApp</a>
   </div>
 
   <article class="pl" aria-labelledby="pl-h">
@@ -46,7 +46,7 @@ const warranty = [
 
     <footer>
       <p>Prices may change with supplier rates; the price on the bill is the listed price on the day.</p>
-      <address>{biz.address}<br />{biz.phone}</address>
+      <address>{biz.address}<br />{svc.phone}</address>
     </footer>
   </article>
 </div>

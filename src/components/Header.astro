@@ -1,6 +1,9 @@
 ---
-import { biz, wa, msgs, href } from "../data/business.js";
-const waService = wa(msgs.service);
+import { biz, svc, wa, waSvc, msgs, href, isServicePath } from "../data/business.js";
+// On service pages the button and the call link go to the service number.
+const service = isServicePath(Astro.url.pathname);
+const waService = service ? waSvc(msgs.service) : wa(msgs.hello);
+const call = service ? svc : biz;
 ---
 <header class="site-header">
   <nav class="wrap" aria-label="Primary">
@@ -16,7 +19,7 @@ const waService = wa(msgs.service);
     <button type="button" class="menu-btn" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menu">Menu</button>
   </nav>
   <div id="mobile-menu" class="mobile-menu" data-open="false">
-    <a href={`tel:${biz.tel}`} data-event="call_click" class="small">Call {biz.phone}</a>
+    <a href={`tel:${call.tel}`} data-event="call_click" class="small">Call {call.phone}</a>
     <a href={href("/purifiers/")}>Branded purifiers</a>
     <a href={href("/custom/")}>Custom</a>
     <a href={href("/service/")}>Service</a>

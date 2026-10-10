@@ -2,11 +2,11 @@
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { biz, wa, msgs, API, href } from "../data/business.js";
+import { biz, svc, wa, waSvc, msgs, API, href, isServicePath } from "../data/business.js";
 
 const { title, description, plain = false, noindex = false, schema = [] } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const waService = wa(msgs.service);
+const waService = isServicePath(Astro.url.pathname) ? waSvc(msgs.service) : wa(msgs.hello);
 ---
 <!doctype html>
 <html lang="en">
@@ -37,7 +37,13 @@ const waService = wa(msgs.service);
     name: biz.name,
     description: biz.tagline,
     telephone: biz.tel,
+    contactPoint: [
+      { "@type": "ContactPoint", telephone: biz.tel, contactType: "sales" },
+      { "@type": "ContactPoint", telephone: svc.tel, contactType: "customer service" },
+    ],
     address: { "@type": "PostalAddress", streetAddress: "Mankar Chowk, Kaspatewasti, Wakad", addressLocality: "Pune", addressRegion: "Maharashtra", postalCode: "411057", addressCountry: "IN" },
+    geo: { "@type": "GeoCoordinates", latitude: biz.geo.lat, longitude: biz.geo.lng },
+    hasMap: biz.map,
     areaServed: biz.areas.map((a) => ({ "@type": "Place", name: a + ", Pune" })),
     openingHours: "Mo-Sa 09:00-19:00",
     url: Astro.site?.href,
