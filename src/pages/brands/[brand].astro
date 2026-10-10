@@ -4,10 +4,11 @@
 // authorised centre for any brand, and the page says so in as many words:
 // claiming otherwise would be a lie and the brands do act on it.
 import Base from "../../layouts/Base.astro";
-import { biz, wa, msgs, trust, steps, slug, href } from "../../data/business.js";
+import { biz, wa, msgs, trust, slug, href } from "../../data/business.js";
 import { brands } from "../../data/seo.js";
 import { getConfig, rupee } from "../../lib/config.js";
 import Pic from "../../components/Pic.astro";
+import Facts from "../../components/Facts.astro";
 
 export function getStaticPaths() {
   return brands.map((b) => ({ params: { brand: b.slug }, props: { b } }));
@@ -50,18 +51,17 @@ const schema = [
       <p class="eyebrow">{b.name} purifier service • Pune</p>
       <h1 id="hero-h" class="h-xl">{b.name} purifier giving trouble?</h1>
       <p class="lead">
-        We repair {b.name} purifiers all over west Pune — {b.models}. Our own
-        trained men come. Parts are charged at our list price. You pay only after
-        the purifier is working.
+        We repair {b.name} purifiers all over west Pune — {b.models}.
+        Parts are charged at our list price.
       </p>
       <div class="btn-row">
         <a href={waBrand} target="_blank" rel="noopener" data-event="whatsapp_click" class="btn btn-primary">WhatsApp us</a>
         <a href={tel} data-event="call_click" class="btn btn-outline">Call</a>
       </div>
+      <Facts cfg={cfg} />
     </div>
     <div class="hero-img"><Pic src="/images/job-inspect.jpg" alt={`A ${b.name} type water purifier opened up during a service`} width="1254" height="1254" loading="eager" fetchpriority="high" /></div>
   </section>
-  <p class="wrap tagline">Pay after work · Free revisit · Our own men</p>
 
   <section class="wrap section" aria-labelledby="what-h">
     <div class="head">
@@ -74,9 +74,7 @@ const schema = [
     <p class="note" style="max-width:640px;margin-top:32px">
       Oasis Globe is an independent service company. We are not an authorised
       {" " + b.name} service centre and we are not connected to {b.name}. If your
-      purifier is still under the manufacturer's warranty, use their service —
-      it will cost you nothing. We are for units out of warranty, or when you
-      want someone who turns up.
+      purifier is still under the company warranty, use their service — it is free.
     </p>
   </section>
 
@@ -85,18 +83,6 @@ const schema = [
     <div class="wrap trust-grid">
       {trust(cfg).map((t, i) => <div><span class="num">0{i + 1}</span><h3>{t.title}</h3><p>{t.body}</p></div>)}
     </div>
-  </section>
-
-  <section class="wrap section" aria-labelledby="how-h">
-    <h2 id="how-h" class="h-md section-head-gap" style="margin-bottom:80px">How it works.</h2>
-    <ol class="steps">
-      {steps.map((st, i) => (
-        <li>
-          <div class="n"><span>{st.n}</span><span aria-hidden="true">{i < steps.length - 1 ? "→" : ""}</span></div>
-          <div><h3>{st.title}</h3><p>{st.body}</p></div>
-        </li>
-      ))}
-    </ol>
   </section>
 
   <section class="wrap section grid-2" aria-labelledby="other-h" style="align-items:end">

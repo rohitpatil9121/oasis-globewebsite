@@ -25,8 +25,8 @@ const waService = wa(msgs.service);
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
   <meta property="og:url" content={canonical} />
-  <meta property="og:image" content={new URL("/images/hero-counter.jpg", Astro.site).href} />
-  <meta property="og:image:alt" content="Water purifier installed beneath a kitchen counter" />
+  <meta property="og:image" content={new URL("/images/hero-prospera.jpg", Astro.site).href} />
+  <meta property="og:image:alt" content="Oasis Prospera water purifier on a kitchen wall" />
   <meta property="og:site_name" content={biz.name} />
   <meta property="og:locale" content="en_IN" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -40,7 +40,7 @@ const waService = wa(msgs.service);
     areaServed: biz.areas.map((a) => ({ "@type": "Place", name: a + ", Pune" })),
     openingHours: "Mo-Sa 09:00-19:00",
     url: Astro.site?.href,
-    image: new URL("/images/hero-counter.jpg", Astro.site).href,
+    image: new URL("/images/hero-prospera.jpg", Astro.site).href,
     logo: new URL("/images/logo.png", Astro.site).href,
     priceRange: "₹₹",
     currenciesAccepted: "INR",
@@ -53,9 +53,9 @@ const waService = wa(msgs.service);
   <slot />
   {!plain && <Footer />}
   {!plain && (
-    <a href={waService} target="_blank" rel="noopener" data-event="whatsapp_click" class="wa-bar" aria-label="WhatsApp for service">
+    <a href={waService} target="_blank" rel="noopener" data-event="whatsapp_click" class="wa-bar" aria-label="WhatsApp us">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>
-      WhatsApp for service
+      WhatsApp us
     </a>
   )}
 
@@ -65,7 +65,7 @@ const waService = wa(msgs.service);
     // cannot leave anything hidden if the observer never fires (background
     // tab, embedded views, odd browsers). Siblings stagger by 60ms.
     document.documentElement.classList.add("js");
-    const SEL = ".trust .trust-grid > div, .card, .jobs figure, .steps li, .brand-tiles li, .product, .areas li, .faq details, .head, .grid-2 > *, .cta .wrap, .pl section";
+    const SEL = ".trust .trust-grid > div, .card, .brand-tiles li, .product, .areas li, .faq details, .head, .grid-2 > *, .cta .wrap, .pl section";
     let pending = [...document.querySelectorAll(SEL)];
     pending.forEach((el) => { el.classList.add("reveal"); const i = [...el.parentElement.children].indexOf(el); el.style.setProperty("--d", Math.min(i, 5) * 60 + "ms"); });
     let ticking = false;

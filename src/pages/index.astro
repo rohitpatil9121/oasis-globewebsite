@@ -1,8 +1,10 @@
 ---
 import Base from "../layouts/Base.astro";
-import { biz, wa, msgs, services, trust, steps, faq, href, slug } from "../data/business.js";
+import { biz, wa, msgs, services, trust, faq, href, slug } from "../data/business.js";
 import { getConfig, rupee } from "../lib/config.js";
 import Pic from "../components/Pic.astro";
+import { topics } from "../data/purifiers.js";
+import Facts from "../components/Facts.astro";
 
 const cfg = await getConfig();
 const waService = wa(msgs.service);
@@ -43,17 +45,24 @@ const schema = [
 <main id="top">
   <section class="wrap hero" aria-labelledby="hero-h">
     <div class="hero-copy">
-      <p class="eyebrow">Water purifier service • Pune</p>
+      <p class="eyebrow">Water purifier sales &amp; service • Pune</p>
       <h1 id="hero-h" class="h-xl">Our job is clean water. Not selling you parts.</h1>
-      <p class="lead">We repair your water purifier so the water is safe to drink. We change a part only if it is really needed. You pay after the work is done.</p>
+      <p class="lead">We sell, build and repair water purifiers. We change a part only if it is really needed.</p>
       <div class="btn-row">
         <a href={waService} target="_blank" rel="noopener" data-event="whatsapp_click" class="btn btn-primary">WhatsApp us</a>
         <a href={tel} data-event="call_click" class="btn btn-outline">Call</a>
       </div>
+      <Facts cfg={cfg} />
     </div>
-    <div class="hero-img"><Pic src="/images/hero-counter.jpg" alt="Wall-mounted water purifier in a kitchen" width="1024" height="1536" loading="eager" fetchpriority="high" /></div>
+    <div class="hero-img"><Pic src="/images/hero-prospera.jpg" class="focus-top" alt="Oasis Prospera water purifier on a kitchen wall" width="1122" height="1402" loading="eager" fetchpriority="high" /></div>
   </section>
-  <p class="wrap tagline">Pay after work · Free revisit · Our own men</p>
+
+  <section class="wrap section-tight" aria-labelledby="offers-h">
+    <h2 id="offers-h" class="eyebrow">What we provide</h2>
+    <nav class="topics" aria-labelledby="offers-h">
+      {topics.map((t) => <a href={href(t.link)}>{t.name}</a>)}
+    </nav>
+  </section>
 
   <section class="trust" aria-labelledby="trust-h">
     <div class="wrap trust-head"><h2 id="trust-h" class="eyebrow">Our promise</h2></div>
@@ -64,8 +73,8 @@ const schema = [
 
   <section id="services" class="wrap section" aria-labelledby="services-h">
     <div class="head">
-      <h2 id="services-h" class="h-md">What we do.</h2>
-      <p class="sub">Repair, new fitting and filter change. Visit charge is fixed. Parts at our list price.</p>
+      <h2 id="services-h" class="h-md">Service.</h2>
+      <p class="sub">Visit charge is fixed. Parts at our list price.</p>
     </div>
     <div class="cards">
       {services.map((s) => (
@@ -86,30 +95,6 @@ const schema = [
     </div>
   </section>
 
-  <section class="wrap section" aria-labelledby="how-h">
-    <h2 id="how-h" class="h-md section-head-gap" style="margin-bottom:80px">How it works.</h2>
-    <ol class="steps">
-      {steps.map((st, i) => (
-        <li>
-          <div class="n"><span>{st.n}</span><span aria-hidden="true">{i < steps.length - 1 ? "→" : ""}</span></div>
-          <div><h3>{st.title}</h3><p>{st.body}</p></div>
-        </li>
-      ))}
-    </ol>
-  </section>
-
-  <section class="wrap section-tight" aria-labelledby="job-h">
-    <div class="head">
-      <h2 id="job-h" class="h-md">On the job.</h2>
-      <p class="sub">We open the purifier, check every filter, and change only the one that is finished.</p>
-    </div>
-    <div class="jobs">
-      <figure><Pic src="/images/job-inspect.jpg" alt="Technician checking an opened water purifier with a TDS meter" width="1254" height="1254" /><figcaption>Unit opened, every stage checked</figcaption></figure>
-      <figure><Pic src="/images/technician-filter.jpg" alt="Technician replacing a filter cartridge" width="1536" height="1024" /><figcaption>Filter cartridges changed</figcaption></figure>
-      <figure><Pic src="/images/job-leak-test.jpg" alt="Technician checking an under-sink purifier fitting for leaks" width="1254" height="1254" /><figcaption>Tubing and fittings leak-tested</figcaption></figure>
-    </div>
-  </section>
-
   <section class="wrap section-tight" aria-labelledby="brands-h">
     <h2 id="brands-h" class="h-md" style="margin-bottom:16px">We repair all big brands.</h2>
     <p class="sub" style="margin-bottom:40px">Your brand not here? Send a message, we will tell you.</p>
@@ -122,26 +107,15 @@ const schema = [
     </ul>
   </section>
 
-  <section id="custom" class="wrap section grid-2" aria-labelledby="custom-h">
-    <a href={href("/custom/")} class="img-link" aria-label="Make your own purifier"><Pic src="/images/hero-under-sink.jpg" alt="Under-counter purifier" width="800" height="533" /></a>
-    <div>
-      <p class="eyebrow">Custom purifier</p>
-      <h2 id="custom-h" class="h-md" style="margin-bottom:20px">Make your own purifier.</h2>
-      <p class="sub" style="margin-bottom:32px;max-width:460px">Choose a model. Tell us if your water is borewell or corporation. Add only the filters you need. Send it on WhatsApp and we tell you the price.</p>
-      <a href={href("/custom/")} data-event="custom_view" class="btn btn-primary">Make your purifier <span aria-hidden="true">→</span></a>
-    </div>
-  </section>
-
   <section id="areas" class="wrap section grid-2" aria-labelledby="areas-h" style="align-items:end">
     <div>
-      <p class="eyebrow">Service area</p>
-      <h2 id="areas-h" class="h-lg">Pune,<br />close to home.</h2>
+      <h2 id="areas-h" class="h-md">Areas we cover.</h2>
     </div>
     <ul class="areas">{biz.areas.map((a) => <li><a href={href(`/areas/${slug(a)}/`)} style="color:inherit">{a}</a></li>)}</ul>
   </section>
 
   <section class="wrap section-tight grid-2" aria-labelledby="faq-h" style="align-items:start">
-    <h2 id="faq-h" class="h-md">Questions,<br />answered.</h2>
+    <h2 id="faq-h" class="h-md">Common questions.</h2>
     <div class="faq">
       {faqs.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
     </div>
@@ -149,8 +123,8 @@ const schema = [
 
   <section id="contact" class="cta" aria-labelledby="cta-h">
     <div class="wrap">
-      <h2 id="cta-h">Need purifier service?</h2>
-      <p class="lead">Tell us the problem. We will do the rest.</p>
+      <h2 id="cta-h">Need a purifier or service?</h2>
+      <p class="lead">Tell us what you need on WhatsApp.</p>
       <div class="btn-row">
         <a href={waService} target="_blank" rel="noopener" data-event="whatsapp_click" class="btn btn-primary" style="height:52px;padding:0 28px;font-size:16px">WhatsApp us</a>
         <a href={tel} data-event="call_click" class="btn btn-outline" style="height:52px;padding:0 28px;font-size:16px">Call us</a>

@@ -58,7 +58,7 @@ export const wa = (msg) => `https://wa.me/${biz.wa}?text=${encodeURIComponent(ms
 // Service cards. `priceKey` reads the live figure from config; `priceText`
 // is used when the office has no fixed figure (installation varies by lead).
 export const services = [
-  { name: "Repair / Service", priceKey: "service_charge", body: "Our man comes to your home, checks the purifier and fixes it. If a part is needed, he tells you the price first. You decide.", msg: msgs.service },
+  { name: "Repair / Service", priceKey: "service_charge", body: "Our man comes to your home, checks the purifier and fixes it. If a part is needed, he tells you the price first.", msg: msgs.service },
   { name: "Installation", priceKey: "installation_charge", priceText: "from ₹250", body: "We fit your new purifier — on the wall or under the sink. Before leaving, we check that there is no leak.", msg: msgs.install },
   { name: "Filter change", priceText: "Parts at list price", body: "Sediment, carbon, membrane or UV — we put real parts, at the price written in our list. No extra labour charge.", msg: msgs.filter, link: { text: "See the price list", href: "/price-list/" } },
 ];
@@ -69,28 +69,16 @@ export const trust = (cfg = {}) => {
   const days = cfg.warranty_repair_days || 10;
   return [
     { title: "Pay after the work is done", body: "No money before. You pay only when the purifier is working and you have seen it yourself." },
-    { title: `Free revisit within ${days} days`, body: `If the same problem comes back within ${days} days, we come again. No visit charge.` },
-    { title: "Warranty written on the bill", body: "Your bill says what is covered and for how many days. Nothing is only said by mouth." },
+    { title: `Free revisit within ${days} days`, body: `If the same problem comes back within ${days} days, we come again with no visit charge. You pay only if a new part is needed.` },
+    { title: "Warranty written on the bill", body: "Your bill says what is covered and for how many days. Company parts also have the company warranty." },
     { title: "Our own technicians, no outside men", body: "Our own trained men come to your home. Their work is to make your water clean, not to sell you parts." },
   ];
 };
 
-export const steps = [
-  { n: "01", title: "WhatsApp", body: "Tell us the problem and your area." },
-  { n: "02", title: "Visit", body: "Our man comes. Same day if possible." },
-  { n: "03", title: "Repair", body: "He fixes it there itself. If a part is needed, he tells you the price first." },
-  { n: "04", title: "Pay", body: "Pay only after it is working. Warranty is written on your bill." },
-];
-
-// FAQ answers that quote a charge are built in the page from live config.
+// Only what the page above does not already say — brands, areas, payment,
+// revisit, warranty, part prices and timings each have their own place, so
+// they are not repeated here. Answers that quote a charge are built from live config.
 export const faq = (cfg) => [
-  { q: "What is the visit charge?", a: `₹${cfg.service_charge} for a visit in our area. If you get the repair done, this is part of the total — no separate visit charge on top.` },
-  { q: "Which brands do you service?", a: "Kent, Aquaguard, Pureit, Livpure and Oasis. If your brand is not here, send us a message and we will tell you." },
-  { q: "How much will the repair cost?", a: `The visit is ₹${cfg.service_charge}. If a part is needed, its price is in our parts list, and our man tells you the amount before putting it.` },
+  { q: "How much will it cost?", a: `The visit is ₹${cfg.service_charge}. If you get the repair done, this is part of the total — no separate visit charge on top.` },
   { q: "What if the part is not available?", a: "We tell you how many days it will take and come again to put it. You pay for the part only when it is fitted." },
-  { q: "When do I pay?", a: "After the work is done and you have seen that the purifier is working. We do not take money before." },
-  { q: "What if the problem comes back?", a: `If the same problem comes back within ${cfg.warranty_repair_days || 10} days, we come again and there is no visit charge. You pay only if a new part is needed.` },
-  { q: "What warranty do you give?", a: "It is written on your bill — what is covered and for how many days. Company parts also have the company warranty." },
-  { q: "Who will come to my home?", a: "Our own trained man. We do not send outside people. His work is to make your water clean, not to sell you more parts." },
-  { q: "Which areas do you cover?", a: biz.areas.join(", ") + "." },
 ];

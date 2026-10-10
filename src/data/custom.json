@@ -5,21 +5,21 @@
       "id": "wall",
       "name": "Wall model",
       "price": 8500,
-      "image": "/images/ro-home.jpg",
+      "image": "/images/custom-wall.jpg",
       "note": "Fixed on the kitchen wall. 9 litre tank."
     },
     {
       "id": "under",
       "name": "Under the sink",
       "price": 11000,
-      "image": "/images/hero-under-sink.jpg",
+      "image": "/images/custom-under.jpg",
       "note": "Hidden inside the cabinet. Only a tap on top. 7 litre tank."
     },
     {
       "id": "counter",
       "name": "Table top",
       "price": 9000,
-      "image": "/images/hero-counter.jpg",
+      "image": "/images/custom-counter.jpg",
       "note": "Kept on the kitchen platform. No drilling. 8 litre tank."
     }
   ],

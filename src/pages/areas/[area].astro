@@ -7,9 +7,10 @@
 // linked. Google penalises thin duplicate pages, so if this ever stops
 // carrying real information, delete it rather than padding it.
 import Base from "../../layouts/Base.astro";
-import { biz, wa, msgs, services, trust, steps, slug, nearby, href } from "../../data/business.js";
+import { biz, wa, msgs, services, trust, slug, nearby, href } from "../../data/business.js";
 import { getConfig, rupee } from "../../lib/config.js";
 import Pic from "../../components/Pic.astro";
+import Facts from "../../components/Facts.astro";
 
 export function getStaticPaths() {
   return biz.areas.map((area) => ({ params: { area: slug(area) }, props: { area } }));
@@ -23,9 +24,9 @@ const others = nearby(area);
 const priceOf = (s) => (s.priceKey && cfg[s.priceKey] != null) ? rupee(cfg[s.priceKey]) : s.priceText;
 
 // The questions Google itself shows under "People also ask" for these
-// searches — the number to call, whether we come to that area, what it costs.
-// Answered plainly, with the live charge, because a page that answers the
-// question is the one that gets shown.
+// searches — the number to call, whether we come to that area, which brands.
+// Cost and revisit are not here: the service cards and the promises on this
+// same page already answer them.
 const areaFaqs = [
   {
     q: `What is the water purifier service number for ${area}?`,
@@ -36,16 +37,8 @@ const areaFaqs = [
     a: `Yes. ${area} is one of our regular areas, along with ${others.join(", ")}. A technician comes the same day where possible.`,
   },
   {
-    q: `What does a purifier service visit cost in ${area}?`,
-    a: `The visit is ₹${cfg.service_charge}. If a part is needed it is charged at the price on our spare-parts list, and the technician tells you the amount before fitting it. You pay after the work is done.`,
-  },
-  {
     q: `Which purifier brands do you repair in ${area}?`,
     a: `Kent, Aquaguard, Pureit, Livpure and Oasis. If your brand is not listed, message us and we will confirm.`,
-  },
-  {
-    q: `What if the problem comes back after the service?`,
-    a: `If the purifier needs repair again within ${cfg.warranty_repair_days || 10} days of our visit, we come back and there is no service charge. You pay only for a new part if one is needed.`,
   },
 ];
 
@@ -90,23 +83,21 @@ const schema = [
       <p class="eyebrow">Water purifier service • {area}</p>
       <h1 id="hero-h" class="h-xl">Purifier trouble in {area}?</h1>
       <p class="lead">
-        We repair water purifiers in {area} and all around west Pune. Our own
-        trained men come, not outside people. You pay only after the purifier
-        is working.
+        We repair water purifiers in {area} and all around west Pune.
       </p>
       <div class="btn-row">
         <a href={waArea} target="_blank" rel="noopener" data-event="whatsapp_click" class="btn btn-primary">WhatsApp us</a>
         <a href={tel} data-event="call_click" class="btn btn-outline">Call</a>
       </div>
+      <Facts cfg={cfg} />
     </div>
     <div class="hero-img"><Pic src="/images/technician-filter.jpg" alt={`Technician replacing a water purifier filter in ${area}`} width="1536" height="1024" loading="eager" fetchpriority="high" /></div>
   </section>
-  <p class="wrap tagline">Pay after work · Free revisit · Our own men</p>
 
   <section class="wrap section" aria-labelledby="services-h">
     <div class="head">
       <h2 id="services-h" class="h-md">What we do in {area}.</h2>
-      <p class="sub">Repair, installation and filter replacement. Fixed visit charge, parts at listed prices.</p>
+      <p class="sub">Visit charge is fixed. Parts at our list price.</p>
     </div>
     <div class="cards">
       {services.map((s) => (
@@ -132,30 +123,6 @@ const schema = [
     <div class="wrap trust-grid">
       {trust(cfg).map((t, i) => <div><span class="num">0{i + 1}</span><h3>{t.title}</h3><p>{t.body}</p></div>)}
     </div>
-  </section>
-
-  <section class="wrap section" aria-labelledby="brands-h">
-    <h2 id="brands-h" class="h-md" style="margin-bottom:16px">Brands we service in {area}.</h2>
-    <p class="sub" style="margin-bottom:40px">If your purifier is not listed, message us and we will confirm.</p>
-    <ul class="brand-tiles">
-      {biz.brandTiles.map((b) => (
-        <li>{b.logo
-          ? <img src={href(b.logo)} alt={b.name} height="40" loading="lazy" decoding="async" />
-          : <span style={`color:${b.color};${b.style}`}>{b.name}</span>}</li>
-      ))}
-    </ul>
-  </section>
-
-  <section class="wrap section" aria-labelledby="how-h">
-    <h2 id="how-h" class="h-md section-head-gap" style="margin-bottom:80px">How it works.</h2>
-    <ol class="steps">
-      {steps.map((st, i) => (
-        <li>
-          <div class="n"><span>{st.n}</span><span aria-hidden="true">{i < steps.length - 1 ? "→" : ""}</span></div>
-          <div><h3>{st.title}</h3><p>{st.body}</p></div>
-        </li>
-      ))}
-    </ol>
   </section>
 
   <section class="wrap section-tight grid-2" aria-labelledby="faq-h" style="align-items:start">

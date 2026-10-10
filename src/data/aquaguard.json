@@ -1,0 +1,218 @@
+[
+ {
+  "slug": "aspire-slimtech-ro-uv",
+  "name": "Aspire Slimtech",
+  "note": "RO+UV · up to 4 L",
+  "mrp": 42000,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "aspire-designo-ro-uv",
+  "name": "Aspire Designo",
+  "note": "RO+UV · up to 7 L · under the sink",
+  "mrp": 39500,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "aspire-blaze-ro-uv",
+  "name": "Aspire Blaze",
+  "note": "RO+UV · 5 L + 0.6 L hot",
+  "mrp": 39000,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "aspire-halo-ro-uv",
+  "name": "Aspire Halo",
+  "note": "RO+UV · 5 L",
+  "mrp": 31000,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "enrich-glam-smart-ro-uv",
+  "name": "Enrich Glam Smart",
+  "note": "RO+UV · 5 L",
+  "mrp": 37000,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "enrich-superio-ro-uv",
+  "name": "Enrich Superio",
+  "note": "RO+UV · 5 L",
+  "mrp": 30000,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "enrich-neo-ro-uv",
+  "name": "Enrich Neo",
+  "note": "RO+UV · 6 L",
+  "mrp": 27500,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "enrich-senza-ro-uv",
+  "name": "Enrich Senza",
+  "note": "RO+UV · 6 L",
+  "mrp": 26000,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "enrich-hyde-utc-ro-uv",
+  "name": "Enrich Hyde UTC",
+  "note": "RO+UV · 8 L · under the sink",
+  "mrp": 25000,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "sure-champ-steel-ro-uv",
+  "name": "Sure Champ Steel",
+  "note": "RO+UV · 5 L",
+  "mrp": 15500,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "sure-champ-aquasaver-ro-uv",
+  "name": "Sure Champ Aquasaver",
+  "note": "RO+UV · 6 L",
+  "mrp": 12000,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "sure-champ-boost-ro-uv",
+  "name": "Sure Champ Boost",
+  "note": "RO+UV · 6 L",
+  "mrp": 10000,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "sure-champ-boost-ro",
+  "name": "Sure Champ Boost",
+  "note": "RO · 6 L",
+  "mrp": 9000,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "aspire-blaze-uv-hmr",
+  "name": "Aspire Blaze",
+  "note": "UV+HMR · 5 L + 0.6 L hot",
+  "mrp": 32500,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "aspire-designo-uv-hmr",
+  "name": "Aspire Designo",
+  "note": "UV+HMR · up to 7 L · under the sink",
+  "mrp": 31000,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "aspire-slimtech-uv-uf",
+  "name": "Aspire Slimtech",
+  "note": "UV+UF · up to 3 L",
+  "mrp": 26000,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "aspire-slimtech-uv-bar-uv",
+  "name": "Aspire Slimtech UV Bar",
+  "note": "UV",
+  "mrp": 23500,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "aspire-halo-uv-hmr",
+  "name": "Aspire Halo",
+  "note": "UV+HMR · 4 L",
+  "mrp": 23000,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "enrich-enhance-booster-uv-hmr",
+  "name": "Enrich Enhance Booster",
+  "note": "UV+HMR · 7 L",
+  "mrp": 24500,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "enrich-booster-uv-hmr",
+  "name": "Enrich Booster",
+  "note": "UV+HMR",
+  "mrp": 22000,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "enrich-superio-uv-hmr",
+  "name": "Enrich Superio",
+  "note": "UV+HMR · 5 L",
+  "mrp": 21000,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "enrich-hyde-utc-uv-hmr",
+  "name": "Enrich Hyde UTC",
+  "note": "UV+HMR · under the sink",
+  "mrp": 18000,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "enrich-neo-uv-hmr",
+  "name": "Enrich Neo",
+  "note": "UV+HMR · 6 L",
+  "mrp": 15500,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "enrich-crest-uv-hmr",
+  "name": "Enrich Crest",
+  "note": "UV+HMR",
+  "mrp": 13500,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "sure-mist-uv",
+  "name": "Sure Mist",
+  "note": "UV",
+  "mrp": 14000,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "sure-champ-e-boil-uv",
+  "name": "Sure Champ e-Boil",
+  "note": "UV · 6 L",
+  "mrp": 8500,
+  "w": 640,
+  "h": 616
+ },
+ {
+  "slug": "sure-a-star-uv",
+  "name": "Sure A-Star",
+  "note": "UV",
+  "mrp": 7500,
+  "w": 640,
+  "h": 616
+ }
+]

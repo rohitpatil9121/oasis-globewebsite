@@ -1,0 +1,8 @@
+---
+// The three things a visitor needs before messaging: what a visit costs, when
+// we work, how soon we come. Sits under the hero buttons.
+import { biz } from "../data/business.js";
+import { rupee } from "../lib/config.js";
+const { cfg } = Astro.props;
+---
+<p class="facts">Visit <strong data-cfg="service_charge" data-prefix="₹">{rupee(cfg.service_charge)}</strong> · {biz.hours.replace(" · ", ", ")} · Same day if possible</p>

@@ -1,0 +1,71 @@
+---
+// Branded purifiers in three categories: our own Oasis Globe models, Kent and
+// Aquaguard. Kent and Aquaguard models, specs and MRP are taken as printed in
+// the two company brochures (src/data/kent.json, aquaguard.json). Oasis models
+// carry no price yet — the office quotes on WhatsApp.
+import Base from "../layouts/Base.astro";
+import { wa } from "../data/business.js";
+import { rupee } from "../lib/config.js";
+import { oasisModels } from "../data/purifiers.js";
+import kent from "../data/kent.json";
+import aquaguard from "../data/aquaguard.json";
+import Pic from "../components/Pic.astro";
+
+const ask = (name) => wa(`Hi, I want to buy this water purifier: ${name}. Please tell me the price.`);
+const cats = [
+  { id: "oasis-globe", name: "Oasis Globe", brand: "Oasis", dir: "oasis", fit: "contain", items: oasisModels },
+  { id: "kent", name: "Kent", brand: "Kent", dir: "kent", fit: "contain", items: kent },
+  { id: "aquaguard", name: "Aquaguard", brand: "Aquaguard", dir: "aquaguard", fit: "cover", items: aquaguard },
+];
+---
+<Base title="Branded Water Purifiers in Pune | Oasis Globe, Kent, Aquaguard" description="Buy a new water purifier in Pune: Oasis Globe, Kent and Aquaguard models with MRP, fitted by our own technicians. Ask on WhatsApp.">
+<main class="wrap">
+  <section class="section" style="padding-bottom:0" aria-labelledby="branded-h">
+    <h1 id="branded-h" class="h-md" style="margin-bottom:28px">Branded purifiers.</h1>
+    <nav class="topics three" aria-label="Brands">
+      {cats.map((c) => <a href={`#${c.id}`} data-cat={c.id}>{c.name}</a>)}
+    </nav>
+  </section>
+
+  {cats.map((c) => (
+    <section id={c.id} class="cat" aria-labelledby={`${c.id}-h`}>
+      <h2 id={`${c.id}-h`} class="cat-h">{c.name} <span>{c.items.length} models</span></h2>
+      <div class="products">
+        {c.items.map((m) => (
+          <article class={`product ${c.fit}`}>
+            <span class="img"><Pic src={`/images/${c.dir}/${m.slug}.jpg`} alt={`${c.brand} ${m.name} water purifier`} width={m.w} height={m.h} /></span>
+            <div class="body">
+              <h3>{m.name}</h3>
+              <p class="s">{m.note}</p>
+              {m.mrp && <p class="p">MRP {rupee(m.mrp)}</p>}
+              <a href={ask(`${c.brand} ${m.name}${c.id === "aquaguard" ? " " + m.note.split(" · ")[0] : ""}`)} target="_blank" rel="noopener" data-event="whatsapp_click" class="link">{m.mrp ? "Ask on WhatsApp" : "Get price on WhatsApp"} <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  ))}
+</main>
+</Base>
+
+<script is:inline>
+  // The three brand buttons work as tabs: only the chosen brand's models are
+  // shown. /purifiers/#kent opens on Kent. Without JS all three stay visible.
+  (() => {
+    const tabs = [...document.querySelectorAll(".topics a[data-cat]")];
+    const cats = [...document.querySelectorAll(".cat")];
+    const show = (id) => {
+      if (!cats.some((c) => c.id === id)) id = cats[0].id;
+      cats.forEach((c) => { c.hidden = c.id !== id; });
+      tabs.forEach((t) => t.setAttribute("aria-current", String(t.dataset.cat === id)));
+      window.dispatchEvent(new Event("scroll"));
+    };
+    tabs.forEach((t) => t.addEventListener("click", (e) => {
+      e.preventDefault();
+      history.replaceState(null, "", "#" + t.dataset.cat);
+      show(t.dataset.cat);
+    }));
+    window.addEventListener("hashchange", () => show(location.hash.slice(1)));
+    show(location.hash.slice(1));
+  })();
+</script>

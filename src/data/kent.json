@@ -1,0 +1,146 @@
+[
+ {
+  "slug": "sapphire",
+  "name": "Sapphire",
+  "note": "RO+UF+Inline UV+Alkaline+TDS Control+UV in Tank · 8 L",
+  "mrp": 25000,
+  "w": 535,
+  "h": 700
+ },
+ {
+  "slug": "sapphire-b",
+  "name": "Sapphire-B",
+  "note": "RO+UF+Inline UV+Alkaline+TDS Control+UV in Tank · 8 L",
+  "mrp": 25000,
+  "w": 520,
+  "h": 700
+ },
+ {
+  "slug": "grand-plus",
+  "name": "Grand Plus",
+  "note": "RO+UF+UV+TDS Control+UV in Tank · 9 L",
+  "mrp": 25500,
+  "w": 489,
+  "h": 700
+ },
+ {
+  "slug": "grand-plus-b",
+  "name": "Grand Plus-B",
+  "note": "RO+UF+UV+TDS Control+UV in Tank · 9 L",
+  "mrp": 25500,
+  "w": 470,
+  "h": 700
+ },
+ {
+  "slug": "grand-star",
+  "name": "Grand Star",
+  "note": "RO+UF+UV+Alkaline+Copper+TDS Control+UV in Tank · 9 L",
+  "mrp": 28000,
+  "w": 470,
+  "h": 700
+ },
+ {
+  "slug": "grand-star-b",
+  "name": "Grand Star-B",
+  "note": "RO+UF+UV+Alkaline+Copper+TDS Control+UV in Tank · 9 L",
+  "mrp": 28000,
+  "w": 467,
+  "h": 700
+ },
+ {
+  "slug": "pearl-star",
+  "name": "Pearl Star",
+  "note": "RO+UF+UV+Alkaline+Copper+TDS Control · 11 L",
+  "mrp": 28000,
+  "w": 507,
+  "h": 700
+ },
+ {
+  "slug": "elegant",
+  "name": "Elegant",
+  "note": "RO+UF+TDS Control+UV in Tank · 8 L",
+  "mrp": 23500,
+  "w": 700,
+  "h": 700
+ },
+ {
+  "slug": "crystal-plus",
+  "name": "Crystal Plus",
+  "note": "RO+UF+UV+Alkaline+TDS Control+UV in Tank · 11 L",
+  "mrp": 26500,
+  "w": 496,
+  "h": 700
+ },
+ {
+  "slug": "crown-plus",
+  "name": "Crown Plus",
+  "note": "RO+UF+UV+Copper+TDS Control+UV in Tank · 11 L",
+  "mrp": 26500,
+  "w": 491,
+  "h": 700
+ },
+ {
+  "slug": "prime-star",
+  "name": "Prime Star",
+  "note": "RO+UF+UV+Alkaline+Copper+TDS Control+UV in Tank · 9 L",
+  "mrp": 28000,
+  "w": 471,
+  "h": 700
+ },
+ {
+  "slug": "super-plus",
+  "name": "Super Plus",
+  "note": "RO+UF+TDS Control · 8 L",
+  "mrp": 22500,
+  "w": 484,
+  "h": 700
+ },
+ {
+  "slug": "pride-plus",
+  "name": "Pride Plus",
+  "note": "RO+UF+TDS Control+UV in Tank · 8 L",
+  "mrp": 23500,
+  "w": 489,
+  "h": 700
+ },
+ {
+  "slug": "sterling-star",
+  "name": "Sterling Star",
+  "note": "RO+UF+UV+Alkaline+Copper+TDS Control · 6 L · under the counter",
+  "mrp": 28000,
+  "w": 530,
+  "h": 700
+ },
+ {
+  "slug": "excell-plus",
+  "name": "Excell Plus",
+  "note": "RO+UF+UV+TDS Control · 7 L · under the counter",
+  "mrp": 26500,
+  "w": 700,
+  "h": 437
+ },
+ {
+  "slug": "elite-star",
+  "name": "Elite Star",
+  "note": "RO+UF+UV+TDS Control · Commercial · 50 L/hr",
+  "mrp": 60500,
+  "w": 700,
+  "h": 700
+ },
+ {
+  "slug": "elite-2",
+  "name": "Elite 2+",
+  "note": "RO+UF+UV+TDS Control · Commercial · 100 L/hr",
+  "mrp": 104000,
+  "w": 700,
+  "h": 513
+ },
+ {
+  "slug": "perk",
+  "name": "Perk",
+  "note": "RO+UF+TDS Control · 20 L · chiller and dispenser",
+  "mrp": 66500,
+  "w": 255,
+  "h": 700
+ }
+]
